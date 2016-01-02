@@ -5,7 +5,7 @@ namespace NeoMupl
 {
     public class MusicData
     {
-        #region •Ï”
+        #region å¤‰æ•°
 
         private string myFileName;
         private string myTitle;
@@ -21,9 +21,9 @@ namespace NeoMupl
 
         #endregion
 
-        #region ƒvƒƒpƒeƒB
+        #region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
-        /// <summary>Ä¶‚·‚éƒtƒ@ƒCƒ‹–¼‚ğƒtƒ‹ƒpƒX‚Åæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>å†ç”Ÿã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ãƒ•ãƒ«ãƒ‘ã‚¹ã§å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         public string FileName
         {
             get { return myFileName; }
@@ -40,37 +40,37 @@ namespace NeoMupl
             //set { myVar = value; }
         }
 	
-        /// <summary>‰æ–Êã‚É•\¦‚·‚é‚½‚ß‚Ìƒ^ƒCƒgƒ‹‚ğæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>ç”»é¢ä¸Šã«è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ã‚¿ã‚¤ãƒˆãƒ«ã‚’å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         public string Title
         {
             get { return myTitle; }
             set { myTitle = value; }
         }
-        /// <summary>ƒ{ƒŠƒ…[ƒ€‚ğ%’PˆÊ‚Åæ“¾Eİ’è‚µ‚Ü‚·(50%‚ª•W€)</summary>
+        /// <summary>ãƒœãƒªãƒ¥ãƒ¼ãƒ ã‚’%å˜ä½ã§å–å¾—ãƒ»è¨­å®šã—ã¾ã™(50%ãŒæ¨™æº–)</summary>
         public double Volume
         {
             get { return myVolume; }
             set { myVolume = value; }
         }
-        /// <summary>ƒ‹[ƒvŠJnˆÊ’u‚ğ•b’PˆÊ‚Åæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>ãƒ«ãƒ¼ãƒ—é–‹å§‹ä½ç½®ã‚’ç§’å˜ä½ã§å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         public double LoopStart
         {
             get { return myLoopStart; }
             set { myLoopStart = value; }
         }
-        /// <summary>ƒ‹[ƒvI—¹ˆÊ’u‚ğ•b’PˆÊ‚Åæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>ãƒ«ãƒ¼ãƒ—çµ‚äº†ä½ç½®ã‚’ç§’å˜ä½ã§å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         public double LoopEnd
         {
             get { return myLoopEnd; }
             set { myLoopEnd = value; }
         }
-        /// <summary>ƒ‰ƒ“ƒ_ƒ€Ä¶‚ÅƒXƒLƒbƒv‚³‚ê‚éŠm—¦‚ğ%’PˆÊ‚Åæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>ãƒ©ãƒ³ãƒ€ãƒ å†ç”Ÿã§ã‚¹ã‚­ãƒƒãƒ—ã•ã‚Œã‚‹ç¢ºç‡ã‚’%å˜ä½ã§å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         public double SkipRate
         {
             get { return mySkipRate; }
             set { mySkipRate = value; }
         }
-        /// <summary>Ä¶•û–@‚ğæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>å†ç”Ÿæ–¹æ³•ã‚’å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         public PlayMethod PlayMethod
         {
             get { return myPlayMethod; }
@@ -82,13 +82,13 @@ namespace NeoMupl
             set { myOption = value; }
         }
 	
-        /// <summary>ÅŒã‚ÉÄ¶‚³‚ê‚½“ú‚ğTick’PˆÊ‚Åæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>æœ€å¾Œã«å†ç”Ÿã•ã‚ŒãŸæ—¥æ™‚ã‚’Tickå˜ä½ã§å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         public long LastPlayedTicks
         {
             get { return myLastPlayedTicks; }
             set { myLastPlayedTicks = value; }
         }
-        /// <summary>ÅŒã‚ÉÄ¶‚³‚ê‚½“ú‚ğDateTime‚Åæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>æœ€å¾Œã«å†ç”Ÿã•ã‚ŒãŸæ—¥æ™‚ã‚’DateTimeã§å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         public DateTime LastPlayedDateTime
         {
             get { return new DateTime(myLastPlayedTicks); }
@@ -96,7 +96,7 @@ namespace NeoMupl
         }
 
         static private string myPattern = "<fullpath>";
-        /// <summary>CreateTitle‚Åg‚¤ƒpƒ^[ƒ“‚ğæ“¾Eİ’è‚µ‚Ü‚·</summary>
+        /// <summary>CreateTitleã§ä½¿ã†ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’å–å¾—ãƒ»è¨­å®šã—ã¾ã™</summary>
         static public string Pattern
         {
             get { return myPattern; }
@@ -105,7 +105,7 @@ namespace NeoMupl
     
         #endregion
 
-        #region ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        #region ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
         public MusicData(string fileName)
         {
@@ -119,7 +119,7 @@ namespace NeoMupl
 
         #endregion
 
-        #region ƒƒ\ƒbƒh
+        #region ãƒ¡ã‚½ãƒƒãƒ‰
 
         public void TimeStamp() { myLastPlayedTicks = DateTime.Now.Ticks; }
 
@@ -166,11 +166,11 @@ namespace NeoMupl
         {
             if (!full && defaultData == null) defaultData = new MusicData("");
             sw.WriteLine("File\t" + data.FileName);
-            sw.WriteLine("Title\t" + data.Title);   // ©ƒfƒtƒHƒ‹ƒg‚ğİ’è‚Å•ÏX‰Â”\
+            sw.WriteLine("Title\t" + data.Title);   // â†ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚’è¨­å®šã§å¤‰æ›´å¯èƒ½
             if (full || data.Volume != defaultData.Volume) sw.WriteLine("Volume\t" + data.Volume.ToString());
             if (full || data.LoopStart > 0 || data.LoopEnd > 0) sw.WriteLine("Loop\t" + data.LoopStart.ToString() + "\t" + data.LoopEnd.ToString());
             if (full || data.SkipRate != defaultData.SkipRate) sw.WriteLine("SkipRate\t" + data.SkipRate.ToString());
-            sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // ©ƒfƒtƒHƒ‹ƒg‚ªMIDI‚Æ‚»‚êˆÈŠO‚ÅˆÙ‚È‚é
+            sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // â†ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãŒMIDIã¨ãã‚Œä»¥å¤–ã§ç•°ãªã‚‹
             try
             {
                 DMOption dm = (DMOption)data.Option;

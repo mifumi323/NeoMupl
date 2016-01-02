@@ -45,7 +45,7 @@ namespace NeoMupl
 
         private void FormSetting_Load(object sender, EventArgs e)
         {
-            // ‘S”Êİ’è
+            // å…¨èˆ¬è¨­å®š
             txtMinPlayTime.Text = setting.MinPlayTime.ToString();
             txtMinPlayTime.Tag = trbMinPlayTime;
             trbMinPlayTime.Value = (int)setting.MinPlayTime;
@@ -54,10 +54,10 @@ namespace NeoMupl
             trbTimeWeight.Value = (int)setting.TimeWeight;
             txtWindowTitlePattern.Text = setting.WindowTitlePattern;
 
-            // ’Ç‰Á‚Ìİ’è
+            // è¿½åŠ æ™‚ã®è¨­å®š
             txtTitlePattern.Text = setting.TitlePattern;
 
-            // ƒXƒe[ƒ^ƒXƒo[
+            // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼
             chkShowStatus.Checked = setting.ShowStatus;
             foreach (StatusItem item in setting.StatusItems)
             {
@@ -69,29 +69,29 @@ namespace NeoMupl
                 clbStatusItem.Items.Add(name, false);
             }
 
-            // ƒƒO
+            // ãƒ­ã‚°
             chkEraseLogOnExit.Checked = setting.EraseLogOnExit;
             txtLogFile.Text = setting.LogFile;
-            AddCheckItem(clbLog, "PlayLog", "Ä¶‚ÉƒƒO‹L˜^");
-            AddCheckItem(clbLog, "StopLog", "’â~‚ÉƒƒO‹L˜^");
-            AddCheckItem(clbLog, "ErrorLog", "ƒGƒ‰[‚ÉƒƒO‹L˜^");
+            AddCheckItem(clbLog, "PlayLog", "å†ç”Ÿæ™‚ã«ãƒ­ã‚°è¨˜éŒ²");
+            AddCheckItem(clbLog, "StopLog", "åœæ­¢æ™‚ã«ãƒ­ã‚°è¨˜éŒ²");
+            AddCheckItem(clbLog, "ErrorLog", "ã‚¨ãƒ©ãƒ¼æ™‚ã«ãƒ­ã‚°è¨˜éŒ²");
 
-            // ƒGƒ‰[ˆ—
+            // ã‚¨ãƒ©ãƒ¼å‡¦ç†
             chkIgnoreTimerError.Checked = setting.IgnoreTimerError;
             chkReportException.Checked = setting.ReportException;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            // ‘S”Êİ’è
+            // å…¨èˆ¬è¨­å®š
             setting.MinPlayTime = double.Parse(txtMinPlayTime.Text);
             setting.TimeWeight = double.Parse(txtTimeWeight.Text);
             setting.WindowTitlePattern = txtWindowTitlePattern.Text;
 
-            // ’Ç‰Á‚Ìİ’è
+            // è¿½åŠ æ™‚ã®è¨­å®š
             setting.TitlePattern = txtTitlePattern.Text;
 
-            // ƒXƒe[ƒ^ƒXƒo[
+            // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒ¼
             setting.ShowStatus = chkShowStatus.Checked;
             setting.StatusItems.Clear();
             foreach (object item in clbStatusItem.CheckedItems)
@@ -99,7 +99,7 @@ namespace NeoMupl
                 setting.StatusItems.Add(StatusItem.Parse(item.ToString()));
             }
 
-            // ƒƒO
+            // ãƒ­ã‚°
             setting.EraseLogOnExit = chkEraseLogOnExit.Checked;
             setting.LogFile = txtLogFile.Text;
             for (int i = 0; i < clbLog.Items.Count; i++)
@@ -107,7 +107,7 @@ namespace NeoMupl
                 ((PropStringPair)clbLog.Items[i]).prop.SetValue(setting, clbLog.GetItemChecked(i), null);
             }
 
-            // ƒGƒ‰[ˆ—
+            // ã‚¨ãƒ©ãƒ¼å‡¦ç†
             setting.IgnoreTimerError = chkIgnoreTimerError.Checked;
             setting.ReportException = chkReportException.Checked;
         }
@@ -181,7 +181,7 @@ namespace NeoMupl
             saveFileDialog1.InitialDirectory = Path.GetDirectoryName(txtLogFile.Text);
             saveFileDialog1.FileName = txtLogFile.Text;
             saveFileDialog1.DefaultExt = "log";
-            saveFileDialog1.Filter = "ƒƒOƒtƒ@ƒCƒ‹(*.log)|*.log|ƒeƒLƒXƒgƒtƒ@ƒCƒ‹(*.txt)|*.txt|‘S‚Ä‚Ìƒtƒ@ƒCƒ‹(*.*)|*.*";
+            saveFileDialog1.Filter = "ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«(*.log)|*.log|ãƒ†ã‚­ã‚¹ãƒˆãƒ•ã‚¡ã‚¤ãƒ«(*.txt)|*.txt|å…¨ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«(*.*)|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 txtLogFile.Text = saveFileDialog1.FileName;
@@ -195,8 +195,8 @@ namespace NeoMupl
 
         private void btnWindowTitlePattern_Click(object sender, EventArgs e)
         {
-            if (cmbWindowTitlePattern.Text.Contains("F"))
-                txtWindowTitlePattern.SelectedText = cmbWindowTitlePattern.Text.Split('F')[0];
+            if (cmbWindowTitlePattern.Text.Contains("ï¼š"))
+                txtWindowTitlePattern.SelectedText = cmbWindowTitlePattern.Text.Split('ï¼š')[0];
             txtWindowTitlePattern.Focus();
         }
 

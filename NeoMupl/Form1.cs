@@ -43,7 +43,7 @@ namespace NeoMupl
         Status statusValue;
         MusicData statusData;
 
-        #region ‰Šú‰»ˆ—
+        #region åˆæœŸåŒ–å‡¦ç†
         
         public Form1()
         {
@@ -103,29 +103,29 @@ namespace NeoMupl
             try
             {
                 if (setting != null && setting.ErrorLog)
-                    Log.Write(Log.LogType.FatalError, "‘z’èŠO‚ÌƒGƒ‰[‚Å‚·B\n\n" + e.Exception.ToString());
+                    Log.Write(Log.LogType.FatalError, "æƒ³å®šå¤–ã®ã‚¨ãƒ©ãƒ¼ã§ã™ã€‚\n\n" + e.Exception.ToString());
                 FormFatalError ff = new FormFatalError();
                 ff.SetException(e.Exception, result);
                 ff.ShowDialog(this);
                 switch (result.PlayList)
                 {
                     case 1:
-                        // ã‘‚«•Û‘¶
+                        // ä¸Šæ›¸ãä¿å­˜
                         musicList.Save(setting.ListFile);
                         break;
                     case 2:
-                        // •Ê–¼•Û‘¶
+                        // åˆ¥åä¿å­˜
                         musicList.Save(PathMaker.GetAnotherName(setting.ListFile));
                         break;
                 }
                 switch (result.Setting)
                 {
                     case 1:
-                        // ã‘‚«•Û‘¶
+                        // ä¸Šæ›¸ãä¿å­˜
                         setting.Save();
                         break;
                     case 2:
-                        // •Ê–¼•Û‘¶
+                        // åˆ¥åä¿å­˜
                         setting.SaveAnotherName();
                         break;
                 }
@@ -133,24 +133,24 @@ namespace NeoMupl
             catch (Exception ex)
             {
                 if (setting != null && setting.ErrorLog)
-                    Log.Write(Log.LogType.FatalError, "ƒGƒ‰[ˆ—’†‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B\n\n" + ex.ToString());
+                    Log.Write(Log.LogType.FatalError, "ã‚¨ãƒ©ãƒ¼å‡¦ç†ä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚\n\n" + ex.ToString());
                 throw;
             }
             switch (result.Program)
             {
                 case 1:
-                    // ³íI—¹
+                    // æ­£å¸¸çµ‚äº†
                     Application.Exit();
                     break;
                 case 2:
-                    // ƒGƒ‰[I—¹
+                    // ã‚¨ãƒ©ãƒ¼çµ‚äº†
                     throw e.Exception;
             }
         }
 
         #endregion
 
-        #region ŠeíÄ¶ƒƒ\ƒbƒh
+        #region å„ç¨®å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
 
         private void PlayStop()
         {
@@ -220,8 +220,8 @@ namespace NeoMupl
                     musicPlayer.Data = null;
                     UpdateCaption(Status.ReadError, data);
                     if (Log.Error(
-                        "Ä¶‚µ‚æ‚¤‚Æ‚µ‚½ƒtƒ@ƒCƒ‹‚Í‘¶İ‚µ‚Ü‚¹‚ñB\n"
-                        + data.FileName + "\n\nƒŠƒXƒg‚©‚çíœ‚µ‚Ü‚·‚©H", MessageBoxButtons.YesNo,
+                        "å†ç”Ÿã—ã‚ˆã†ã¨ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã¯å­˜åœ¨ã—ã¾ã›ã‚“ã€‚\n"
+                        + data.FileName + "\n\nãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã‹ï¼Ÿ", MessageBoxButtons.YesNo,
                         MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         removeItemToolStripMenuItem_Click(null, null);
                     return;
@@ -233,8 +233,8 @@ namespace NeoMupl
                     musicPlayer.Data = null;
                     UpdateCaption(Status.ReadError, data);
                     if (Log.Error(
-                        "“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½I\n“Ç‚İ‚İ‚É‘Î‰‚µ‚Ä‚¢‚È‚¢Œ`®‚Å‚ ‚é‰Â”\«‚ª‚ ‚è‚Ü‚·B\n"
-                        + data.FileName + "\n\nƒŠƒXƒg‚©‚çíœ‚µ‚Ü‚·‚©H", e, MessageBoxButtons.YesNo,
+                        "èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸï¼\nèª­ã¿è¾¼ã¿ã«å¯¾å¿œã—ã¦ã„ãªã„å½¢å¼ã§ã‚ã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚\n"
+                        + data.FileName + "\n\nãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤ã—ã¾ã™ã‹ï¼Ÿ", e, MessageBoxButtons.YesNo,
                         MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         removeItemToolStripMenuItem_Click(null, null);
                     return;
@@ -245,7 +245,7 @@ namespace NeoMupl
                 {
                     musicPlayer.Data = null;
                     UpdateCaption(Status.PlayError, data);
-                    Log.Error("Ä¶‚É¸”s‚µ‚Ü‚µ‚½I\n" + data.FileName, e);
+                    Log.Error("å†ç”Ÿã«å¤±æ•—ã—ã¾ã—ãŸï¼\n" + data.FileName, e);
                     return;
                 }
                 lastPlayed = DateTime.Now;
@@ -262,7 +262,7 @@ namespace NeoMupl
 
         #endregion
 
-        #region €–Ú’Ç‰Á‚Æ‚©
+        #region é …ç›®è¿½åŠ ã¨ã‹
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
@@ -284,16 +284,16 @@ namespace NeoMupl
         
         #endregion
 
-        #region ƒŠƒXƒg‚Ì•\¦E•À‚×‘Ö‚¦
+        #region ãƒªã‚¹ãƒˆã®è¡¨ç¤ºãƒ»ä¸¦ã¹æ›¿ãˆ
 
-        /// <summary>‰˜‚­‚·‚éB‚Å‚à•\¦‚ÌXV‚Í‚µ‚È‚¢B</summary>
-        /// <param name="dirty">dirty‚Á‚ÄƒŒƒxƒ‹‚¶‚á‚Ë[‚¼</param>
+        /// <summary>æ±šãã™ã‚‹ã€‚ã§ã‚‚è¡¨ç¤ºã®æ›´æ–°ã¯ã—ãªã„ã€‚</summary>
+        /// <param name="dirty">dirtyã£ã¦ãƒ¬ãƒ™ãƒ«ã˜ã‚ƒã­ãƒ¼ã</param>
         private void Dirty(DirtyLevel dirty)
         {
             if (this.dirty < dirty) this.dirty = dirty;
         }
 
-        /// <summary>•\¦‚ÌXV‚ğ‚·‚é</summary>
+        /// <summary>è¡¨ç¤ºã®æ›´æ–°ã‚’ã™ã‚‹</summary>
         private void UpdateList()
         {
             if (dirty >= DirtyLevel.ListItem)
@@ -332,8 +332,8 @@ namespace NeoMupl
             dirty = DirtyLevel.None;
         }
 
-        /// <summary>•\¦‚ÌXV‚ğ‚·‚é</summary>
-        /// <param name="dirty">dirty‚Á‚ÄƒŒƒxƒ‹‚¶‚á‚Ë[‚¼</param>
+        /// <summary>è¡¨ç¤ºã®æ›´æ–°ã‚’ã™ã‚‹</summary>
+        /// <param name="dirty">dirtyã£ã¦ãƒ¬ãƒ™ãƒ«ã˜ã‚ƒã­ãƒ¼ã</param>
         private void UpdateList(DirtyLevel dirty)
         {
             Dirty(dirty);
@@ -416,7 +416,7 @@ namespace NeoMupl
         
         #endregion
 
-        #region Ä¶ƒƒjƒ…[
+        #region å†ç”Ÿãƒ¡ãƒ‹ãƒ¥ãƒ¼
 
         private void playSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -445,7 +445,7 @@ namespace NeoMupl
 
         #endregion
 
-        #region Ä¶I—¹Œã‚Ìˆ—
+        #region å†ç”Ÿçµ‚äº†å¾Œã®å‡¦ç†
 
         private void finishActionStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -506,7 +506,7 @@ namespace NeoMupl
             timer1.Stop();
             try
             {
-                // Œ»İ‚Ìó‘Ô‚ğƒ`ƒFƒbƒN‚·‚é
+                // ç¾åœ¨ã®çŠ¶æ…‹ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹
                 if (musicPlayer.Data != null)
                 {
                     if (musicPlayer.Loop)
@@ -530,10 +530,10 @@ namespace NeoMupl
             {
                 if (!setting.IgnoreTimerError)
                 {
-                    if (Log.Error("Ä¶’†‚ÉƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B\n"
-                        + "‚±‚ÌƒGƒ‰[‚Í˜A‘±‚µ‚Ä”­¶‚µ‘±‚¯‚é‰Â”\«‚ª‚ ‚è‚Ü‚·B\n"
-                        + "‚»‚Ìê‡‚ÍƒGƒ‰[‚ğˆê“I‚É–³‹‚·‚é‚±‚Æ‚ğ‚¨Š©‚ß‚µ‚Ü‚·B"
-                        + "¡ŒãÄ¶’†‚ÌƒGƒ‰[‚ğ–³‹‚µ‚Ü‚·‚©H"
+                    if (Log.Error("å†ç”Ÿä¸­ã«ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚\n"
+                        + "ã“ã®ã‚¨ãƒ©ãƒ¼ã¯é€£ç¶šã—ã¦ç™ºç”Ÿã—ç¶šã‘ã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚\n"
+                        + "ãã®å ´åˆã¯ã‚¨ãƒ©ãƒ¼ã‚’ä¸€æ™‚çš„ã«ç„¡è¦–ã™ã‚‹ã“ã¨ã‚’ãŠå‹§ã‚ã—ã¾ã™ã€‚"
+                        + "ä»Šå¾Œå†ç”Ÿä¸­ã®ã‚¨ãƒ©ãƒ¼ã‚’ç„¡è¦–ã—ã¾ã™ã‹ï¼Ÿ"
                         , ex, MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         setting.IgnoreTimerError = true;
@@ -558,7 +558,7 @@ namespace NeoMupl
             }
             catch (Exception ex)
             {
-                Log.Error("Ä¶‘¬“x•ÏX‚É¸”s‚µ‚Ü‚µ‚½I", ex);
+                Log.Error("å†ç”Ÿé€Ÿåº¦å¤‰æ›´ã«å¤±æ•—ã—ã¾ã—ãŸï¼", ex);
                 return;
             }
             foreach (ToolStripMenuItem item in tempoToolStripMenuItem.DropDownItems)
@@ -576,7 +576,7 @@ namespace NeoMupl
             }
         }
 
-        #region ƒtƒ@ƒCƒ‹ƒƒjƒ…[
+        #region ãƒ•ã‚¡ã‚¤ãƒ«ãƒ¡ãƒ‹ãƒ¥ãƒ¼
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -594,7 +594,7 @@ namespace NeoMupl
             {
                 musicList.Set(oldFileName, data);
                 UpdateList(DirtyLevel.ListCount);
-                // ƒŠƒXƒg‚É‚ ‚é•Ê‚Ìƒtƒ@ƒCƒ‹–¼‚É•ÏX‚µ‚½‚Æ‚«—v‘f‚ªŒ¸‚é‚Ì‚¾
+                // ãƒªã‚¹ãƒˆã«ã‚ã‚‹åˆ¥ã®ãƒ•ã‚¡ã‚¤ãƒ«åã«å¤‰æ›´ã—ãŸã¨ãè¦ç´ ãŒæ¸›ã‚‹ã®ã 
             }
         }
 
@@ -638,7 +638,7 @@ namespace NeoMupl
 
         private void listPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Log.Error("ƒŠƒXƒg‚ÌƒvƒƒpƒeƒB‚Í–¢À‘•‚Å‚·B");
+            Log.Error("ãƒªã‚¹ãƒˆã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã¯æœªå®Ÿè£…ã§ã™ã€‚");
         }
 
         private void saveListToolStripMenuItem_Click(object sender, EventArgs e)
@@ -715,19 +715,19 @@ namespace NeoMupl
             switch (status)
             {
                 case Status.Stopped:
-                    return "Ä¶’â~";
+                    return "å†ç”Ÿåœæ­¢";
                 case Status.Reading:
-                    return "“Ç‚İ‚İ’†";
+                    return "èª­ã¿è¾¼ã¿ä¸­";
                 case Status.Preparing:
-                    return "Ä¶€”õ’†";
+                    return "å†ç”Ÿæº–å‚™ä¸­";
                 case Status.Playing:
-                    return "Ä¶’†";
+                    return "å†ç”Ÿä¸­";
                 case Status.LoopPlaying:
-                    return "ƒ‹[ƒvÄ¶’†";
+                    return "ãƒ«ãƒ¼ãƒ—å†ç”Ÿä¸­";
                 case Status.ReadError:
-                    return "“Ç‚İ‚İ¸”s";
+                    return "èª­ã¿è¾¼ã¿å¤±æ•—";
                 case Status.PlayError:
-                    return "Ä¶¸”s";
+                    return "å†ç”Ÿå¤±æ•—";
                 default:
                     return "";
             }

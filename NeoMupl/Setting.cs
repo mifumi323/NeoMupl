@@ -243,7 +243,7 @@ namespace NeoMupl
                         PropertyInfo pi = GetType().GetProperty(elem[0]);
                         if (pi == null)
                         {
-                            err += "‘¶Ý‚µ‚È‚¢Ý’è€–Úu" + elem[0] + "v‚ð“Ç‚Ýž‚à‚¤‚Æ‚µ‚Ü‚µ‚½B\n";
+                            err += "å­˜åœ¨ã—ãªã„è¨­å®šé …ç›®ã€Œ" + elem[0] + "ã€ã‚’èª­ã¿è¾¼ã‚‚ã†ã¨ã—ã¾ã—ãŸã€‚\n";
                             continue;
                         }
                         object value = null;
@@ -261,7 +261,7 @@ namespace NeoMupl
                                     value = char.Parse(elem[1]);
                                     break;
                                 case TypeCode.DBNull:
-                                    err += "“Ç‚Ýž‚Ý‚É‘Î‰ž‚µ‚Ä‚¢‚È‚¢Ý’èu" + elem[0] + "v‚ð“Ç‚Ýž‚à‚¤‚Æ‚µ‚Ü‚µ‚½B\n";
+                                    err += "èª­ã¿è¾¼ã¿ã«å¯¾å¿œã—ã¦ã„ãªã„è¨­å®šã€Œ" + elem[0] + "ã€ã‚’èª­ã¿è¾¼ã‚‚ã†ã¨ã—ã¾ã—ãŸã€‚\n";
                                     continue;
                                 case TypeCode.DateTime:
                                     value = DateTime.Parse(elem[1]);
@@ -273,7 +273,7 @@ namespace NeoMupl
                                     value = double.Parse(elem[1]);
                                     break;
                                 case TypeCode.Empty:
-                                    err += "“Ç‚Ýž‚Ý‚É‘Î‰ž‚µ‚Ä‚¢‚È‚¢Ý’èu" + elem[0] + "v‚ð“Ç‚Ýž‚à‚¤‚Æ‚µ‚Ü‚µ‚½B\n";
+                                    err += "èª­ã¿è¾¼ã¿ã«å¯¾å¿œã—ã¦ã„ãªã„è¨­å®šã€Œ" + elem[0] + "ã€ã‚’èª­ã¿è¾¼ã‚‚ã†ã¨ã—ã¾ã—ãŸã€‚\n";
                                     continue;
                                 case TypeCode.Int16:
                                     value = short.Parse(elem[1]);
@@ -292,7 +292,7 @@ namespace NeoMupl
                                     }
                                     else
                                     {
-                                        err += "“Ç‚Ýž‚Ý‚É‘Î‰ž‚µ‚Ä‚¢‚È‚¢Ý’èu" + elem[0] + "v‚ð“Ç‚Ýž‚à‚¤‚Æ‚µ‚Ü‚µ‚½B\n";
+                                        err += "èª­ã¿è¾¼ã¿ã«å¯¾å¿œã—ã¦ã„ãªã„è¨­å®šã€Œ" + elem[0] + "ã€ã‚’èª­ã¿è¾¼ã‚‚ã†ã¨ã—ã¾ã—ãŸã€‚\n";
                                     }
                                     continue;
                                 case TypeCode.SByte:
@@ -314,21 +314,21 @@ namespace NeoMupl
                                     value = ulong.Parse(elem[1]);
                                     break;
                                 default:
-                                    err += "“Ç‚Ýž‚Ý‚É‘Î‰ž‚µ‚Ä‚¢‚È‚¢Ý’èu" + elem[0] + "v‚ð“Ç‚Ýž‚à‚¤‚Æ‚µ‚Ü‚µ‚½B\n";
+                                    err += "èª­ã¿è¾¼ã¿ã«å¯¾å¿œã—ã¦ã„ãªã„è¨­å®šã€Œ" + elem[0] + "ã€ã‚’èª­ã¿è¾¼ã‚‚ã†ã¨ã—ã¾ã—ãŸã€‚\n";
                                     continue;
                             }
                             pi.SetValue(this, value, null);
                         }
                         catch (Exception e)
                         {
-                            err += "Ý’èu" + elem[0] + "v‚Ì’lu" + elem[1] + "v‚ªˆÈ‰º‚ÌƒGƒ‰[‚Ì‚½‚ß”FŽ¯‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B\n@ƒƒbƒZ[ƒWF" + e.Message + "\n";
+                            err += "è¨­å®šã€Œ" + elem[0] + "ã€ã®å€¤ã€Œ" + elem[1] + "ã€ãŒä»¥ä¸‹ã®ã‚¨ãƒ©ãƒ¼ã®ãŸã‚èªè­˜ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚\nã€€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ï¼š" + e.Message + "\n";
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                err += "Ý’è“Ç‚Ýž‚Ý’†‚ÉˆÈ‰º‚ÌƒGƒ‰[‚ª”­¶‚µ‚Ü‚µ‚½B\n@ƒƒbƒZ[ƒWF" + e.Message + "\n";
+                err += "è¨­å®šèª­ã¿è¾¼ã¿ä¸­ã«ä»¥ä¸‹ã®ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚\nã€€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ï¼š" + e.Message + "\n";
             }
             if (err.Length > 0) MessageBox.Show(err);
             if (myStatusItems.Count == 0)

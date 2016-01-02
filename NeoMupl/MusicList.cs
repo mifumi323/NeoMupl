@@ -7,15 +7,15 @@ namespace NeoMupl
 {
     public class MusicList : Dictionary<string, MusicData>
     {
-        #region •Ï”
+        #region å¤‰æ•°
         
         #endregion
 
-        #region ƒvƒƒpƒeƒB
+        #region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
         
         #endregion
 
-        #region ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        #region ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
         public MusicList() { }
         public MusicList(string listfile)
@@ -25,14 +25,14 @@ namespace NeoMupl
 
         #endregion
 
-        #region ƒƒ\ƒbƒh
+        #region ãƒ¡ã‚½ãƒƒãƒ‰
 
-        /// <summary>‹Èƒf[ƒ^‚ğ’Ç‰Á‚·‚é</summary>
-        /// <param name="data">’Ç‰Á‚·‚éƒf[ƒ^</param>
+        /// <summary>æ›²ãƒ‡ãƒ¼ã‚¿ã‚’è¿½åŠ ã™ã‚‹</summary>
+        /// <param name="data">è¿½åŠ ã™ã‚‹ãƒ‡ãƒ¼ã‚¿</param>
         public void Add(MusicData data) { try { Add(data.FileName, data); } catch (Exception) { } }
 
-        /// <summary>‹Èƒf[ƒ^‚ğ’Ç‰Á‚·‚é</summary>
-        /// <param name="fileName">’Ç‰Á‚·‚éƒtƒ@ƒCƒ‹</param>
+        /// <summary>æ›²ãƒ‡ãƒ¼ã‚¿ã‚’è¿½åŠ ã™ã‚‹</summary>
+        /// <param name="fileName">è¿½åŠ ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«</param>
         public void Add(string fileName)
         {
             if (fileName.EndsWith("NeoMupl.nmp"))
@@ -46,13 +46,13 @@ namespace NeoMupl
             }
         }
 
-        /// <summary>‹Èƒf[ƒ^‚ğ’Ç‰Á‚·‚é</summary>
-        /// <param name="files">’Ç‰Á‚·‚éƒtƒ@ƒCƒ‹ŒQ</param>
+        /// <summary>æ›²ãƒ‡ãƒ¼ã‚¿ã‚’è¿½åŠ ã™ã‚‹</summary>
+        /// <param name="files">è¿½åŠ ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ç¾¤</param>
         public void Add(string[] files) { foreach (string file in files) Add(file); }
 
-        /// <summary>‹Èƒf[ƒ^‚ğ’uŠ·‚·‚é</summary>
-        /// <param name="oldData">ŒÃ‚¢ƒf[ƒ^</param>
-        /// <param name="newData">V‚µ‚¢ƒf[ƒ^</param>
+        /// <summary>æ›²ãƒ‡ãƒ¼ã‚¿ã‚’ç½®æ›ã™ã‚‹</summary>
+        /// <param name="oldData">å¤ã„ãƒ‡ãƒ¼ã‚¿</param>
+        /// <param name="newData">æ–°ã—ã„ãƒ‡ãƒ¼ã‚¿</param>
         public void Set(string oldFileName, MusicData newData)
         {
             if (oldFileName != newData.FileName) Remove(oldFileName);
@@ -93,7 +93,7 @@ namespace NeoMupl
                     MusicData data = null;
                     if (line == "NeoMupl015")
                     {
-                        // C#”Åƒf[ƒ^‚¶‚á[I
+                        // C#ç‰ˆãƒ‡ãƒ¼ã‚¿ã˜ã‚ƒãƒ¼ï¼
                         Clear();
                         while ((line = sr.ReadLine()) != null)
                         {
@@ -116,7 +116,7 @@ namespace NeoMupl
                     }
 /*                    else if (line != null && line.StartsWith("Count="))
                     {
-                        // VB”Åƒf[ƒ^‚¶‚á[I
+                        // VBç‰ˆãƒ‡ãƒ¼ã‚¿ã˜ã‚ƒãƒ¼ï¼
                         Clear();
                         elem = line.Trim().Split('=');
                         MusicData[] buf = new MusicData[int.Parse(elem[1])];
@@ -159,13 +159,13 @@ namespace NeoMupl
                 MusicData def = new MusicData("");
                 foreach (MusicData data in this.Values)
                 {
-                    // ƒfƒtƒHƒ‹ƒg’l‚ªŠm’è‚µ‚Ä‚¢‚é‚à‚Ì‚É‚Â‚¢‚Ä‚Í‚í‚´‚í‚´‹L˜^‚µ‚È‚¢
+                    // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ãŒç¢ºå®šã—ã¦ã„ã‚‹ã‚‚ã®ã«ã¤ã„ã¦ã¯ã‚ã–ã‚ã–è¨˜éŒ²ã—ãªã„
                     sw.WriteLine("File\t" + data.FileName);
-                    sw.WriteLine("Title\t" + data.Title);   // ©ƒfƒtƒHƒ‹ƒg‚ğİ’è‚Å•ÏX‰Â”\
+                    sw.WriteLine("Title\t" + data.Title);   // â†ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚’è¨­å®šã§å¤‰æ›´å¯èƒ½
                     if (data.Volume != def.Volume) sw.WriteLine("Volume\t" + data.Volume.ToString());
                     if (data.LoopStart > 0 || data.LoopEnd > 0) sw.WriteLine("Loop\t" + data.LoopStart.ToString() + "\t" + data.LoopEnd.ToString());
                     if (data.SkipRate != def.SkipRate) sw.WriteLine("SkipRate\t" + data.SkipRate.ToString());
-                    sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // ©ƒfƒtƒHƒ‹ƒg‚ªMIDI‚Æ‚»‚êˆÈŠO‚ÅˆÙ‚È‚é
+                    sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // â†ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãŒMIDIã¨ãã‚Œä»¥å¤–ã§ç•°ãªã‚‹
                     try
                     {
                         DMOption dm = (DMOption)data.Option;
@@ -188,7 +188,7 @@ namespace NeoMupl
                     MusicData data = null;
                     if (line != null && line.StartsWith("Count="))
                     {
-                        // VB”Åƒf[ƒ^‚¶‚á[I
+                        // VBç‰ˆãƒ‡ãƒ¼ã‚¿ã˜ã‚ƒãƒ¼ï¼
                         elem = line.Trim().Split('=');
                         MusicData[] buf = new MusicData[int.Parse(elem[1])];
                         int offset = 0;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace NeoMupl
 {
-    /// <summary>‰‰‘t•û–@</summary>
+    /// <summary>æ¼”å¥æ–¹æ³•</summary>
     public enum PlayMethod { DirectShow, DirectMusic, MCI }
 
     public class DMOption
@@ -58,7 +58,7 @@ namespace NeoMupl
     }
 
 
-    /// <summary>‰¹ŠyÄ¶“Š‡ƒNƒ‰ƒX</summary>
+    /// <summary>éŸ³æ¥½å†ç”Ÿçµ±æ‹¬ã‚¯ãƒ©ã‚¹</summary>
     public interface MusicPlayer
     {
         MusicData Data
@@ -97,9 +97,9 @@ namespace NeoMupl
 
     public class MusicPlayerOld : MusicPlayer
     {
-        #region “à•”ƒNƒ‰ƒX
+        #region å†…éƒ¨ã‚¯ãƒ©ã‚¹
 
-        /// <summary>‰¹ŠyÄ¶‚Ì‚½‚ß‚Ì’ŠÛƒNƒ‰ƒX</summary>
+        /// <summary>éŸ³æ¥½å†ç”Ÿã®ãŸã‚ã®æŠ½è±¡ã‚¯ãƒ©ã‚¹</summary>
         public abstract class MusicPlayerBase
         {
             /*
@@ -137,10 +137,10 @@ namespace NeoMupl
 
             public virtual double GetVolume() { return MusicData.Volume; }
         }
-        /// <summary>DirectShowƒNƒ‰ƒX</summary>
+        /// <summary>DirectShowã‚¯ãƒ©ã‚¹</summary>
         public class MusicPlayerDS : MusicPlayerBase
         {
-            #region •Ï”
+            #region å¤‰æ•°
 
             private IMediaControl mediaControl;
             private double realLoopStart, realLoopEnd;
@@ -198,10 +198,10 @@ namespace NeoMupl
 
             public override void Dispose() { Close(); }
         }
-        /// <summary>DirectMusicƒNƒ‰ƒX</summary>
+        /// <summary>DirectMusicã‚¯ãƒ©ã‚¹</summary>
         public class MusicPlayerDM : MusicPlayerBase
         {
-            #region •Ï”
+            #region å¤‰æ•°
 
             private DirectMusic music = new DirectMusic();
             private DirectMusicSegment segment = null;
@@ -247,7 +247,7 @@ namespace NeoMupl
             }
             public override void Stop()
             {
-                // ƒZƒOƒƒ“ƒg‚ğw’è‚·‚é‚ÆƒƒbƒZ[ƒW”zM‚Í~‚Ü‚Á‚Ä‚à‰¹©‘Ì‚ÍÁ‚¦‚È‚¢
+                // ã‚»ã‚°ãƒ¡ãƒ³ãƒˆã‚’æŒ‡å®šã™ã‚‹ã¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é…ä¿¡ã¯æ­¢ã¾ã£ã¦ã‚‚éŸ³è‡ªä½“ã¯æ¶ˆãˆãªã„
                 if (segment != null) music.Stop(/*segment*/);
             }
             public override void Loop() { }
@@ -341,7 +341,7 @@ namespace NeoMupl
                 }
             }
         }
-        /// <summary>‰½‚à‚µ‚È‚¢ƒNƒ‰ƒX</summary>
+        /// <summary>ä½•ã‚‚ã—ãªã„ã‚¯ãƒ©ã‚¹</summary>
         public class MusicPlayerNull : MusicPlayerBase
         {
             public override void Open() { }
@@ -396,7 +396,7 @@ namespace NeoMupl
             }
             catch (Exception e)
             {
-                Log.Error("DirectShow‚Ì‰Šú‰»‚É¸”s", e);
+                Log.Error("DirectShowã®åˆæœŸåŒ–ã«å¤±æ•—", e);
             }
             try
             {
@@ -404,7 +404,7 @@ namespace NeoMupl
             }
             catch (Exception e)
             {
-                Log.Error("DirectMusic‚Ì‰Šú‰»‚É¸”s", e);
+                Log.Error("DirectMusicã®åˆæœŸåŒ–ã«å¤±æ•—", e);
             }
             try
             {
@@ -412,7 +412,7 @@ namespace NeoMupl
             }
             catch (Exception e)
             {
-                Log.Error("MCI‚Ì‰Šú‰»‚É¸”s\n", e);
+                Log.Error("MCIã®åˆæœŸåŒ–ã«å¤±æ•—\n", e);
             }
         }
 
@@ -488,7 +488,7 @@ namespace NeoMupl
             }
         }
 
-        #region MusicPlayer ƒƒ“ƒo
+        #region MusicPlayer ãƒ¡ãƒ³ãƒ
 
         public MusicData Data
         {

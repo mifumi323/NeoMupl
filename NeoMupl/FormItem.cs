@@ -89,7 +89,7 @@ namespace NeoMupl
             switch ((PlayMethod)cmbPlayMethod.SelectedIndex)
             {
                 case PlayMethod.DirectShow:
-                    lblLoopUnit.Text = "•b";
+                    lblLoopUnit.Text = "ç§’";
                     cmbMIDIPort.Enabled = false;
                     break;
                 case PlayMethod.DirectMusic:
@@ -110,42 +110,42 @@ namespace NeoMupl
 
         private void txtFileName_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "ƒtƒ@ƒCƒ‹–¼‚ğƒtƒ‹ƒpƒX‚Å“ü—Í‚µ‚Ü‚·B";
+            txtNavigation.Text = "ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ãƒ•ãƒ«ãƒ‘ã‚¹ã§å…¥åŠ›ã—ã¾ã™ã€‚";
         }
 
         private void txtTitle_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "ƒŠƒXƒg‚É•\¦‚³‚ê‚éƒ^ƒCƒgƒ‹‚ğ“ü—Í‚µ‚Ü‚·B";
+            txtNavigation.Text = "ãƒªã‚¹ãƒˆã«è¡¨ç¤ºã•ã‚Œã‚‹ã‚¿ã‚¤ãƒˆãƒ«ã‚’å…¥åŠ›ã—ã¾ã™ã€‚";
         }
 
         private void btnTitle_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "ƒtƒ@ƒCƒ‹‚©‚çƒ^ƒCƒgƒ‹‚ğ“Ç‚İ‚ñ‚Å©“®İ’è‚µ‚Ü‚·B";
+            txtNavigation.Text = "ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚¿ã‚¤ãƒˆãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§è‡ªå‹•è¨­å®šã—ã¾ã™ã€‚";
         }
 
         private void trbVolume_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "‰¹—Ê‚ğ’²ß‚µ‚Ü‚·B";
+            txtNavigation.Text = "éŸ³é‡ã‚’èª¿ç¯€ã—ã¾ã™ã€‚";
         }
 
         private void txtLoop1_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "ƒ‹[ƒvˆÊ’u‚ğ“ü—Í‚µ‚Ü‚·B\r\n0‚Å‚ ‚ê‚Î©“®İ’è‚Å‚·B";
+            txtNavigation.Text = "ãƒ«ãƒ¼ãƒ—ä½ç½®ã‚’å…¥åŠ›ã—ã¾ã™ã€‚\r\n0ã§ã‚ã‚Œã°è‡ªå‹•è¨­å®šã§ã™ã€‚";
         }
 
         private void trbSkipRate_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "ƒ‰ƒ“ƒ_ƒ€Ä¶‚Ì‚Æ‚«‘I‚Î‚ê‚É‚­‚­‚È‚éŠm—¦‚Å‚·B";
+            txtNavigation.Text = "ãƒ©ãƒ³ãƒ€ãƒ å†ç”Ÿã®ã¨ãé¸ã°ã‚Œã«ãããªã‚‹ç¢ºç‡ã§ã™ã€‚";
         }
 
         private void cmbPlayMethod_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "Ä¶•û–@‚ğ‘I‚Ñ‚Ü‚·B\r\nƒtƒ@ƒCƒ‹Œ`®‚É‚æ‚Á‚ÄŒü‚«E•sŒü‚«‚ª‚ ‚è‚Ü‚·B";
+            txtNavigation.Text = "å†ç”Ÿæ–¹æ³•ã‚’é¸ã³ã¾ã™ã€‚\r\nãƒ•ã‚¡ã‚¤ãƒ«å½¢å¼ã«ã‚ˆã£ã¦å‘ããƒ»ä¸å‘ããŒã‚ã‚Šã¾ã™ã€‚";
         }
 
         private void btnPlayMethod_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "Ä¶•û–@‚ğ©“®“I‚É”»’f‚µ‚Ü‚·B";
+            txtNavigation.Text = "å†ç”Ÿæ–¹æ³•ã‚’è‡ªå‹•çš„ã«åˆ¤æ–­ã—ã¾ã™ã€‚";
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -174,7 +174,7 @@ namespace NeoMupl
 
         private void cmbMIDIPort_Enter(object sender, EventArgs e)
         {
-            txtNavigation.Text = "MIDI‚Ì‰¹Œ¹‚ğ‘I‚Ñ‚Ü‚·B\r\n“Á‚Éw’è‚µ‚È‚¢‚Æ‹¤’Êİ’è‚ªg‚í‚ê‚Ü‚·B";
+            txtNavigation.Text = "MIDIã®éŸ³æºã‚’é¸ã³ã¾ã™ã€‚\r\nç‰¹ã«æŒ‡å®šã—ãªã„ã¨å…±é€šè¨­å®šãŒä½¿ã‚ã‚Œã¾ã™ã€‚";
         }
     }
 }
