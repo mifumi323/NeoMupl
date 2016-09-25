@@ -14,7 +14,7 @@ namespace NeoMupl
         }
 
         protected abstract ToolStripItem CreateItem();
-        public abstract void Update(MusicPlayer player);
+        public abstract void Update(IMusicPlayer player);
 
         private static Dictionary<string, StatusItem> items = null;
 
@@ -63,7 +63,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -89,7 +89,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -115,7 +115,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -141,7 +141,7 @@ namespace NeoMupl
             return item = new ToolStripProgressBar();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -169,7 +169,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -200,7 +200,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -231,7 +231,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -262,7 +262,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -288,7 +288,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -314,7 +314,7 @@ namespace NeoMupl
             return item = new ToolStripStatusLabel();
         }
 
-        public override void Update(MusicPlayer player)
+        public override void Update(IMusicPlayer player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)

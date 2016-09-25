@@ -11,7 +11,7 @@ namespace NeoMupl
     public partial class Form1 : Form
     {
         MusicList musicList;
-        MusicPlayer musicPlayer;
+        IMusicPlayer musicPlayer;
         Comparison<MusicData> comparison;
         enum DirtyLevel
         {
@@ -54,7 +54,7 @@ namespace NeoMupl
         {
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             Log.setting = setting = new Setting();
-            musicPlayer = new MusicPlayerOld();
+            musicPlayer = new MusicPlayer();
             if (setting.MainWidth <= 0) setting.MainWidth = Width;
             if (setting.MainHeight <= 0) setting.MainHeight = Height;
             SetDesktopBounds(setting.MainLeft, setting.MainTop, setting.MainWidth, setting.MainHeight);

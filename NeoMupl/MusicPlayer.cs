@@ -59,7 +59,7 @@ namespace NeoMupl
 
 
     /// <summary>音楽再生統括クラス</summary>
-    public interface MusicPlayer
+    public interface IMusicPlayer
     {
         MusicData Data
         {
@@ -95,7 +95,7 @@ namespace NeoMupl
         void SetDirectMusicPort(string p);
     }
 
-    public class MusicPlayerOld : MusicPlayer
+    public class MusicPlayer : IMusicPlayer
     {
         #region 内部クラス
 
@@ -385,7 +385,7 @@ namespace NeoMupl
             }
         }
 
-        public MusicPlayerOld()
+        public MusicPlayer()
         {
             musicPlayers = new MusicPlayerBase[] {
                 new MusicPlayerNull(), new MusicPlayerNull(), new MusicPlayerNull()
