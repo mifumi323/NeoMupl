@@ -102,16 +102,6 @@ namespace NeoMupl
         /// <summary>音楽再生のための抽象クラス</summary>
         public abstract class MusicPlayerBase
         {
-            /*
-            public bool IsPlaying { get { return InnerIsPlaying(); } }
-            public double Length { get { return InnerLength(); } }
-            public double Position { get { return InnerPosition(); } }
-            public void Play(bool bLoop) { InnerPlay(myLoop = bLoop); myData.TimeStamp(); }
-            public void Stop() { InnerStop(); }
-            public void LoopMethod() { InnerLoop(); }
-            public void Dispose() { InnerClose(); }
-            */
-
             private MusicData myMusicData;
             public MusicData MusicData
             {
