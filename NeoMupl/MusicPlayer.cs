@@ -4,11 +4,12 @@ using QuartzTypeLib;
 using MifuminLib.DM7Lib;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using NAudio.Wave;
 
 namespace NeoMupl
 {
     /// <summary>演奏方法</summary>
-    public enum PlayMethod { DirectShow, DirectMusic, MCI }
+    public enum PlayMethod { DirectShow, DirectMusic, MCI, NAudio }
 
     public class DMOption
     {
@@ -331,6 +332,82 @@ namespace NeoMupl
                 }
             }
         }
+        /// <summary>NAudioクラス</summary>
+        public class MusicPlayerNAudio : MusicPlayerBase
+        {
+            //Declarations required for audio out and the MP3 stream
+            IWavePlayer waveOutDevice;
+            AudioFileReader audioFileReader;
+
+            public MusicPlayerNAudio()
+            {
+                waveOutDevice = new WaveOut();
+            }
+
+            public override void Close()
+            {
+                if (audioFileReader != null)
+                {
+                    Stop();
+                    audioFileReader.Dispose();
+                    audioFileReader = null;
+                }
+            }
+
+            public override void Dispose()
+            {
+                if (waveOutDevice != null)
+                {
+                    waveOutDevice.Dispose();
+                    waveOutDevice = null;
+                }
+            }
+
+            public override bool IsPlaying()
+            {
+                return waveOutDevice.PlaybackState == PlaybackState.Playing;
+            }
+
+            public override double Length()
+            {
+                return audioFileReader.TotalTime.TotalSeconds;
+            }
+
+            public override void Loop()
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void Open()
+            {
+                audioFileReader = new AudioFileReader(MusicData.FileName);
+            }
+
+            public override void Play(bool bLoop)
+            {
+                waveOutDevice.Init(audioFileReader);
+                audioFileReader.Volume = (float)(MusicData.Volume * 0.01);
+                waveOutDevice.Play();
+            }
+
+            public override double Position()
+            {
+                return audioFileReader.CurrentTime.TotalSeconds;
+            }
+
+            public override void SetTempo(double tempo)
+            {
+                // TODO: テンポ変えられたらいいなー
+            }
+
+            public override void Stop()
+            {
+                if (waveOutDevice != null)
+                {
+                    waveOutDevice.Stop();
+                }
+            }
+        }
         /// <summary>何もしないクラス</summary>
         public class MusicPlayerNull : MusicPlayerBase
         {
@@ -357,6 +434,7 @@ namespace NeoMupl
         private MusicPlayerDS musicPlayerDS;
         private MusicPlayerDM musicPlayerDM;
         private MusicPlayerMCI musicPlayerMCI;
+        private MusicPlayerNAudio musicPlayerNAudio;
 
         private MusicData myData = null;
         public MusicData Data
@@ -378,7 +456,7 @@ namespace NeoMupl
         public MusicPlayer()
         {
             musicPlayers = new MusicPlayerBase[] {
-                new MusicPlayerNull(), new MusicPlayerNull(), new MusicPlayerNull()
+                new MusicPlayerNull(), new MusicPlayerNull(), new MusicPlayerNull(), new MusicPlayerNull()
             };
             try
             {
@@ -403,6 +481,14 @@ namespace NeoMupl
             catch (Exception e)
             {
                 Log.Error("MCIの初期化に失敗\n", e);
+            }
+            try
+            {
+                musicPlayers[3] = musicPlayerNAudio = new MusicPlayerNAudio();
+            }
+            catch (Exception e)
+            {
+                Log.Error("NAudioの初期化に失敗\n", e);
             }
         }
 

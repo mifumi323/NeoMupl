@@ -100,6 +100,10 @@ namespace NeoMupl
                     lblLoopUnit.Text = "";
                     cmbMIDIPort.Enabled = false;
                     break;
+                case PlayMethod.NAudio:
+                    lblLoopUnit.Text = "";
+                    cmbMIDIPort.Enabled = false;
+                    break;
             }
         }
 
