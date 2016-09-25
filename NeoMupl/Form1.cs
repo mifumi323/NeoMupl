@@ -54,7 +54,7 @@ namespace NeoMupl
         {
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             Log.setting = setting = new Setting();
-            musicPlayer = setting.NewPlayer ? (MusicPlayer)new MusicPlayerNew(Handle) : (MusicPlayer)new MusicPlayerOld();
+            musicPlayer = new MusicPlayerOld();
             if (setting.MainWidth <= 0) setting.MainWidth = Width;
             if (setting.MainHeight <= 0) setting.MainHeight = Height;
             SetDesktopBounds(setting.MainLeft, setting.MainTop, setting.MainWidth, setting.MainHeight);

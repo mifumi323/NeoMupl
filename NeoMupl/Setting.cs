@@ -170,14 +170,6 @@ namespace NeoMupl
             get { return myWindowTitlePattern; }
             set { myWindowTitlePattern = value; }
         }
-
-        private bool myNewPlayer = false;
-        public bool NewPlayer
-        {
-            get { return myNewPlayer; }
-            set { myNewPlayer = value; }
-        }
-	
 	
         public Setting()
         {
