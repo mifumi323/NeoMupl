@@ -5,6 +5,8 @@ using MifuminLib.DM7Lib;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using NAudio.Wave;
+using NAudio.Vorbis;
+using System.Globalization;
 
 namespace NeoMupl
 {
@@ -337,7 +339,7 @@ namespace NeoMupl
         {
             //Declarations required for audio out and the MP3 stream
             IWavePlayer waveOutDevice;
-            AudioFileReader audioFileReader;
+            IWaveProvider audioFileReader;
 
             public MusicPlayerNAudio()
             {
@@ -349,7 +351,7 @@ namespace NeoMupl
                 if (audioFileReader != null)
                 {
                     Stop();
-                    audioFileReader.Dispose();
+                    ((WaveStream)audioFileReader).Dispose();
                     audioFileReader = null;
                 }
             }
@@ -370,7 +372,7 @@ namespace NeoMupl
 
             public override double Length()
             {
-                return audioFileReader.TotalTime.TotalSeconds;
+                return ((WaveStream)audioFileReader).TotalTime.TotalSeconds;
             }
 
             public override void Loop()
@@ -380,19 +382,34 @@ namespace NeoMupl
 
             public override void Open()
             {
-                audioFileReader = new AudioFileReader(MusicData.FileName);
+                if (MusicData.FileName.EndsWith(".ogg", true, CultureInfo.CurrentCulture))
+                {
+                    audioFileReader = new VorbisWaveReader(MusicData.FileName);
+                }
+                else
+                {
+                    audioFileReader = new AudioFileReader(MusicData.FileName);
+                }
             }
 
             public override void Play(bool bLoop)
             {
                 waveOutDevice.Init(audioFileReader);
-                audioFileReader.Volume = (float)(MusicData.Volume * 0.01);
+                if (audioFileReader is AudioFileReader)
+                {
+                    ((AudioFileReader)audioFileReader).Volume = (float)(MusicData.Volume * 0.01);
+                }
+                else if (audioFileReader is VorbisWaveReader)
+                {
+                    // NVoivisにはボリューム設定はないのか？
+                    //((VorbisWaveReader)audioFileReader).Volume = (float)(MusicData.Volume * 0.01);
+                }
                 waveOutDevice.Play();
             }
 
             public override double Position()
             {
-                return audioFileReader.CurrentTime.TotalSeconds;
+                return ((WaveStream)audioFileReader).CurrentTime.TotalSeconds;
             }
 
             public override void SetTempo(double tempo)
