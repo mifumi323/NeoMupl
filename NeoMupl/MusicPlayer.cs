@@ -343,7 +343,6 @@ namespace NeoMupl
 
             public MusicPlayerNAudio()
             {
-                waveOutDevice = new WaveOut();
             }
 
             public override void Close()
@@ -354,10 +353,6 @@ namespace NeoMupl
                     ((WaveStream)audioFileReader).Dispose();
                     audioFileReader = null;
                 }
-            }
-
-            public override void Dispose()
-            {
                 if (waveOutDevice != null)
                 {
                     waveOutDevice.Dispose();
@@ -365,14 +360,18 @@ namespace NeoMupl
                 }
             }
 
+            public override void Dispose()
+            {
+            }
+
             public override bool IsPlaying()
             {
-                return waveOutDevice.PlaybackState == PlaybackState.Playing;
+                return (waveOutDevice?.PlaybackState ?? PlaybackState.Stopped) == PlaybackState.Playing;
             }
 
             public override double Length()
             {
-                return ((WaveStream)audioFileReader).TotalTime.TotalSeconds;
+                return ((WaveStream)audioFileReader)?.TotalTime.TotalSeconds ?? 0.0;
             }
 
             public override void Loop()
@@ -382,6 +381,7 @@ namespace NeoMupl
 
             public override void Open()
             {
+                waveOutDevice = new WaveOut();
                 if (MusicData.FileName.EndsWith(".ogg", true, CultureInfo.CurrentCulture))
                 {
                     audioFileReader = new VorbisWaveReader(MusicData.FileName);
