@@ -395,15 +395,7 @@ namespace NeoMupl
             public override void Play(bool bLoop)
             {
                 waveOutDevice.Init(audioFileReader);
-                if (audioFileReader is AudioFileReader)
-                {
-                    ((AudioFileReader)audioFileReader).Volume = (float)(MusicData.Volume * 0.01);
-                }
-                else if (audioFileReader is VorbisWaveReader)
-                {
-                    // NVoivisにはボリューム設定はないのか？
-                    //((VorbisWaveReader)audioFileReader).Volume = (float)(MusicData.Volume * 0.01);
-                }
+                waveOutDevice.Volume = (float)(MusicData.Volume * 0.01);
                 waveOutDevice.Play();
             }
 
