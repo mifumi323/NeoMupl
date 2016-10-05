@@ -8,7 +8,7 @@ using NAudio.Wave;
 using NAudio.Vorbis;
 using System.Globalization;
 
-namespace NeoMupl
+namespace NeoMupl.Player
 {
     /// <summary>演奏方法</summary>
     public enum PlayMethod { DirectShow, DirectMusic, MCI, NAudio }
