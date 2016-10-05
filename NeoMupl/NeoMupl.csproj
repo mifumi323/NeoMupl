@@ -125,7 +125,7 @@
     <Compile Include="Log.cs" />
     <Compile Include="MusicData.cs" />
     <Compile Include="MusicList.cs" />
-    <Compile Include="MusicPlayer.cs" />
+    <Compile Include="Player\MusicPlayer.cs" />
     <Compile Include="PathMaker.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Program.cs" />
