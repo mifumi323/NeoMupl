@@ -72,6 +72,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Interop.QuartzTypeLib.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio.Vorbis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Vorbis.1.0.0.0\lib\net35\NAudio.Vorbis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVorbis, Version=0.8.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVorbis.0.8.5.0\lib\NVorbis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -113,8 +125,14 @@
     <Compile Include="Log.cs" />
     <Compile Include="MusicData.cs" />
     <Compile Include="MusicList.cs" />
-    <Compile Include="MusicPlayer.cs" />
+    <Compile Include="Player\MusicPlayer.cs" />
     <Compile Include="PathMaker.cs" />
+    <Compile Include="Player\MusicPlayerBase.cs" />
+    <Compile Include="Player\MusicPlayerDM.cs" />
+    <Compile Include="Player\MusicPlayerDS.cs" />
+    <Compile Include="Player\MusicPlayerMCI.cs" />
+    <Compile Include="Player\MusicPlayerNAudio.cs" />
+    <Compile Include="Player\MusicPlayerNull.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,6 +168,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="NeoMupl_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Resources\MPlayer.ico" />
   </ItemGroup>
   <ItemGroup>

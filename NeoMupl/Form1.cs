@@ -1,7 +1,8 @@
 using System;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 using MifuminLib;
+using NeoMupl.Player;
 
 namespace NeoMupl
 {
@@ -501,9 +502,11 @@ namespace NeoMupl
             setting.FinishAction = finishAction;
         }
 
+        bool timerProcessing = false;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
+            if (timerProcessing) return;
+            timerProcessing = true;
             try
             {
                 // 現在の状態をチェックする
@@ -540,7 +543,7 @@ namespace NeoMupl
                     }
                 }
             }
-            timer1.Start();
+            timerProcessing = false;
         }
 
         #endregion

@@ -90,8 +90,8 @@
             // 
             // txtNavigation
             // 
-            this.txtNavigation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNavigation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNavigation.Location = new System.Drawing.Point(0, 270);
             this.txtNavigation.Margin = new System.Windows.Forms.Padding(0);
             this.txtNavigation.Multiline = true;
@@ -102,9 +102,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -115,8 +115,8 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 5;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -159,14 +159,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(543, 199);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(543, 205);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblMIDIPort
             // 
             this.lblMIDIPort.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblMIDIPort.AutoSize = true;
-            this.lblMIDIPort.Location = new System.Drawing.Point(3, 165);
+            this.lblMIDIPort.Location = new System.Drawing.Point(3, 171);
             this.lblMIDIPort.Name = "lblMIDIPort";
             this.lblMIDIPort.Size = new System.Drawing.Size(71, 12);
             this.lblMIDIPort.TabIndex = 1;
@@ -177,7 +177,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.cmbMIDIPort, 3);
             this.cmbMIDIPort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbMIDIPort.FormattingEnabled = true;
-            this.cmbMIDIPort.Location = new System.Drawing.Point(77, 161);
+            this.cmbMIDIPort.Location = new System.Drawing.Point(77, 167);
             this.cmbMIDIPort.Margin = new System.Windows.Forms.Padding(0);
             this.cmbMIDIPort.Name = "cmbMIDIPort";
             this.cmbMIDIPort.Size = new System.Drawing.Size(415, 20);
@@ -187,7 +187,7 @@
             // btnPlayMethod
             // 
             this.btnPlayMethod.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnPlayMethod.Location = new System.Drawing.Point(492, 141);
+            this.btnPlayMethod.Location = new System.Drawing.Point(492, 147);
             this.btnPlayMethod.Margin = new System.Windows.Forms.Padding(0);
             this.btnPlayMethod.Name = "btnPlayMethod";
             this.btnPlayMethod.Size = new System.Drawing.Size(51, 20);
@@ -201,7 +201,7 @@
             // 
             this.lblPlayMethod.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblPlayMethod.AutoSize = true;
-            this.lblPlayMethod.Location = new System.Drawing.Point(3, 145);
+            this.lblPlayMethod.Location = new System.Drawing.Point(3, 151);
             this.lblPlayMethod.Margin = new System.Windows.Forms.Padding(0);
             this.lblPlayMethod.Name = "lblPlayMethod";
             this.lblPlayMethod.Size = new System.Drawing.Size(70, 12);
@@ -211,7 +211,7 @@
             // txtSkipRate
             // 
             this.txtSkipRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSkipRate.Location = new System.Drawing.Point(492, 110);
+            this.txtSkipRate.Location = new System.Drawing.Point(492, 115);
             this.txtSkipRate.Margin = new System.Windows.Forms.Padding(0);
             this.txtSkipRate.Name = "txtSkipRate";
             this.txtSkipRate.Size = new System.Drawing.Size(51, 19);
@@ -223,11 +223,11 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.trbSkipRate, 3);
             this.trbSkipRate.LargeChange = 10;
-            this.trbSkipRate.Location = new System.Drawing.Point(77, 99);
+            this.trbSkipRate.Location = new System.Drawing.Point(77, 102);
             this.trbSkipRate.Margin = new System.Windows.Forms.Padding(0);
             this.trbSkipRate.Maximum = 100;
             this.trbSkipRate.Name = "trbSkipRate";
-            this.trbSkipRate.Size = new System.Drawing.Size(415, 42);
+            this.trbSkipRate.Size = new System.Drawing.Size(415, 45);
             this.trbSkipRate.TabIndex = 15;
             this.trbSkipRate.TickFrequency = 10;
             this.trbSkipRate.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -238,7 +238,7 @@
             // 
             this.lblSkipRate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSkipRate.AutoSize = true;
-            this.lblSkipRate.Location = new System.Drawing.Point(2, 114);
+            this.lblSkipRate.Location = new System.Drawing.Point(2, 118);
             this.lblSkipRate.Margin = new System.Windows.Forms.Padding(0);
             this.lblSkipRate.Name = "lblSkipRate";
             this.lblSkipRate.Size = new System.Drawing.Size(73, 12);
@@ -249,7 +249,7 @@
             // 
             this.lblLoopUnit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblLoopUnit.AutoSize = true;
-            this.lblLoopUnit.Location = new System.Drawing.Point(503, 83);
+            this.lblLoopUnit.Location = new System.Drawing.Point(503, 86);
             this.lblLoopUnit.Margin = new System.Windows.Forms.Padding(0);
             this.lblLoopUnit.Name = "lblLoopUnit";
             this.lblLoopUnit.Size = new System.Drawing.Size(29, 12);
@@ -259,7 +259,7 @@
             // txtLoop2
             // 
             this.txtLoop2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLoop2.Location = new System.Drawing.Point(293, 80);
+            this.txtLoop2.Location = new System.Drawing.Point(293, 83);
             this.txtLoop2.Margin = new System.Windows.Forms.Padding(0);
             this.txtLoop2.Name = "txtLoop2";
             this.txtLoop2.Size = new System.Drawing.Size(199, 19);
@@ -270,7 +270,7 @@
             // 
             this.lblLoopTo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblLoopTo.AutoSize = true;
-            this.lblLoopTo.Location = new System.Drawing.Point(276, 83);
+            this.lblLoopTo.Location = new System.Drawing.Point(276, 86);
             this.lblLoopTo.Margin = new System.Windows.Forms.Padding(0);
             this.lblLoopTo.Name = "lblLoopTo";
             this.lblLoopTo.Size = new System.Drawing.Size(17, 12);
@@ -280,7 +280,7 @@
             // txtLoop1
             // 
             this.txtLoop1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLoop1.Location = new System.Drawing.Point(77, 80);
+            this.txtLoop1.Location = new System.Drawing.Point(77, 83);
             this.txtLoop1.Margin = new System.Windows.Forms.Padding(0);
             this.txtLoop1.Name = "txtLoop1";
             this.txtLoop1.Size = new System.Drawing.Size(199, 19);
@@ -291,7 +291,7 @@
             // 
             this.lblLoop.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblLoop.AutoSize = true;
-            this.lblLoop.Location = new System.Drawing.Point(2, 83);
+            this.lblLoop.Location = new System.Drawing.Point(2, 86);
             this.lblLoop.Margin = new System.Windows.Forms.Padding(0);
             this.lblLoop.Name = "lblLoop";
             this.lblLoop.Size = new System.Drawing.Size(72, 12);
@@ -371,7 +371,7 @@
             // 
             this.lblVolume.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblVolume.AutoSize = true;
-            this.lblVolume.Location = new System.Drawing.Point(13, 53);
+            this.lblVolume.Location = new System.Drawing.Point(13, 54);
             this.lblVolume.Margin = new System.Windows.Forms.Padding(0);
             this.lblVolume.Name = "lblVolume";
             this.lblVolume.Size = new System.Drawing.Size(51, 12);
@@ -387,7 +387,7 @@
             this.trbVolume.Margin = new System.Windows.Forms.Padding(0);
             this.trbVolume.Maximum = 100;
             this.trbVolume.Name = "trbVolume";
-            this.trbVolume.Size = new System.Drawing.Size(415, 42);
+            this.trbVolume.Size = new System.Drawing.Size(415, 45);
             this.trbVolume.TabIndex = 7;
             this.trbVolume.TickFrequency = 10;
             this.trbVolume.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -397,7 +397,7 @@
             // txtVolume
             // 
             this.txtVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtVolume.Location = new System.Drawing.Point(492, 49);
+            this.txtVolume.Location = new System.Drawing.Point(492, 51);
             this.txtVolume.Margin = new System.Windows.Forms.Padding(0);
             this.txtVolume.Name = "txtVolume";
             this.txtVolume.Size = new System.Drawing.Size(51, 19);
@@ -414,8 +414,9 @@
             this.cmbPlayMethod.Items.AddRange(new object[] {
             "DirectShow(通常のファイル)",
             "DirectMusic(MIDIに最適)",
-            "MCI(うまく再生されないときに)"});
-            this.cmbPlayMethod.Location = new System.Drawing.Point(77, 141);
+            "MCI(うまく再生されないときに)",
+            "NAudio"});
+            this.cmbPlayMethod.Location = new System.Drawing.Point(77, 147);
             this.cmbPlayMethod.Margin = new System.Windows.Forms.Padding(0);
             this.cmbPlayMethod.Name = "cmbPlayMethod";
             this.cmbPlayMethod.Size = new System.Drawing.Size(415, 20);
@@ -428,7 +429,7 @@
             this.lblLastPlayed.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblLastPlayed.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.lblLastPlayed, 5);
-            this.lblLastPlayed.Location = new System.Drawing.Point(211, 184);
+            this.lblLastPlayed.Location = new System.Drawing.Point(211, 190);
             this.lblLastPlayed.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lblLastPlayed.Name = "lblLastPlayed";
             this.lblLastPlayed.Size = new System.Drawing.Size(120, 12);

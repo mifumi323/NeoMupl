@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using NeoMupl.Player;
 
 namespace NeoMupl
 {
@@ -97,6 +94,10 @@ namespace NeoMupl
                     cmbMIDIPort.Enabled = true;
                     break;
                 case PlayMethod.MCI:
+                    lblLoopUnit.Text = "";
+                    cmbMIDIPort.Enabled = false;
+                    break;
+                case PlayMethod.NAudio:
                     lblLoopUnit.Text = "";
                     cmbMIDIPort.Enabled = false;
                     break;

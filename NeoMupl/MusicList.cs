@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
+using NeoMupl.Player;
 
 namespace NeoMupl
 {
@@ -169,7 +170,7 @@ namespace NeoMupl
                     try
                     {
                         DMOption dm = (DMOption)data.Option;
-                        if (dm.port != "") sw.WriteLine("MIDIPort\t" + dm.port);
+                        if (dm != null && dm.port != "") sw.WriteLine("MIDIPort\t" + dm.port);
                     }
                     catch (Exception) { }
                     if (data.LastPlayedTicks != def.LastPlayedTicks) sw.WriteLine("LastPlayed\t" + data.LastPlayedTicks.ToString());
