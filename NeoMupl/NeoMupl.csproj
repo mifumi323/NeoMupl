@@ -191,6 +191,12 @@
   <ItemGroup>
     <None Include="Resources\Error.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NeoMuplBase\NeoMuplBase.csproj">
+      <Project>{331b9e71-0be2-4480-9a9b-464628135b76}</Project>
+      <Name>NeoMuplBase</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
