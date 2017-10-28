@@ -126,6 +126,7 @@
     <Compile Include="Log.cs" />
     <Compile Include="MusicData.cs" />
     <Compile Include="MusicList.cs" />
+    <Compile Include="Player\IMusicPlayer.cs" />
     <Compile Include="Player\MusicPlayer.cs" />
     <Compile Include="PathMaker.cs" />
     <Compile Include="Player\MusicPlayerBase.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Player\MusicPlayerMCI.cs" />
     <Compile Include="Player\MusicPlayerNAudio.cs" />
     <Compile Include="Player\MusicPlayerNull.cs" />
+    <Compile Include="Player\Enum.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
