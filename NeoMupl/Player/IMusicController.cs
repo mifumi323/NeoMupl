@@ -3,7 +3,7 @@
 namespace NeoMupl.Player
 {
     /// <summary>音楽再生統括クラス</summary>
-    public interface IMusicPlayer
+    public interface IMusicController
     {
         MusicData Data
         {

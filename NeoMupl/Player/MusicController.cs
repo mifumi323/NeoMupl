@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NeoMupl.Player
 {
-    public class MusicPlayer : IMusicPlayer
+    public class MusicController : IMusicController
     {
         private MusicPlayerBase[] musicPlayers;
         private MusicPlayerBase musicPlayer = new MusicPlayerNull();
@@ -29,7 +29,7 @@ namespace NeoMupl.Player
             }
         }
 
-        public MusicPlayer()
+        public MusicController()
         {
             musicPlayers = new MusicPlayerBase[] {
                 new MusicPlayerNull(), new MusicPlayerNull(), new MusicPlayerNull(), new MusicPlayerNull()

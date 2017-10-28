@@ -12,7 +12,7 @@ namespace NeoMupl
     public partial class Form1 : Form
     {
         MusicList musicList;
-        IMusicPlayer musicPlayer;
+        IMusicController musicController;
         Comparison<MusicData> comparison;
         enum DirtyLevel
         {
@@ -55,7 +55,7 @@ namespace NeoMupl
         {
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             Log.setting = setting = new Setting();
-            musicPlayer = new MusicPlayer();
+            musicController = new MusicController();
             if (setting.MainWidth <= 0) setting.MainWidth = Width;
             if (setting.MainHeight <= 0) setting.MainHeight = Height;
             SetDesktopBounds(setting.MainLeft, setting.MainTop, setting.MainWidth, setting.MainHeight);
@@ -64,7 +64,7 @@ namespace NeoMupl
             SetSorting(setting.Sorting);
             reverseToolStripMenuItem.Checked = setting.Reversed;
             DMOption.portdefault = setting.Port;
-            foreach (string port in musicPlayer.GetDirectMusicPorts())
+            foreach (string port in musicController.GetDirectMusicPorts())
             {
                 ToolStripMenuItem item = new ToolStripMenuItem(port, null, new EventHandler(portToolStripMenuItem_Click));
                 item.Checked = port == setting.Port;
@@ -85,7 +85,7 @@ namespace NeoMupl
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            musicPlayer.Dispose();
+            musicController.Dispose();
             musicList.Save(setting.ListFile);
             setting.MainWindowState = WindowState;
             WindowState = FormWindowState.Normal;
@@ -155,10 +155,10 @@ namespace NeoMupl
 
         private void PlayStop()
         {
-            if (musicPlayer.Data == null) return;
-            if (setting.StopLog) Log.Write(Log.LogType.Stop, musicPlayer.Data.FileName);
-            UpdateCaption(Status.Stopped, musicPlayer.Data);
-            musicPlayer.Data = null;
+            if (musicController.Data == null) return;
+            if (setting.StopLog) Log.Write(Log.LogType.Stop, musicController.Data.FileName);
+            UpdateCaption(Status.Stopped, musicController.Data);
+            musicController.Data = null;
         }
         private void PlaySelected()
         {
@@ -218,7 +218,7 @@ namespace NeoMupl
                 MusicData data = (MusicData)lstMusic.SelectedItem;
                 if (!File.Exists(data.FileName))
                 {
-                    musicPlayer.Data = null;
+                    musicController.Data = null;
                     UpdateCaption(Status.ReadError, data);
                     if (Log.Error(
                         "再生しようとしたファイルは存在しません。\n"
@@ -228,10 +228,10 @@ namespace NeoMupl
                     return;
                 }
                 UpdateCaption(Status.Reading, data);
-                try { musicPlayer.Data = data; }
+                try { musicController.Data = data; }
                 catch (Exception e)
                 {
-                    musicPlayer.Data = null;
+                    musicController.Data = null;
                     UpdateCaption(Status.ReadError, data);
                     if (Log.Error(
                         "読み込みに失敗しました！\n読み込みに対応していない形式である可能性があります。\n"
@@ -241,10 +241,10 @@ namespace NeoMupl
                     return;
                 }
                 UpdateCaption(Status.Preparing, data);
-                try { musicPlayer.Play(loop); }
+                try { musicController.Play(loop); }
                 catch (Exception e)
                 {
-                    musicPlayer.Data = null;
+                    musicController.Data = null;
                     UpdateCaption(Status.PlayError, data);
                     Log.Error("再生に失敗しました！\n" + data.FileName, e);
                     return;
@@ -510,17 +510,17 @@ namespace NeoMupl
             try
             {
                 // 現在の状態をチェックする
-                if (musicPlayer.Data != null)
+                if (musicController.Data != null)
                 {
-                    if (musicPlayer.Loop)
+                    if (musicController.Loop)
                     {
-                        musicPlayer.LoopMethod();
+                        musicController.LoopMethod();
                     }
                     else
                     {
                         if (lastPlayed.AddSeconds(setting.MinPlayTime).CompareTo(DateTime.Now) < 0)
                         {
-                            if (!musicPlayer.IsPlaying)
+                            if (!musicController.IsPlaying)
                             {
                                 playMethod();
                             }
@@ -557,7 +557,7 @@ namespace NeoMupl
         {
             try
             {
-                musicPlayer.SetTempo(double.Parse(sender.ToString().Remove(sender.ToString().Length - 1)) / 100.0);
+                musicController.SetTempo(double.Parse(sender.ToString().Remove(sender.ToString().Length - 1)) / 100.0);
             }
             catch (Exception ex)
             {
@@ -572,7 +572,7 @@ namespace NeoMupl
 
         private void portToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            musicPlayer.SetDirectMusicPort(DMOption.portdefault = setting.Port = sender.ToString());
+            musicController.SetDirectMusicPort(DMOption.portdefault = setting.Port = sender.ToString());
             foreach (ToolStripMenuItem item in portToolStripMenuItem.DropDownItems)
             {
                 item.Checked = item == sender;
@@ -592,7 +592,7 @@ namespace NeoMupl
             if (data == null) return;
             string oldFileName = data.FileName;
             FormItem f = new FormItem();
-            f.Init(data, musicPlayer.GetDirectMusicPorts());
+            f.Init(data, musicController.GetDirectMusicPorts());
             if (f.ShowDialog() == DialogResult.OK)
             {
                 musicList.Set(oldFileName, data);
@@ -660,7 +660,7 @@ namespace NeoMupl
         {
             foreach (StatusItem item in setting.StatusItems)
             {
-                item.Update(musicPlayer);
+                item.Update(musicController);
             }
         }
 
@@ -680,7 +680,7 @@ namespace NeoMupl
                 foreach (StatusItem item in setting.StatusItems)
                 {
                     item.Add(statusStrip1);
-                    item.Update(musicPlayer);
+                    item.Update(musicController);
                 }
             }
             lstMusic.Height = listHeight;
