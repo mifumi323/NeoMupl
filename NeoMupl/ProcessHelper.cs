@@ -1,27 +1,22 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace MifuminLib
 {
     public class ProcessHelper
     {
-//        [DllImport("USER32.DLL", CharSet = CharSet.Auto)]
-//        private static extern int ShowWindow(
-//            System.IntPtr hWnd,
-//            int nCmdShow
-//        );
-
         [DllImport("USER32.DLL", CharSet = CharSet.Auto)]
         private static extern bool SetForegroundWindow(
-            System.IntPtr hWnd
+            IntPtr hWnd
         );
 
-//        private const int SW_NORMAL = 1;
-
-        /// <summary>同名のプロセスが起動中の場合、メイン ウィンドウをアクティブにします。</summary>
+        /// <summary>
+        /// 同名のプロセスが起動中の場合、メイン ウィンドウをアクティブにします。
+        /// 参考：http://jeanne.wankuma.com/tips/csharp/process/activewindow.html
+        /// </summary>
         /// <returns>既に起動中であれば true。それ以外は false。</returns>
-        /// http://jeanne.wankuma.com/tips/csharp/process/activewindow.html
-        public static bool ShowPrevProcess()
+        public static bool SetPrevProcessToForeground()
         {
             Process hThisProcess = Process.GetCurrentProcess();
             Process[] hProcesses = Process.GetProcessesByName(hThisProcess.ProcessName);
@@ -31,7 +26,6 @@ namespace MifuminLib
             {
                 if (hProcess.Id != iThisProcessId)
                 {
-//                    ShowWindow(hProcess.MainWindowHandle, SW_NORMAL);
                     SetForegroundWindow(hProcess.MainWindowHandle);
                     return true;
                 }
