@@ -31,6 +31,8 @@ namespace NeoMupl
         Setting setting;
         Random random = new Random();
 
+        bool terminated = false;
+
         enum Status
         {
             Stopped,
@@ -85,6 +87,16 @@ namespace NeoMupl
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Terminate();
+        }
+
+        private void Terminate()
+        {
+            if (terminated)
+            {
+                return;
+            }
+            terminated = true;
             musicPlayer.Dispose();
             musicList.Save(setting.ListFile);
             setting.MainWindowState = WindowState;
@@ -734,6 +746,12 @@ namespace NeoMupl
                 default:
                     return "";
             }
+        }
+
+        private void rebootToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Terminate();
+            Application.Restart();
         }
     }
 }
