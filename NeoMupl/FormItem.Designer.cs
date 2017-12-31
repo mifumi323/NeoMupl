@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormItem));
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.txtNavigation = new System.Windows.Forms.TextBox();
@@ -451,6 +452,7 @@
             this.Controls.Add(this.txtNavigation);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.Name = "FormItem";
             this.ShowInTaskbar = false;
