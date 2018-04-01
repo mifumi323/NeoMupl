@@ -60,7 +60,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -86,7 +90,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -112,7 +120,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -138,7 +150,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripProgressBar();
+            if (item == null)
+            {
+                item = new ToolStripProgressBar();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -166,7 +182,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -197,7 +217,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -228,7 +252,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -259,7 +287,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -285,7 +317,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
@@ -311,7 +347,11 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            return item = new ToolStripStatusLabel();
+            if (item == null)
+            {
+                item = new ToolStripStatusLabel();
+            }
+            return item;
         }
 
         public override void Update(IMusicController player)
