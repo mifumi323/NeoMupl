@@ -46,7 +46,31 @@ namespace NeoMupl.Player
 
         public override void Loop()
         {
-            throw new NotImplementedException();
+            var length = Length();
+            if (length > 0)
+            {
+                if (!IsPlaying())
+                {
+                    ((WaveStream)audioFileReader).CurrentTime = TimeSpan.FromSeconds(MusicData.LoopStart);
+                    waveOutDevice.Play();
+                }
+                else
+                {
+                    var position = Position();
+                    var overrun = position - MusicData.LoopEnd;
+                    if (overrun >= 0)
+                    {
+                        ((WaveStream)audioFileReader).CurrentTime = TimeSpan.FromSeconds(MusicData.LoopStart + overrun);
+                    }
+                }
+            }
+            else
+            {
+                if (!IsPlaying())
+                {
+                    ((WaveStream)audioFileReader).Position = 0;
+                }
+            }
         }
 
         public override void Open()
@@ -71,7 +95,7 @@ namespace NeoMupl.Player
 
         public override double Position()
         {
-            return ((WaveStream)audioFileReader).CurrentTime.TotalSeconds;
+            return ((WaveStream)audioFileReader)?.CurrentTime.TotalSeconds ?? 0.0;
         }
 
         public override void SetTempo(double tempo)
