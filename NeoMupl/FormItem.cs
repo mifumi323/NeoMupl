@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using NeoMupl.Player;
 
@@ -7,11 +6,42 @@ namespace NeoMupl
 {
     public partial class FormItem : Form
     {
+        IMusicController musicController;
+        public IMusicController MusicController
+        {
+            get => musicController;
+            set
+            {
+                musicController = value;
+                cmbMIDIPort.Items.AddRange(musicController.GetDirectMusicPorts());
+            }
+        }
+
         MusicData musicData;
+        public MusicData MusicData
+        {
+            get => musicData;
+            set
+            {
+                musicData = value;
+                txtFileName.Text = musicData.FileName;
+                txtTitle.Text = musicData.Title;
+                txtVolume.Text = musicData.Volume.ToString();
+                txtLoop1.Text = musicData.LoopStart.ToString();
+                txtLoop2.Text = musicData.LoopEnd.ToString();
+                txtSkipRate.Text = musicData.SkipRate.ToString();
+                cmbPlayMethod.SelectedIndex = (int)musicData.PlayMethod;
+                try { cmbMIDIPort.Text = ((DMOption)musicData.Option).port; }
+                catch (Exception) { cmbMIDIPort.Text = "default"; }
+                lblLastPlayed.Text = musicData.LastPlayedDateTime.ToString();
+            }
+        }
 
         public FormItem()
         {
             InitializeComponent();
+            txtVolume.Tag = trbVolume;
+            txtSkipRate.Tag = trbSkipRate;
         }
 
         private void btnFileName_Click(object sender, EventArgs e)
@@ -60,25 +90,6 @@ namespace NeoMupl
                     txtSkipRate.Text = trbSkipRate.Value.ToString();
             }
             catch (Exception) { }
-        }
-
-
-        public void Init(MusicData musicData, IEnumerable<string> ports)
-        {
-            this.musicData = musicData;
-            txtVolume.Tag = trbVolume;
-            txtSkipRate.Tag = trbSkipRate;
-            txtFileName.Text = musicData.FileName;
-            txtTitle.Text = musicData.Title;
-            txtVolume.Text = musicData.Volume.ToString();
-            txtLoop1.Text = musicData.LoopStart.ToString();
-            txtLoop2.Text = musicData.LoopEnd.ToString();
-            txtSkipRate.Text = musicData.SkipRate.ToString();
-            cmbPlayMethod.SelectedIndex = (int)musicData.PlayMethod;
-            try { cmbMIDIPort.Text = ((DMOption)musicData.Option).port; }
-            catch (Exception) { cmbMIDIPort.Text = "default"; }
-            lblLastPlayed.Text = musicData.LastPlayedDateTime.ToString();
-            foreach (string port in ports) cmbMIDIPort.Items.Add(port);
         }
 
         private void cmbPlayMethod_SelectedIndexChanged(object sender, EventArgs e)

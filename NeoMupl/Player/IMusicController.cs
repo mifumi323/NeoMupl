@@ -35,7 +35,7 @@ namespace NeoMupl.Player
         {
             get;
         }
-        IEnumerable<string> GetDirectMusicPorts();
+        string[] GetDirectMusicPorts();
         void SetDirectMusicPort(string p);
     }
 }

@@ -603,8 +603,11 @@ namespace NeoMupl
             MusicData data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
             string oldFileName = data.FileName;
-            FormItem f = new FormItem();
-            f.Init(data, musicController.GetDirectMusicPorts());
+            FormItem f = new FormItem
+            {
+                MusicController = musicController,
+                MusicData = data,
+            };
             if (f.ShowDialog() == DialogResult.OK)
             {
                 musicList.Set(oldFileName, data);

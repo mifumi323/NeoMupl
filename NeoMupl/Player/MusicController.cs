@@ -102,7 +102,7 @@ namespace NeoMupl.Player
             get { return musicPlayer.GetVolume(); }
         }
 
-        public IEnumerable<string> GetDirectMusicPorts()
+        public string[] GetDirectMusicPorts()
         {
             if (musicPlayerDM == null) return new string[0];
             return musicPlayerDM.GetPorts();
