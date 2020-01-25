@@ -29,7 +29,10 @@ namespace NeoMupl.Player
             ((IMediaPosition)mediaControl).Rate = rate;
             if (typeof(IBasicVideo).IsInstanceOfType(mediaControl))
             {
+                // TODO: 必要なら実装しよう(#11)
+#pragma warning disable IDE0059 // 値の不必要な代入
                 IBasicVideo v = (IBasicVideo)mediaControl;
+#pragma warning restore IDE0059 // 値の不必要な代入
             }
             mediaControl.Run();
         }

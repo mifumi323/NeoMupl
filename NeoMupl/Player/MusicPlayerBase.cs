@@ -3,13 +3,7 @@
     /// <summary>音楽再生のための抽象クラス</summary>
     public abstract class MusicPlayerBase
     {
-        private MusicData myMusicData;
-        public MusicData MusicData
-        {
-            get { return myMusicData; }
-            set { myMusicData = value; }
-        }
-
+        public MusicData MusicData { get; set; }
 
         public abstract void Open();
         public abstract void Close();

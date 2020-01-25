@@ -44,14 +44,14 @@ namespace NeoMupl
             txtSkipRate.Tag = trbSkipRate;
         }
 
-        private void btnFileName_Click(object sender, EventArgs e)
+        private void BtnFileName_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = txtFileName.Text;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 txtFileName.Text = openFileDialog1.FileName;
         }
 
-        private void trbVolume_Scroll(object sender, EventArgs e)
+        private void TrbVolume_Scroll(object sender, EventArgs e)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-        private void txtWithTrackBar_TextChanged(object sender, EventArgs e)
+        private void TxtWithTrackBar_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-        private void trbSkipRate_Scroll(object sender, EventArgs e)
+        private void TrbSkipRate_Scroll(object sender, EventArgs e)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-        private void cmbPlayMethod_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbPlayMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch ((PlayMethod)cmbPlayMethod.SelectedIndex)
             {
@@ -115,52 +115,52 @@ namespace NeoMupl
             }
         }
 
-        private void btnPlayMethod_Click(object sender, EventArgs e)
+        private void BtnPlayMethod_Click(object sender, EventArgs e)
         {
             cmbPlayMethod.SelectedIndex = txtFileName.Text.EndsWith(".mid", true, null) ? 1 : 0;
         }
 
-        private void txtFileName_Enter(object sender, EventArgs e)
+        private void TxtFileName_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "ファイル名をフルパスで入力します。";
         }
 
-        private void txtTitle_Enter(object sender, EventArgs e)
+        private void TxtTitle_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "リストに表示されるタイトルを入力します。";
         }
 
-        private void btnTitle_Enter(object sender, EventArgs e)
+        private void BtnTitle_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "ファイルからタイトルを読み込んで自動設定します。";
         }
 
-        private void trbVolume_Enter(object sender, EventArgs e)
+        private void TrbVolume_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "音量を調節します。";
         }
 
-        private void txtLoop1_Enter(object sender, EventArgs e)
+        private void TxtLoop1_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "ループ位置を入力します。\r\n0であれば自動設定です。";
         }
 
-        private void trbSkipRate_Enter(object sender, EventArgs e)
+        private void TrbSkipRate_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "ランダム再生のとき選ばれにくくなる確率です。";
         }
 
-        private void cmbPlayMethod_Enter(object sender, EventArgs e)
+        private void CmbPlayMethod_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "再生方法を選びます。\r\nファイル形式によって向き・不向きがあります。";
         }
 
-        private void btnPlayMethod_Enter(object sender, EventArgs e)
+        private void BtnPlayMethod_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "再生方法を自動的に判断します。";
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             musicData.FileName = txtFileName.Text;
             musicData.Title = txtTitle.Text;
@@ -179,12 +179,12 @@ namespace NeoMupl
                 musicData.Option = new DMOption(cmbMIDIPort.Text);
         }
 
-        private void btnTitle_Click(object sender, EventArgs e)
+        private void BtnTitle_Click(object sender, EventArgs e)
         {
             txtTitle.Text = MusicData.CreateTitle(txtFileName.Text);
         }
 
-        private void cmbMIDIPort_Enter(object sender, EventArgs e)
+        private void CmbMIDIPort_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "MIDIの音源を選びます。\r\n特に指定しないと共通設定が使われます。";
         }

@@ -8,16 +8,6 @@ namespace NeoMupl
     {
         #region 変数
 
-        private string myFileName;
-        private string myTitle;
-        private double myVolume;
-        private double myLoopStart;
-        private double myLoopEnd;
-        private double mySkipRate;
-        private long myLastPlayedTicks;
-        private PlayMethod myPlayMethod;
-        private object myOption;
-
         private static MusicData defaultData = null;
 
         #endregion
@@ -25,75 +15,37 @@ namespace NeoMupl
         #region プロパティ
 
         /// <summary>再生するファイル名をフルパスで取得・設定します</summary>
-        public string FileName
-        {
-            get { return myFileName; }
-            set { myFileName = value; }
-        }
+        public string FileName { get; set; }
         public string Directory
         {
             get { return Path.GetDirectoryName(FileName); }
-            //set { myVar = value; }
         }
         public string FileTitle
         {
             get { return Path.GetFileNameWithoutExtension(FileName); }
-            //set { myVar = value; }
         }
-	
+
         /// <summary>画面上に表示するためのタイトルを取得・設定します</summary>
-        public string Title
-        {
-            get { return myTitle; }
-            set { myTitle = value; }
-        }
+        public string Title { get; set; }
         /// <summary>ボリュームを%単位で取得・設定します(50%が標準)</summary>
-        public double Volume
-        {
-            get { return myVolume; }
-            set { myVolume = value; }
-        }
+        public double Volume { get; set; }
         /// <summary>ループ開始位置を秒単位で取得・設定します</summary>
-        public double LoopStart
-        {
-            get { return myLoopStart; }
-            set { myLoopStart = value; }
-        }
+        public double LoopStart { get; set; }
         /// <summary>ループ終了位置を秒単位で取得・設定します</summary>
-        public double LoopEnd
-        {
-            get { return myLoopEnd; }
-            set { myLoopEnd = value; }
-        }
+        public double LoopEnd { get; set; }
         /// <summary>ランダム再生でスキップされる確率を%単位で取得・設定します</summary>
-        public double SkipRate
-        {
-            get { return mySkipRate; }
-            set { mySkipRate = value; }
-        }
+        public double SkipRate { get; set; }
         /// <summary>再生方法を取得・設定します</summary>
-        public PlayMethod PlayMethod
-        {
-            get { return myPlayMethod; }
-            set { myPlayMethod = value; }
-        }
-        public object Option
-        {
-            get { return myOption; }
-            set { myOption = value; }
-        }
-	
+        public PlayMethod PlayMethod { get; set; }
+        public object Option { get; set; }
+
         /// <summary>最後に再生された日時をTick単位で取得・設定します</summary>
-        public long LastPlayedTicks
-        {
-            get { return myLastPlayedTicks; }
-            set { myLastPlayedTicks = value; }
-        }
+        public long LastPlayedTicks { get; set; }
         /// <summary>最後に再生された日時をDateTimeで取得・設定します</summary>
         public DateTime LastPlayedDateTime
         {
-            get { return new DateTime(myLastPlayedTicks); }
-            set { myLastPlayedTicks = value.Ticks; }
+            get { return new DateTime(LastPlayedTicks); }
+            set { LastPlayedTicks = value.Ticks; }
         }
 
         static private string myPattern = "<fullpath>";
@@ -110,21 +62,21 @@ namespace NeoMupl
 
         public MusicData(string fileName)
         {
-            myTitle = CreateTitle(myFileName = fileName);
-            myVolume = 50;
-            myLoopStart = myLoopEnd = mySkipRate = 0;
-            myLastPlayedTicks = 0;
-            myPlayMethod = fileName.EndsWith(".mid", true, null) ? PlayMethod.DirectMusic : PlayMethod.DirectShow;
-            myOption = null;
+            Title = CreateTitle(FileName = fileName);
+            Volume = 50;
+            LoopStart = LoopEnd = SkipRate = 0;
+            LastPlayedTicks = 0;
+            PlayMethod = fileName.EndsWith(".mid", true, null) ? PlayMethod.DirectMusic : PlayMethod.DirectShow;
+            Option = null;
         }
 
         #endregion
 
         #region メソッド
 
-        public void TimeStamp() { myLastPlayedTicks = DateTime.Now.Ticks; }
+        public void TimeStamp() { LastPlayedTicks = DateTime.Now.Ticks; }
 
-        public override string ToString() { return myTitle; }
+        public override string ToString() { return Title; }
 
         static public string CreateTitle(string fileName)
         {
@@ -163,22 +115,22 @@ namespace NeoMupl
                 ;
         }
 
-        public void Dump(System.IO.StreamWriter sw, MusicData data, bool full)
+        public void Dump(StreamWriter sw, MusicData data, bool full)
         {
             if (!full && defaultData == null) defaultData = new MusicData("");
-            sw.WriteLine("File\t" + data.FileName);
-            sw.WriteLine("Title\t" + data.Title);   // ←デフォルトを設定で変更可能
-            if (full || data.Volume != defaultData.Volume) sw.WriteLine("Volume\t" + data.Volume.ToString());
-            if (full || data.LoopStart > 0 || data.LoopEnd > 0) sw.WriteLine("Loop\t" + data.LoopStart.ToString() + "\t" + data.LoopEnd.ToString());
-            if (full || data.SkipRate != defaultData.SkipRate) sw.WriteLine("SkipRate\t" + data.SkipRate.ToString());
-            sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // ←デフォルトがMIDIとそれ以外で異なる
+            sw.WriteLine($"File\t{data.FileName}");
+            sw.WriteLine($"Title\t{data.Title}");   // ←デフォルトを設定で変更可能
+            if (full || data.Volume != defaultData.Volume) sw.WriteLine($"Volume\t{data.Volume.ToString()}");
+            if (full || data.LoopStart > 0 || data.LoopEnd > 0) sw.WriteLine($"Loop\t{data.LoopStart.ToString()}\t{data.LoopEnd.ToString()}");
+            if (full || data.SkipRate != defaultData.SkipRate) sw.WriteLine($"SkipRate\t{data.SkipRate.ToString()}");
+            sw.WriteLine($"PlayMethod\t{((int)data.PlayMethod).ToString()}");   // ←デフォルトがMIDIとそれ以外で異なる
             try
             {
                 DMOption dm = (DMOption)data.Option;
-                if (dm.port != "") sw.WriteLine("MIDIPort\t" + dm.port);
+                if (dm.port != "") sw.WriteLine($"MIDIPort\t{dm.port}");
             }
             catch (Exception) { }
-            if (full || data.LastPlayedTicks != defaultData.LastPlayedTicks) sw.WriteLine("LastPlayed\t" + data.LastPlayedTicks.ToString());
+            if (full || data.LastPlayedTicks != defaultData.LastPlayedTicks) sw.WriteLine($"LastPlayed\t{data.LastPlayedTicks.ToString()}");
         }
         
         #endregion

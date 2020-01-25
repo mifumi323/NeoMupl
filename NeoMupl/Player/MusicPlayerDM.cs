@@ -22,7 +22,7 @@ namespace NeoMupl.Player
     {
         #region 変数
 
-        private DirectMusic music = new DirectMusic();
+        private readonly DirectMusic music = new DirectMusic();
         private DirectMusicSegment segment = null;
 
         #endregion

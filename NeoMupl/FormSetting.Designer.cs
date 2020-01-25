@@ -85,7 +85,7 @@
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -152,7 +152,7 @@
             this.txtTimeWeight.Name = "txtTimeWeight";
             this.txtTimeWeight.Size = new System.Drawing.Size(50, 19);
             this.txtTimeWeight.TabIndex = 21;
-            this.txtTimeWeight.TextChanged += new System.EventHandler(this.txtWithTrackBar_TextChanged);
+            this.txtTimeWeight.TextChanged += new System.EventHandler(this.TxtWithTrackBar_TextChanged);
             // 
             // trbMinPlayTime
             // 
@@ -167,7 +167,7 @@
             this.trbMinPlayTime.TabIndex = 17;
             this.trbMinPlayTime.TickFrequency = 10;
             this.trbMinPlayTime.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trbMinPlayTime.Scroll += new System.EventHandler(this.trbMinPlayTime_Scroll);
+            this.trbMinPlayTime.Scroll += new System.EventHandler(this.TrbMinPlayTime_Scroll);
             // 
             // trbTimeWeight
             // 
@@ -182,7 +182,7 @@
             this.trbTimeWeight.TabIndex = 20;
             this.trbTimeWeight.TickFrequency = 10;
             this.trbTimeWeight.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trbTimeWeight.Scroll += new System.EventHandler(this.trbTimeWeight_Scroll);
+            this.trbTimeWeight.Scroll += new System.EventHandler(this.TrbTimeWeight_Scroll);
             // 
             // txtMinPlayTime
             // 
@@ -192,7 +192,7 @@
             this.txtMinPlayTime.Name = "txtMinPlayTime";
             this.txtMinPlayTime.Size = new System.Drawing.Size(50, 19);
             this.txtMinPlayTime.TabIndex = 18;
-            this.txtMinPlayTime.TextChanged += new System.EventHandler(this.txtWithTrackBar_TextChanged);
+            this.txtMinPlayTime.TextChanged += new System.EventHandler(this.TxtWithTrackBar_TextChanged);
             // 
             // lblMinPlayTime
             // 
@@ -249,7 +249,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(159, 124);
             this.listBox1.TabIndex = 0;
-            this.listBox1.DoubleClick += new System.EventHandler(this.lstTitleTemplate_DoubleClick);
+            this.listBox1.DoubleClick += new System.EventHandler(this.LstTitleTemplate_DoubleClick);
             // 
             // listBox2
             // 
@@ -271,7 +271,7 @@
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(159, 124);
             this.listBox2.TabIndex = 0;
-            this.listBox2.DoubleClick += new System.EventHandler(this.lstTitleTemplate_DoubleClick);
+            this.listBox2.DoubleClick += new System.EventHandler(this.LstTitleTemplate_DoubleClick);
             // 
             // listBox3
             // 
@@ -293,7 +293,7 @@
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(161, 124);
             this.listBox3.TabIndex = 0;
-            this.listBox3.DoubleClick += new System.EventHandler(this.lstTitleTemplate_DoubleClick);
+            this.listBox3.DoubleClick += new System.EventHandler(this.LstTitleTemplate_DoubleClick);
             // 
             // txtTitlePattern
             // 
@@ -337,7 +337,7 @@
             this.btnDown.TabIndex = 3;
             this.btnDown.Text = "↓";
             this.btnDown.UseVisualStyleBackColor = true;
-            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
+            this.btnDown.Click += new System.EventHandler(this.BtnDown_Click);
             // 
             // btnUp
             // 
@@ -348,7 +348,7 @@
             this.btnUp.TabIndex = 2;
             this.btnUp.Text = "↑";
             this.btnUp.UseVisualStyleBackColor = true;
-            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
+            this.btnUp.Click += new System.EventHandler(this.BtnUp_Click);
             // 
             // clbStatusItem
             // 
@@ -396,7 +396,7 @@
             this.btnRefLogFile.TabIndex = 2;
             this.btnRefLogFile.Text = "参照";
             this.btnRefLogFile.UseVisualStyleBackColor = true;
-            this.btnRefLogFile.Click += new System.EventHandler(this.btnRefLogFile_Click);
+            this.btnRefLogFile.Click += new System.EventHandler(this.BtnRefLogFile_Click);
             // 
             // txtLogFile
             // 
@@ -495,7 +495,7 @@
             this.btnWindowTitlePattern.TabIndex = 25;
             this.btnWindowTitlePattern.Text = "←";
             this.btnWindowTitlePattern.UseVisualStyleBackColor = true;
-            this.btnWindowTitlePattern.Click += new System.EventHandler(this.btnWindowTitlePattern_Click);
+            this.btnWindowTitlePattern.Click += new System.EventHandler(this.BtnWindowTitlePattern_Click);
             // 
             // cmbWindowTitlePattern
             // 
@@ -512,8 +512,8 @@
             this.cmbWindowTitlePattern.Name = "cmbWindowTitlePattern";
             this.cmbWindowTitlePattern.Size = new System.Drawing.Size(185, 20);
             this.cmbWindowTitlePattern.TabIndex = 26;
-            this.cmbWindowTitlePattern.Leave += new System.EventHandler(this.cmbWindowTitlePattern_Leave);
-            this.cmbWindowTitlePattern.Enter += new System.EventHandler(this.cmbWindowTitlePattern_Enter);
+            this.cmbWindowTitlePattern.Leave += new System.EventHandler(this.CmbWindowTitlePattern_Leave);
+            this.cmbWindowTitlePattern.Enter += new System.EventHandler(this.CmbWindowTitlePattern_Enter);
             // 
             // FormSetting
             // 

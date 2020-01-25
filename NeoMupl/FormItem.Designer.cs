@@ -75,7 +75,7 @@
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "&OK";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -183,7 +183,7 @@
             this.cmbMIDIPort.Name = "cmbMIDIPort";
             this.cmbMIDIPort.Size = new System.Drawing.Size(415, 20);
             this.cmbMIDIPort.TabIndex = 2;
-            this.cmbMIDIPort.Enter += new System.EventHandler(this.cmbMIDIPort_Enter);
+            this.cmbMIDIPort.Enter += new System.EventHandler(this.CmbMIDIPort_Enter);
             // 
             // btnPlayMethod
             // 
@@ -195,8 +195,8 @@
             this.btnPlayMethod.TabIndex = 19;
             this.btnPlayMethod.Text = "自動";
             this.btnPlayMethod.UseVisualStyleBackColor = true;
-            this.btnPlayMethod.Click += new System.EventHandler(this.btnPlayMethod_Click);
-            this.btnPlayMethod.Enter += new System.EventHandler(this.btnPlayMethod_Enter);
+            this.btnPlayMethod.Click += new System.EventHandler(this.BtnPlayMethod_Click);
+            this.btnPlayMethod.Enter += new System.EventHandler(this.BtnPlayMethod_Enter);
             // 
             // lblPlayMethod
             // 
@@ -217,8 +217,8 @@
             this.txtSkipRate.Name = "txtSkipRate";
             this.txtSkipRate.Size = new System.Drawing.Size(51, 19);
             this.txtSkipRate.TabIndex = 16;
-            this.txtSkipRate.TextChanged += new System.EventHandler(this.txtWithTrackBar_TextChanged);
-            this.txtSkipRate.Enter += new System.EventHandler(this.trbSkipRate_Enter);
+            this.txtSkipRate.TextChanged += new System.EventHandler(this.TxtWithTrackBar_TextChanged);
+            this.txtSkipRate.Enter += new System.EventHandler(this.TrbSkipRate_Enter);
             // 
             // trbSkipRate
             // 
@@ -232,8 +232,8 @@
             this.trbSkipRate.TabIndex = 15;
             this.trbSkipRate.TickFrequency = 10;
             this.trbSkipRate.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trbSkipRate.Scroll += new System.EventHandler(this.trbSkipRate_Scroll);
-            this.trbSkipRate.Enter += new System.EventHandler(this.trbSkipRate_Enter);
+            this.trbSkipRate.Scroll += new System.EventHandler(this.TrbSkipRate_Scroll);
+            this.trbSkipRate.Enter += new System.EventHandler(this.TrbSkipRate_Enter);
             // 
             // lblSkipRate
             // 
@@ -265,7 +265,7 @@
             this.txtLoop2.Name = "txtLoop2";
             this.txtLoop2.Size = new System.Drawing.Size(199, 19);
             this.txtLoop2.TabIndex = 12;
-            this.txtLoop2.Enter += new System.EventHandler(this.txtLoop1_Enter);
+            this.txtLoop2.Enter += new System.EventHandler(this.TxtLoop1_Enter);
             // 
             // lblLoopTo
             // 
@@ -286,7 +286,7 @@
             this.txtLoop1.Name = "txtLoop1";
             this.txtLoop1.Size = new System.Drawing.Size(199, 19);
             this.txtLoop1.TabIndex = 10;
-            this.txtLoop1.Enter += new System.EventHandler(this.txtLoop1_Enter);
+            this.txtLoop1.Enter += new System.EventHandler(this.TxtLoop1_Enter);
             // 
             // lblLoop
             // 
@@ -309,8 +309,8 @@
             this.btnTitle.TabIndex = 5;
             this.btnTitle.Text = "読込";
             this.btnTitle.UseVisualStyleBackColor = true;
-            this.btnTitle.Click += new System.EventHandler(this.btnTitle_Click);
-            this.btnTitle.Enter += new System.EventHandler(this.btnTitle_Enter);
+            this.btnTitle.Click += new System.EventHandler(this.BtnTitle_Click);
+            this.btnTitle.Enter += new System.EventHandler(this.BtnTitle_Enter);
             // 
             // txtTitle
             // 
@@ -321,7 +321,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(415, 19);
             this.txtTitle.TabIndex = 4;
-            this.txtTitle.Enter += new System.EventHandler(this.txtTitle_Enter);
+            this.txtTitle.Enter += new System.EventHandler(this.TxtTitle_Enter);
             // 
             // lblTitle
             // 
@@ -354,7 +354,7 @@
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(415, 19);
             this.txtFileName.TabIndex = 1;
-            this.txtFileName.Enter += new System.EventHandler(this.txtFileName_Enter);
+            this.txtFileName.Enter += new System.EventHandler(this.TxtFileName_Enter);
             // 
             // btnFileName
             // 
@@ -366,7 +366,7 @@
             this.btnFileName.TabIndex = 2;
             this.btnFileName.Text = "参照";
             this.btnFileName.UseVisualStyleBackColor = true;
-            this.btnFileName.Click += new System.EventHandler(this.btnFileName_Click);
+            this.btnFileName.Click += new System.EventHandler(this.BtnFileName_Click);
             // 
             // lblVolume
             // 
@@ -392,8 +392,8 @@
             this.trbVolume.TabIndex = 7;
             this.trbVolume.TickFrequency = 10;
             this.trbVolume.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trbVolume.Scroll += new System.EventHandler(this.trbVolume_Scroll);
-            this.trbVolume.Enter += new System.EventHandler(this.trbVolume_Enter);
+            this.trbVolume.Scroll += new System.EventHandler(this.TrbVolume_Scroll);
+            this.trbVolume.Enter += new System.EventHandler(this.TrbVolume_Enter);
             // 
             // txtVolume
             // 
@@ -403,8 +403,8 @@
             this.txtVolume.Name = "txtVolume";
             this.txtVolume.Size = new System.Drawing.Size(51, 19);
             this.txtVolume.TabIndex = 8;
-            this.txtVolume.TextChanged += new System.EventHandler(this.txtWithTrackBar_TextChanged);
-            this.txtVolume.Enter += new System.EventHandler(this.trbVolume_Enter);
+            this.txtVolume.TextChanged += new System.EventHandler(this.TxtWithTrackBar_TextChanged);
+            this.txtVolume.Enter += new System.EventHandler(this.TrbVolume_Enter);
             // 
             // cmbPlayMethod
             // 
@@ -422,8 +422,8 @@
             this.cmbPlayMethod.Name = "cmbPlayMethod";
             this.cmbPlayMethod.Size = new System.Drawing.Size(415, 20);
             this.cmbPlayMethod.TabIndex = 18;
-            this.cmbPlayMethod.SelectedIndexChanged += new System.EventHandler(this.cmbPlayMethod_SelectedIndexChanged);
-            this.cmbPlayMethod.Enter += new System.EventHandler(this.cmbPlayMethod_Enter);
+            this.cmbPlayMethod.SelectedIndexChanged += new System.EventHandler(this.CmbPlayMethod_SelectedIndexChanged);
+            this.cmbPlayMethod.Enter += new System.EventHandler(this.CmbPlayMethod_Enter);
             // 
             // lblLastPlayed
             // 

@@ -197,12 +197,12 @@ namespace NeoMupl
                 item.Text = "0:00/0:00";
                 return;
             }
-            item.Text = ToString((int)player.Position) + "/" + ToString((int)player.Length);
+            item.Text = $"{ToString((int)player.Position)}/{ToString((int)player.Length)}";
         }
 
         private string ToString(int seconds)
         {
-            return string.Format("{0:D}:{1:D2}", seconds / 60, seconds % 60);
+            return $"{seconds / 60:D}:{seconds % 60:D2}";
         }
 
         public override string ToString()
@@ -232,12 +232,12 @@ namespace NeoMupl
                 item.Text = "0:00";
                 return;
             }
-            item.Text = "位置：" + ToString((int)player.Position);
+            item.Text = $"位置：{ToString((int)player.Position)}";
         }
 
         private string ToString(int seconds)
         {
-            return string.Format("{0:D}:{1:D2}", seconds / 60, seconds % 60);
+            return $"{seconds / 60:D}:{seconds % 60:D2}";
         }
 
         public override string ToString()
@@ -267,12 +267,12 @@ namespace NeoMupl
                 item.Text = "長さ：0:00";
                 return;
             }
-            item.Text = "長さ：" + ToString((int)player.Length);
+            item.Text = $"長さ：{ToString((int)player.Length)}";
         }
 
         private string ToString(int seconds)
         {
-            return string.Format("{0:D}:{1:D2}", seconds / 60, seconds % 60);
+            return $"{seconds / 60:D}:{seconds % 60:D2}";
         }
 
         public override string ToString()
@@ -332,7 +332,7 @@ namespace NeoMupl
                 item.Text = "スキップ率：-";
                 return;
             }
-            item.Text = string.Format("スキップ率：{0}%", player.Data.SkipRate);
+            item.Text = $"スキップ率：{player.Data.SkipRate}%";
         }
 
         public override string ToString()
@@ -362,7 +362,7 @@ namespace NeoMupl
                 item.Text = "Vol：-";
                 return;
             }
-            item.Text = string.Format("Vol：{0}%", player.Data.Volume);
+            item.Text = $"Vol：{player.Data.Volume}%";
         }
 
         public override string ToString()
