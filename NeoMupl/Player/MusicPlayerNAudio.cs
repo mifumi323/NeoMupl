@@ -56,11 +56,13 @@ namespace NeoMupl.Player
                 }
                 else
                 {
+                    var loopStart = MusicData.LoopStart;
+                    var loopEnd = (MusicData.LoopEnd <= loopStart || MusicData.LoopEnd >= length) ? length : MusicData.LoopEnd;
                     var position = Position();
-                    var overrun = position - MusicData.LoopEnd;
+                    var overrun = position - loopEnd;
                     if (overrun >= 0)
                     {
-                        ((WaveStream)audioFileReader).CurrentTime = TimeSpan.FromSeconds(MusicData.LoopStart + overrun);
+                        ((WaveStream)audioFileReader).CurrentTime = TimeSpan.FromSeconds(loopStart + (overrun % (loopEnd - loopStart)));
                     }
                 }
             }

@@ -98,7 +98,7 @@ namespace NeoMupl
                     cmbMIDIPort.Enabled = false;
                     break;
                 case PlayMethod.NAudio:
-                    lblLoopUnit.Text = "";
+                    lblLoopUnit.Text = "秒";
                     cmbMIDIPort.Enabled = false;
                     break;
             }
