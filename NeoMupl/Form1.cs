@@ -734,25 +734,17 @@ namespace NeoMupl
 
         private string GetStatusText(Status status)
         {
-            switch (status)
+            return status switch
             {
-                case Status.Stopped:
-                    return "再生停止";
-                case Status.Reading:
-                    return "読み込み中";
-                case Status.Preparing:
-                    return "再生準備中";
-                case Status.Playing:
-                    return "再生中";
-                case Status.LoopPlaying:
-                    return "ループ再生中";
-                case Status.ReadError:
-                    return "読み込み失敗";
-                case Status.PlayError:
-                    return "再生失敗";
-                default:
-                    return "";
-            }
+                Status.Stopped => "再生停止",
+                Status.Reading => "読み込み中",
+                Status.Preparing => "再生準備中",
+                Status.Playing => "再生中",
+                Status.LoopPlaying => "ループ再生中",
+                Status.ReadError => "読み込み失敗",
+                Status.PlayError => "再生失敗",
+                _ => "",
+            };
         }
 
         private void RebootToolStripMenuItem_Click(object sender, EventArgs e)
