@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -43,7 +44,7 @@ namespace NeoMupl.Player
     {
         [DllImport("winmm.dll")]
 #pragma warning disable IDE1006 // 命名スタイル
-        static extern Int32 mciSendString(String command, StringBuilder buffer, Int32 bufferSize, IntPtr hwndCallback);
+        static extern Int32 mciSendString(String command, StringBuilder? buffer, Int32 bufferSize, IntPtr hwndCallback);
 #pragma warning restore IDE1006 // 命名スタイル
 
         public override void Open()

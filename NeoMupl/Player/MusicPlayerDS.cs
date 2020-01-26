@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using QuartzTypeLib;
 
 namespace NeoMupl.Player
@@ -8,7 +9,7 @@ namespace NeoMupl.Player
     {
         #region 変数
 
-        private IMediaControl mediaControl;
+        private IMediaControl? mediaControl;
         private double realLoopStart, realLoopEnd;
         private double rate = 1.0;
 
@@ -23,6 +24,7 @@ namespace NeoMupl.Player
 
         public override void Play(bool bLoop)
         {
+            if (mediaControl == null) return;
             ((IBasicAudio)mediaControl).Volume = (int)(MusicData.Volume > 0 ? 2000 * Math.Log10(MusicData.Volume / 100) : -10000);
             realLoopStart = MusicData.LoopStart;
             realLoopEnd = MusicData.LoopEnd > 0 ? MusicData.LoopEnd : ((IMediaPosition)mediaControl).Duration;
@@ -36,11 +38,12 @@ namespace NeoMupl.Player
             }
             mediaControl.Run();
         }
-        public override void Stop() { mediaControl.Stop(); }
+        public override void Stop() { mediaControl?.Stop(); }
         public override void Loop()
         {
             try
             {
+                if (mediaControl == null) return;
                 double overrun = ((IMediaPosition)mediaControl).CurrentPosition - realLoopEnd;
                 if (overrun >= 0) ((IMediaPosition)mediaControl).CurrentPosition = realLoopStart + overrun;
             }
@@ -53,8 +56,8 @@ namespace NeoMupl.Player
             catch (Exception) { return false; }
         }
         public override double Length()
-        { return ((IMediaPosition)mediaControl).Duration * ((IMediaPosition)mediaControl).Rate; }
-        public override double Position() { return ((IMediaPosition)mediaControl).CurrentPosition; }
+        { return mediaControl is IMediaPosition mp ? mp.Duration * mp.Rate : 0.0; }
+        public override double Position() { return (mediaControl as IMediaPosition)?.CurrentPosition ?? 0.0; }
 
         public override void SetTempo(double tempo)
         {
@@ -63,7 +66,7 @@ namespace NeoMupl.Player
         }
 
         public override double GetVolume()
-        { return Math.Pow(10, ((IBasicAudio)mediaControl).Volume / 2000.0) * 100; }
+        { return mediaControl is IBasicAudio ba ? Math.Pow(10, ba.Volume / 2000.0) * 100 : 0.0; }
 
         public override void Dispose() { Close(); }
     }

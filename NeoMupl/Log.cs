@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Windows.Forms;
 using System.IO;
 
@@ -15,8 +16,8 @@ namespace NeoMupl
             FatalError,
         }
 
-        public static Setting setting = null;
-        public static IWin32Window owner = null;
+        public static Setting? setting = null;
+        public static IWin32Window? owner = null;
 
         public static void Write(LogType logtype, string message)
         {

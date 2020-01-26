@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 
 namespace NeoMupl.Player
@@ -6,13 +7,13 @@ namespace NeoMupl.Player
     {
         private readonly MusicPlayerBase[] musicPlayers;
         private MusicPlayerBase musicPlayer = new MusicPlayerNull();
-        public MusicPlayerDS MusicPlayerDS { get; }
-        public MusicPlayerDM MusicPlayerDM { get; }
-        public MusicPlayerMCI MusicPlayerMCI { get; }
-        public MusicPlayerNAudio MusicPlayerNAudio { get; }
+        public MusicPlayerDS? MusicPlayerDS { get; }
+        public MusicPlayerDM? MusicPlayerDM { get; }
+        public MusicPlayerMCI? MusicPlayerMCI { get; }
+        public MusicPlayerNAudio? MusicPlayerNAudio { get; }
 
-        private MusicData myData = null;
-        public MusicData Data
+        private MusicData? myData = null;
+        public MusicData? Data
         {
             get => myData;
             set
@@ -22,9 +23,13 @@ namespace NeoMupl.Player
                     musicPlayer.Stop();
                     musicPlayer.Close();
                 }
-                (musicPlayer = ((myData = value) != null) ? musicPlayers[(int)value.PlayMethod] : new MusicPlayerNull())
-                    .MusicData = myData;
-                musicPlayer.Open();
+                myData = value;
+                musicPlayer = (value != null) ? musicPlayers[(int)value.PlayMethod] : new MusicPlayerNull();
+                if (value != null)
+                {
+                    musicPlayer.MusicData = value;
+                    musicPlayer.Open();
+                }
             }
         }
 
@@ -72,7 +77,7 @@ namespace NeoMupl.Player
         public bool IsPlaying => musicPlayer.IsPlaying();
         public double Length => musicPlayer.Length();
         public double Position => musicPlayer.Position();
-        public void Play(bool bLoop) { musicPlayer.Play(Loop = bLoop); myData.TimeStamp(); }
+        public void Play(bool bLoop) { if (myData != null) { musicPlayer.Play(Loop = bLoop); myData.TimeStamp(); } }
         public void Stop() { foreach (MusicPlayerBase mp in musicPlayers) mp.Stop(); }
         public void LoopMethod() { musicPlayer.Loop(); }
         public void Dispose()
@@ -104,7 +109,7 @@ namespace NeoMupl.Player
 
         public void SetDirectMusicPort(string p)
         {
-            MusicPlayerDM.SetPort(p);
+            MusicPlayerDM?.SetPort(p);
         }
     }
 }

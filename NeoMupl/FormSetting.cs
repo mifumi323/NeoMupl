@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Windows.Forms;
 using System.Reflection;
@@ -33,9 +34,11 @@ namespace NeoMupl
             list.Items.Add(prop, value);
         }
 
-        public FormSetting()
+        public FormSetting(Setting setting)
         {
             InitializeComponent();
+
+            this.setting = setting;
         }
 
         private void FormSetting_Load(object sender, EventArgs e)

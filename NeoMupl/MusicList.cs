@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,13 +55,7 @@ namespace NeoMupl
 
         public void SetPort(MusicData data, string port)
         {
-            DMOption dm = null;
-            try
-            {
-                dm = (DMOption)data.Option;
-            }
-            catch (InvalidCastException) { }
-            if (dm == null) data.Option = dm = new DMOption();
+            if (!(data.Option is DMOption dm)) data.Option = dm = new DMOption();
             dm.port = port;
         }
 
@@ -69,15 +64,10 @@ namespace NeoMupl
         public void SetReset(MusicData data, bool reset)
 #pragma warning restore IDE0060 // 未使用のパラメーターを削除します
         {
-            DMOption dm = null;
-            try
-            {
-                dm = (DMOption)data.Option;
-            }
-            catch (InvalidCastException) { }
 #pragma warning disable IDE0059 // 値の不必要な代入
-            if (dm == null) data.Option = dm = new DMOption();
+            if (!(data.Option is DMOption dm)) data.Option = dm = new DMOption();
 #pragma warning restore IDE0059 // 値の不必要な代入
+            // TODO: そしてここでリセットをかけたい
         }
 
         public void Load(string listFile)
@@ -87,7 +77,7 @@ namespace NeoMupl
                 using StreamReader sr = new StreamReader(listFile);
                 string line = sr.ReadLine().Trim();
                 string[] elem;
-                MusicData data = null;
+                MusicData? data = null;
                 if (line == "NeoMupl015")
                 {
                     // C#版データじゃー！
@@ -96,9 +86,17 @@ namespace NeoMupl
                     {
                         elem = line.Trim().Split('\t');
                         if (elem.Length == 0) continue;
+                        if (elem[0] == "File")
+                        {
+                            Add(data = new MusicData(elem[1]));
+                            continue;
+                        }
+                        if (data == null)
+                        {
+                            continue;
+                        }
                         switch (elem[0])
                         {
-                            case "File": Add(data = new MusicData(elem[1])); break;
                             case "Title": data.Title = elem[1]; break;
                             case "Volume": data.Volume = double.Parse(elem[1]); break;
                             case "Loop": data.LoopStart = double.Parse(elem[1]); data.LoopEnd = double.Parse(elem[2]); break;
@@ -132,8 +130,7 @@ namespace NeoMupl
                 sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // ←デフォルトがMIDIとそれ以外で異なる
                 try
                 {
-                    DMOption dm = (DMOption)data.Option;
-                    if (dm != null && dm.port != "") sw.WriteLine("MIDIPort\t" + dm.port);
+                    if (data.Option is DMOption dm && dm.port != "") sw.WriteLine("MIDIPort\t" + dm.port);
                 }
                 catch (Exception) { }
                 if (data.LastPlayedTicks != def.LastPlayedTicks) sw.WriteLine("LastPlayed\t" + data.LastPlayedTicks.ToString());
@@ -147,7 +144,7 @@ namespace NeoMupl
                 using StreamReader sr = new StreamReader(fileName, Encoding.GetEncoding("shift_jis"));
                 string line = sr.ReadLine().Trim();
                 string[] elem;
-                MusicData data = null;
+                MusicData? data = null;
                 if (line != null && line.StartsWith("Count="))
                 {
                     // VB版データじゃー！
@@ -159,6 +156,7 @@ namespace NeoMupl
                         elem = line.Trim().Split('=');
                         if (elem.Length == 0) continue;
                         if (elem[0].StartsWith("FileName")) data = buf[offset++] = new MusicData(elem[1]);
+                        if (data == null) continue;
                         else if (elem[0].StartsWith("Title")) data.Title = elem[1];
                         else if (elem[0].StartsWith("Volume")) data.Volume = double.Parse(elem[1]);
                         else if (elem[0].StartsWith("LoopStart")) data.LoopStart = double.Parse(elem[1]);

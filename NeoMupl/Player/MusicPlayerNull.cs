@@ -1,4 +1,6 @@
-﻿namespace NeoMupl.Player
+﻿#nullable enable
+
+namespace NeoMupl.Player
 {
     /// <summary>何もしないクラス</summary>
     public class MusicPlayerNull : MusicPlayerBase

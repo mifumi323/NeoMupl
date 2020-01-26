@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Windows.Forms;
 
 namespace NeoMupl
@@ -11,15 +12,13 @@ namespace NeoMupl
             public int Setting;
             public int Program;
         }
-        Result result;
 
-        public FormFatalError()
+        readonly Result result;
+
+        public FormFatalError(Exception e, Result r)
         {
             InitializeComponent();
-        }
 
-        public void SetException(Exception e, Result r)
-        {
             txtMessage.Text =
                 "ご迷惑をかけて申し訳ございません。\r\n" +
                 "エラーに対する適切な対応のなされていない処理の実行中にエラーが発生しました。\r\n" +

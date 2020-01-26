@@ -1,9 +1,11 @@
-﻿namespace NeoMupl.Player
+﻿#nullable enable
+
+namespace NeoMupl.Player
 {
     /// <summary>音楽再生統括クラス</summary>
     public interface IMusicController
     {
-        MusicData Data { get; set; }
+        MusicData? Data { get; set; }
         bool Loop { get; }
         bool IsPlaying { get; }
         double Length { get; }

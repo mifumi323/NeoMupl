@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -16,16 +17,15 @@ namespace NeoMupl
         protected abstract ToolStripItem CreateItem();
         public abstract void Update(IMusicController player);
 
-        private static Dictionary<string, StatusItem> items = null;
+        private static readonly Dictionary<string, StatusItem> items;
 
         private static void AddItemInfo(StatusItem item)
         {
             items.Add(item.ToString(), item);
         }
 
-        private static void InitItemInfo()
+        static StatusItem()
         {
-            if (items != null) return;
             items = new Dictionary<string, StatusItem>();
             AddItemInfo(new StatusItemFullPathName());
             AddItemInfo(new StatusItemFileName());
@@ -41,13 +41,11 @@ namespace NeoMupl
 
         public static StatusItem Parse(string text)
         {
-            InitItemInfo();
             return items[text];
         }
 
         public static string[] GetNames()
         {
-            InitItemInfo();
             string[] ret = new string[items.Count];
             items.Keys.CopyTo(ret, 0);
             return ret;
@@ -56,7 +54,7 @@ namespace NeoMupl
 
     public class StatusItemFullPathName : StatusItem
     {
-        private ToolStripStatusLabel item;
+        private ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -86,7 +84,7 @@ namespace NeoMupl
 
     public class StatusItemFileName : StatusItem
     {
-        private ToolStripStatusLabel item;
+        private ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -116,7 +114,7 @@ namespace NeoMupl
 
     public class StatusItemDirectory : StatusItem
     {
-        private ToolStripStatusLabel item;
+        private ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -146,7 +144,7 @@ namespace NeoMupl
 
     public class StatusItemPlayGauge : StatusItem
     {
-        ToolStripProgressBar item;
+        ToolStripProgressBar? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -178,7 +176,7 @@ namespace NeoMupl
 
     public class StatusItemPlayTime : StatusItem
     {
-        ToolStripStatusLabel item;
+        ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -213,7 +211,7 @@ namespace NeoMupl
 
     public class StatusItemPlayPosition : StatusItem
     {
-        ToolStripStatusLabel item;
+        ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -248,7 +246,7 @@ namespace NeoMupl
 
     public class StatusItemPlayLength : StatusItem
     {
-        ToolStripStatusLabel item;
+        ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -283,7 +281,7 @@ namespace NeoMupl
 
     public class StatusItemTitle : StatusItem
     {
-        private ToolStripStatusLabel item;
+        private ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -313,7 +311,7 @@ namespace NeoMupl
 
     public class StatusItemSkipRate : StatusItem
     {
-        ToolStripStatusLabel item;
+        ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {
@@ -343,7 +341,7 @@ namespace NeoMupl
 
     public class StatusItemVolume : StatusItem
     {
-        ToolStripStatusLabel item;
+        ToolStripStatusLabel? item;
 
         protected override ToolStripItem CreateItem()
         {

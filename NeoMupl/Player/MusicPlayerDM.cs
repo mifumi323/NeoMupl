@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using MifuminLib.DM7Lib;
 
 namespace NeoMupl.Player
@@ -23,7 +24,7 @@ namespace NeoMupl.Player
         #region 変数
 
         private readonly DirectMusic music = new DirectMusic();
-        private DirectMusicSegment segment = null;
+        private DirectMusicSegment? segment = null;
 
         #endregion
 
@@ -48,15 +49,18 @@ namespace NeoMupl.Player
             {
                 try
                 {
-                    music.SelectPort(((DMOption)MusicData.Option).port);
+                    if (MusicData.Option is DMOption dmo)
+                    {
+                        music.SelectPort(dmo.port);
+                    }
+                    else
+                    {
+                        SelectDefaultPort();
+                    }
                 }
                 catch (Exception)
                 {
-                    try { music.SelectPort(DMOption.portdefault); }
-                    catch (Exception)
-                    {
-                        music.SelectDefaultPort();
-                    }
+                    SelectDefaultPort();
                 }
                 music.Reset(Reset.GM);
                 music.SetMasterVolume((int)(MusicData.Volume > 0 ? 2000 * Math.Log10(MusicData.Volume / 100) : -10000));
@@ -64,6 +68,16 @@ namespace NeoMupl.Player
                 music.Play(segment, SegmentFlags.AfterPrepareTime, 0);
             }
         }
+
+        private void SelectDefaultPort()
+        {
+            try { music.SelectPort(DMOption.portdefault); }
+            catch (Exception)
+            {
+                music.SelectDefaultPort();
+            }
+        }
+
         public override void Stop()
         {
             // セグメントを指定するとメッセージ配信は止まっても音自体は消えない

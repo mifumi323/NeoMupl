@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -12,7 +13,7 @@ namespace NeoMupl
     public partial class Form1 : Form
     {
         MusicList musicList;
-        IMusicController musicController;
+        readonly IMusicController musicController;
         Comparison<MusicData> comparison;
         enum DirtyLevel
         {
@@ -27,8 +28,8 @@ namespace NeoMupl
         delegate void PlayMethod();
         PlayMethod playMethod;
         DateTime lastPlayed = DateTime.Now;
+        readonly Setting setting;
 
-        Setting setting;
         readonly Random random = new Random();
 
         bool terminated = false;
@@ -44,20 +45,27 @@ namespace NeoMupl
             PlayError,
         }
         Status statusValue;
-        MusicData statusData;
+        MusicData? statusData = null;
 
         #region 初期化処理
         
         public Form1()
         {
             InitializeComponent();
+
+            // 起動後即座に初期化処理でnewされるけど初期化処理前に使用されるケースが残っているためここでインスタンスを作っておく
+            musicList = new MusicList();
+
+            // 初期化処理
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            Log.setting = setting = new Setting();
+            musicController = new MusicController();
+            comparison = CompareFileName;
+            playMethod = PlaySelected;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-            Log.setting = setting = new Setting();
-            musicController = new MusicController();
             if (setting.MainWidth <= 0) setting.MainWidth = Width;
             if (setting.MainHeight <= 0) setting.MainHeight = Height;
             SetDesktopBounds(setting.MainLeft, setting.MainTop, setting.MainWidth, setting.MainHeight);
@@ -117,10 +125,9 @@ namespace NeoMupl
             FormFatalError.Result result = new FormFatalError.Result();
             try
             {
-                if (setting != null && setting.ErrorLog)
-                    Log.Write(Log.LogType.FatalError, "想定外のエラーです。\n\n" + e.Exception.ToString());
-                FormFatalError ff = new FormFatalError();
-                ff.SetException(e.Exception, result);
+                if (setting.ErrorLog)
+                    Log.Write(Log.LogType.FatalError, $"想定外のエラーです。\n\n{e.Exception}");
+                FormFatalError ff = new FormFatalError(e.Exception, result);
                 ff.ShowDialog(this);
                 switch (result.PlayList)
                 {
@@ -235,10 +242,10 @@ namespace NeoMupl
                     musicController.Data = null;
                     UpdateCaption(Status.ReadError, data);
                     if (Log.Error(
-                        "再生しようとしたファイルは存在しません。\n"
-                        + data.FileName + "\n\nリストから削除しますか？", MessageBoxButtons.YesNo,
+                        $"再生しようとしたファイルは存在しません。\n{data.FileName}\n\nリストから削除しますか？",
+                        MessageBoxButtons.YesNo,
                         MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        RemoveItemToolStripMenuItem_Click(null, null);
+                        removeItemToolStripMenuItem.PerformClick();
                     return;
                 }
                 UpdateCaption(Status.Reading, data);
@@ -248,10 +255,11 @@ namespace NeoMupl
                     musicController.Data = null;
                     UpdateCaption(Status.ReadError, data);
                     if (Log.Error(
-                        "読み込みに失敗しました！\n読み込みに対応していない形式である可能性があります。\n"
-                        + data.FileName + "\n\nリストから削除しますか？", e, MessageBoxButtons.YesNo,
+                        $"読み込みに失敗しました！\n読み込みに対応していない形式である可能性があります。\n{data.FileName}\n\nリストから削除しますか？",
+                        e,
+                        MessageBoxButtons.YesNo,
                         MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        RemoveItemToolStripMenuItem_Click(null, null);
+                        removeItemToolStripMenuItem.PerformClick();
                     return;
                 }
                 UpdateCaption(Status.Preparing, data);
@@ -420,7 +428,7 @@ namespace NeoMupl
                     break;
             }
             setting.Sorting = sorting;
-            if (musicList != null) UpdateList(DirtyLevel.ListItem);
+            UpdateList(DirtyLevel.ListItem);
         }
 
         private void ReverseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -605,11 +613,7 @@ namespace NeoMupl
             MusicData data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
             string oldFileName = data.FileName;
-            FormItem f = new FormItem
-            {
-                MusicController = musicController,
-                MusicData = data,
-            };
+            FormItem f = new FormItem(musicController, data);
             if (f.ShowDialog() == DialogResult.OK)
             {
                 musicList.Set(oldFileName, data);
@@ -648,10 +652,7 @@ namespace NeoMupl
 
         private void OptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormSetting f = new FormSetting
-            {
-                setting = setting
-            };
+            FormSetting f = new FormSetting(setting);
             f.ShowDialog();
             OnLayout(new LayoutEventArgs(this, ""));
             UpdateStatusBar();

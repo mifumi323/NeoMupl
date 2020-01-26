@@ -1,9 +1,11 @@
-﻿namespace NeoMupl.Player
+﻿#nullable enable
+
+namespace NeoMupl.Player
 {
     /// <summary>音楽再生のための抽象クラス</summary>
     public abstract class MusicPlayerBase
     {
-        public MusicData MusicData { get; set; }
+        public MusicData MusicData { get; set; } = new MusicData("");
 
         public abstract void Open();
         public abstract void Close();

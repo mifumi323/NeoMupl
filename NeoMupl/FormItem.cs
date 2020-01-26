@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Windows.Forms;
 using NeoMupl.Player;
@@ -31,17 +32,21 @@ namespace NeoMupl
                 txtLoop2.Text = musicData.LoopEnd.ToString();
                 txtSkipRate.Text = musicData.SkipRate.ToString();
                 cmbPlayMethod.SelectedIndex = (int)musicData.PlayMethod;
-                try { cmbMIDIPort.Text = ((DMOption)musicData.Option).port; }
+                try { cmbMIDIPort.Text = (musicData.Option as DMOption)?.port ?? "default"; }
                 catch (Exception) { cmbMIDIPort.Text = "default"; }
                 lblLastPlayed.Text = musicData.LastPlayedDateTime.ToString();
             }
         }
 
-        public FormItem()
+        public FormItem(IMusicController musicController, MusicData musicData)
         {
             InitializeComponent();
             txtVolume.Tag = trbVolume;
             txtSkipRate.Tag = trbSkipRate;
+
+            // なんか冗長だけどメソッドの中身までnullableを見に行かないからこうしないと
+            MusicController = this.musicController = musicController;
+            MusicData = this.musicData = musicData;
         }
 
         private void BtnFileName_Click(object sender, EventArgs e)

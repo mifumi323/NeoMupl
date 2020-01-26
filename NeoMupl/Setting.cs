@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -107,7 +108,7 @@ namespace NeoMupl
                             err += $"存在しない設定項目「{elem[0]}」を読み込もうとしました。\n";
                             continue;
                         }
-                        object value = null;
+                        object? value = null;
                         try
                         {
                             switch (Type.GetTypeCode(pi.PropertyType))
