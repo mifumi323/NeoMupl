@@ -7,8 +7,8 @@ namespace NeoMupl
 {
     public partial class FormItem : Form
     {
-        IMusicController musicController;
-        public IMusicController MusicController
+        MusicController musicController;
+        public MusicController MusicController
         {
             get => musicController;
             set
@@ -38,7 +38,7 @@ namespace NeoMupl
             }
         }
 
-        public FormItem(IMusicController musicController, MusicData musicData)
+        public FormItem(MusicController musicController, MusicData musicData)
         {
             InitializeComponent();
             txtVolume.Tag = trbVolume;

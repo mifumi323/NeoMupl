@@ -15,7 +15,7 @@ namespace NeoMupl
         }
 
         protected abstract ToolStripItem CreateItem();
-        public abstract void Update(IMusicController player);
+        public abstract void Update(MusicController player);
 
         private static readonly Dictionary<string, StatusItem> items;
 
@@ -65,7 +65,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -95,7 +95,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -125,7 +125,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -155,7 +155,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -187,7 +187,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -222,7 +222,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -257,7 +257,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -292,7 +292,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -322,7 +322,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)
@@ -352,7 +352,7 @@ namespace NeoMupl
             return item;
         }
 
-        public override void Update(IMusicController player)
+        public override void Update(MusicController player)
         {
             if (item == null) return;
             if (player == null || player.Data == null)

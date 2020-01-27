@@ -3,7 +3,8 @@ using System;
 
 namespace NeoMupl.Player
 {
-    public class MusicController : IMusicController
+    /// <summary>音楽再生統括クラス</summary>
+    public class MusicController
     {
         private readonly MusicPlayerBase[] musicPlayers;
         private MusicPlayerBase musicPlayer = new MusicPlayerNull();

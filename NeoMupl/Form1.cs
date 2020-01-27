@@ -13,7 +13,7 @@ namespace NeoMupl
     public partial class Form1 : Form
     {
         MusicList musicList;
-        readonly IMusicController musicController;
+        readonly MusicController musicController;
         Comparison<MusicData> comparison;
         enum DirtyLevel
         {
