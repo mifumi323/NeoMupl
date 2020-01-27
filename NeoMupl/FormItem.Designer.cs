@@ -57,9 +57,9 @@
             this.txtVolume = new System.Windows.Forms.TextBox();
             this.cmbPlayMethod = new System.Windows.Forms.ComboBox();
             this.lblLastPlayed = new System.Windows.Forms.Label();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnPlayLoop = new System.Windows.Forms.Button();
             this.btnPlayNearLoop = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbSkipRate)).BeginInit();
@@ -74,7 +74,7 @@
             this.btnOK.Margin = new System.Windows.Forms.Padding(0);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 30);
-            this.btnOK.TabIndex = 0;
+            this.btnOK.TabIndex = 1;
             this.btnOK.Text = "&OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
@@ -87,7 +87,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(0);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 30);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -101,7 +101,7 @@
             this.txtNavigation.Name = "txtNavigation";
             this.txtNavigation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtNavigation.Size = new System.Drawing.Size(394, 30);
-            this.txtNavigation.TabIndex = 2;
+            this.txtNavigation.TabIndex = 0;
             // 
             // panel1
             // 
@@ -175,7 +175,7 @@
             this.lblMIDIPort.Location = new System.Drawing.Point(3, 171);
             this.lblMIDIPort.Name = "lblMIDIPort";
             this.lblMIDIPort.Size = new System.Drawing.Size(71, 12);
-            this.lblMIDIPort.TabIndex = 1;
+            this.lblMIDIPort.TabIndex = 20;
             this.lblMIDIPort.Text = "MIDIポート(&P)";
             // 
             // cmbMIDIPort
@@ -187,7 +187,7 @@
             this.cmbMIDIPort.Margin = new System.Windows.Forms.Padding(0);
             this.cmbMIDIPort.Name = "cmbMIDIPort";
             this.cmbMIDIPort.Size = new System.Drawing.Size(415, 20);
-            this.cmbMIDIPort.TabIndex = 2;
+            this.cmbMIDIPort.TabIndex = 21;
             this.cmbMIDIPort.Enter += new System.EventHandler(this.CmbMIDIPort_Enter);
             // 
             // btnPlayMethod
@@ -439,12 +439,8 @@
             this.lblLastPlayed.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lblLastPlayed.Name = "lblLastPlayed";
             this.lblLastPlayed.Size = new System.Drawing.Size(120, 12);
-            this.lblLastPlayed.TabIndex = 20;
+            this.lblLastPlayed.TabIndex = 22;
             this.lblLastPlayed.Text = "最後に再生された日時：";
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // btnPlayLoop
             // 
@@ -453,9 +449,10 @@
             this.btnPlayLoop.Margin = new System.Windows.Forms.Padding(0);
             this.btnPlayLoop.Name = "btnPlayLoop";
             this.btnPlayLoop.Size = new System.Drawing.Size(199, 20);
-            this.btnPlayLoop.TabIndex = 21;
+            this.btnPlayLoop.TabIndex = 23;
             this.btnPlayLoop.Text = "ループ再生テスト";
             this.btnPlayLoop.UseVisualStyleBackColor = true;
+            this.btnPlayLoop.Click += new System.EventHandler(this.BtnPlayLoop_Click);
             // 
             // btnPlayNearLoop
             // 
@@ -464,9 +461,14 @@
             this.btnPlayNearLoop.Margin = new System.Windows.Forms.Padding(0);
             this.btnPlayNearLoop.Name = "btnPlayNearLoop";
             this.btnPlayNearLoop.Size = new System.Drawing.Size(199, 20);
-            this.btnPlayNearLoop.TabIndex = 22;
+            this.btnPlayNearLoop.TabIndex = 24;
             this.btnPlayNearLoop.Text = "ループ前後5秒を再生";
             this.btnPlayNearLoop.UseVisualStyleBackColor = true;
+            this.btnPlayNearLoop.Click += new System.EventHandler(this.BtnPlayNearLoop_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // FormItem
             // 

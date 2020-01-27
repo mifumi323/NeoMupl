@@ -38,6 +38,15 @@ namespace NeoMupl
             }
         }
 
+        enum State
+        {
+            Unable,
+            Stopped,
+            Looping,
+            NearLoop,
+        }
+        State state;
+
         public FormItem(MusicController musicController, MusicData musicData)
         {
             InitializeComponent();
@@ -49,7 +58,42 @@ namespace NeoMupl
             MusicData = this.musicData = musicData;
 
             // 再生中はテスト再生しちゃいけない
+            state = musicController.IsPlaying ? State.Unable : State.Stopped;
+            UpdatePlayButtons();
             btnPlayLoop.Enabled = btnPlayNearLoop.Enabled = !musicController.IsPlaying;
+        }
+
+        private void UpdatePlayButtons()
+        {
+            switch (state)
+            {
+                case State.Unable:
+                    btnPlayLoop.Enabled = false;
+                    btnPlayNearLoop.Enabled = false;
+                    btnPlayLoop.Text = "ループ再生テスト";
+                    btnPlayNearLoop.Text = "ループ前後5秒を再生";
+                    break;
+                case State.Stopped:
+                    btnPlayLoop.Enabled = true;
+                    btnPlayNearLoop.Enabled = true;
+                    btnPlayLoop.Text = "ループ再生テスト";
+                    btnPlayNearLoop.Text = "ループ前後5秒を再生";
+                    break;
+                case State.Looping:
+                    btnPlayLoop.Enabled = true;
+                    btnPlayNearLoop.Enabled = false;
+                    btnPlayLoop.Text = "ループ再生テストを停止";
+                    btnPlayNearLoop.Text = "ループ前後5秒を再生";
+                    break;
+                case State.NearLoop:
+                    btnPlayLoop.Enabled = false;
+                    btnPlayNearLoop.Enabled = true;
+                    btnPlayLoop.Text = "ループ再生テスト";
+                    btnPlayNearLoop.Text = "ループ前後5秒の再生を停止";
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         private void BtnFileName_Click(object sender, EventArgs e)
@@ -195,6 +239,40 @@ namespace NeoMupl
         private void CmbMIDIPort_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "MIDIの音源を選びます。\r\n特に指定しないと共通設定が使われます。";
+        }
+
+        private void BtnPlayLoop_Click(object sender, EventArgs e)
+        {
+            switch (state)
+            {
+                case State.Stopped:
+                    state = State.Looping;
+                    UpdatePlayButtons();
+                    break;
+                case State.Looping:
+                    state = State.Stopped;
+                    UpdatePlayButtons();
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void BtnPlayNearLoop_Click(object sender, EventArgs e)
+        {
+            switch (state)
+            {
+                case State.Stopped:
+                    state = State.NearLoop;
+                    UpdatePlayButtons();
+                    break;
+                case State.NearLoop:
+                    state = State.Stopped;
+                    UpdatePlayButtons();
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
     }
 }
