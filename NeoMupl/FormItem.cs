@@ -214,21 +214,26 @@ namespace NeoMupl
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            musicData.FileName = txtFileName.Text;
-            musicData.Title = txtTitle.Text;
-            musicData.Volume = double.Parse(txtVolume.Text);
-            musicData.LoopStart = double.Parse(txtLoop1.Text);
-            musicData.LoopEnd = double.Parse(txtLoop2.Text);
-            if (musicData.LoopStart > musicData.LoopEnd)
+            CopyToMusicData(musicData);
+        }
+
+        private void CopyToMusicData(MusicData destination)
+        {
+            destination.FileName = txtFileName.Text;
+            destination.Title = txtTitle.Text;
+            destination.Volume = double.Parse(txtVolume.Text);
+            destination.LoopStart = double.Parse(txtLoop1.Text);
+            destination.LoopEnd = double.Parse(txtLoop2.Text);
+            if (destination.LoopStart > destination.LoopEnd)
             {
-                double buf = musicData.LoopStart;
-                musicData.LoopStart = musicData.LoopEnd;
-                musicData.LoopEnd = buf;
+                double buf = destination.LoopStart;
+                destination.LoopStart = destination.LoopEnd;
+                destination.LoopEnd = buf;
             }
-            musicData.SkipRate = double.Parse(txtSkipRate.Text);
-            musicData.PlayMethod = (PlayMethod)cmbPlayMethod.SelectedIndex;
-            if (musicData.PlayMethod == PlayMethod.DirectMusic)
-                musicData.Option = new DMOption(cmbMIDIPort.Text);
+            destination.SkipRate = double.Parse(txtSkipRate.Text);
+            destination.PlayMethod = (PlayMethod)cmbPlayMethod.SelectedIndex;
+            if (destination.PlayMethod == PlayMethod.DirectMusic)
+                destination.Option = new DMOption(cmbMIDIPort.Text);
         }
 
         private void BtnTitle_Click(object sender, EventArgs e)
