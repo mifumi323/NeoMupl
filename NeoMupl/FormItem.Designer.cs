@@ -58,6 +58,8 @@
             this.cmbPlayMethod = new System.Windows.Forms.ComboBox();
             this.lblLastPlayed = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btnPlayLoop = new System.Windows.Forms.Button();
+            this.btnPlayNearLoop = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbSkipRate)).BeginInit();
@@ -148,10 +150,12 @@
             this.tableLayoutPanel1.Controls.Add(this.txtVolume, 4, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmbPlayMethod, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.lblLastPlayed, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.btnPlayLoop, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.btnPlayNearLoop, 3, 8);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowCount = 9;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -160,7 +164,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(543, 205);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(543, 225);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblMIDIPort
@@ -441,6 +446,28 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // btnPlayLoop
+            // 
+            this.btnPlayLoop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPlayLoop.Location = new System.Drawing.Point(77, 205);
+            this.btnPlayLoop.Margin = new System.Windows.Forms.Padding(0);
+            this.btnPlayLoop.Name = "btnPlayLoop";
+            this.btnPlayLoop.Size = new System.Drawing.Size(199, 20);
+            this.btnPlayLoop.TabIndex = 21;
+            this.btnPlayLoop.Text = "ループ再生テスト";
+            this.btnPlayLoop.UseVisualStyleBackColor = true;
+            // 
+            // btnPlayNearLoop
+            // 
+            this.btnPlayNearLoop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPlayNearLoop.Location = new System.Drawing.Point(293, 205);
+            this.btnPlayNearLoop.Margin = new System.Windows.Forms.Padding(0);
+            this.btnPlayNearLoop.Name = "btnPlayNearLoop";
+            this.btnPlayNearLoop.Size = new System.Drawing.Size(199, 20);
+            this.btnPlayNearLoop.TabIndex = 22;
+            this.btnPlayNearLoop.Text = "ループ前後5秒を再生";
+            this.btnPlayNearLoop.UseVisualStyleBackColor = true;
+            // 
             // FormItem
             // 
             this.AcceptButton = this.btnOK;
@@ -500,5 +527,7 @@
         private System.Windows.Forms.Label lblLastPlayed;
         private System.Windows.Forms.ComboBox cmbMIDIPort;
         private System.Windows.Forms.Label lblMIDIPort;
+        private System.Windows.Forms.Button btnPlayLoop;
+        private System.Windows.Forms.Button btnPlayNearLoop;
     }
 }

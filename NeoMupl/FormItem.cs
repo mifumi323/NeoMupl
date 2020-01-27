@@ -47,6 +47,9 @@ namespace NeoMupl
             // なんか冗長だけどメソッドの中身までnullableを見に行かないからこうしないと
             MusicController = this.musicController = musicController;
             MusicData = this.musicData = musicData;
+
+            // 再生中はテスト再生しちゃいけない
+            btnPlayLoop.Enabled = btnPlayNearLoop.Enabled = !musicController.IsPlaying;
         }
 
         private void BtnFileName_Click(object sender, EventArgs e)
