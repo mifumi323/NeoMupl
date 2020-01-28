@@ -47,6 +47,8 @@ namespace NeoMupl
         }
         State state;
 
+        MusicPlayerBase? musicPlayer = null;
+
         public FormItem(MusicController musicController, MusicData musicData)
         {
             InitializeComponent();
@@ -251,16 +253,43 @@ namespace NeoMupl
             switch (state)
             {
                 case State.Stopped:
-                    state = State.Looping;
-                    UpdatePlayButtons();
+                    try
+                    {
+                        var testData = new MusicData("");
+                        CopyToMusicData(testData);
+                        musicPlayer = musicController.GetPlayer(testData.PlayMethod);
+                        musicPlayer.MusicData = testData;
+                        musicPlayer.Open();
+                        musicPlayer.Play(true);
+                        state = State.Looping;
+                        UpdatePlayButtons();
+                        timer1.Start();
+                    }
+                    catch
+                    {
+                        Stop();
+                        MessageBox.Show("テスト再生に失敗しました。");
+                    }
                     break;
                 case State.Looping:
-                    state = State.Stopped;
-                    UpdatePlayButtons();
+                    Stop();
                     break;
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        private void Stop()
+        {
+            timer1.Stop();
+            if (musicPlayer != null)
+            {
+                musicPlayer.Stop();
+                musicPlayer.Close();
+                musicPlayer = null;
+            }
+            state = State.Stopped;
+            UpdatePlayButtons();
         }
 
         private void BtnPlayNearLoop_Click(object sender, EventArgs e)
@@ -270,14 +299,37 @@ namespace NeoMupl
                 case State.Stopped:
                     state = State.NearLoop;
                     UpdatePlayButtons();
+                    timer1.Start();
                     break;
                 case State.NearLoop:
-                    state = State.Stopped;
-                    UpdatePlayButtons();
+                    Stop();
                     break;
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            switch (state)
+            {
+                case State.Unable:
+                    break;
+                case State.Stopped:
+                    break;
+                case State.Looping:
+                    musicPlayer?.Loop();
+                    break;
+                case State.NearLoop:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void FormItem_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Stop();
         }
     }
 }

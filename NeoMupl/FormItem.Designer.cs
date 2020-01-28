@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormItem));
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -60,6 +61,7 @@
             this.btnPlayLoop = new System.Windows.Forms.Button();
             this.btnPlayNearLoop = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbSkipRate)).BeginInit();
@@ -470,6 +472,10 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
             // FormItem
             // 
             this.AcceptButton = this.btnOK;
@@ -487,6 +493,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "項目のプロパティ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormItem_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -531,5 +538,6 @@
         private System.Windows.Forms.Label lblMIDIPort;
         private System.Windows.Forms.Button btnPlayLoop;
         private System.Windows.Forms.Button btnPlayNearLoop;
+        private System.Windows.Forms.Timer timer1;
     }
 }
