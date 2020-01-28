@@ -25,7 +25,7 @@ namespace NeoMupl.Player
                     musicPlayer.Close();
                 }
                 myData = value;
-                musicPlayer = (value != null) ? musicPlayers[(int)value.PlayMethod] : new MusicPlayerNull();
+                musicPlayer = (value != null) ? GetPlayer(value.PlayMethod) : new MusicPlayerNull();
                 if (value != null)
                 {
                     musicPlayer.MusicData = value;
@@ -111,6 +111,11 @@ namespace NeoMupl.Player
         public void SetDirectMusicPort(string p)
         {
             MusicPlayerDM?.SetPort(p);
+        }
+
+        public MusicPlayerBase GetPlayer(PlayMethod playMethod)
+        {
+            return musicPlayers[(int)playMethod];
         }
     }
 }
