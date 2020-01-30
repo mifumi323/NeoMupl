@@ -10,7 +10,7 @@ namespace NeoMupl.Player
         public abstract void Open();
         public abstract void Close();
 
-        public abstract void Play(bool bLoop);
+        public abstract void Play(bool bLoop, double from);
         public abstract void Stop();
         public abstract void Loop();
 

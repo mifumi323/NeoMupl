@@ -8,7 +8,7 @@ namespace NeoMupl.Player
         public override void Open() { }
         public override void Close() { }
 
-        public override void Play(bool bLoop) { }
+        public override void Play(bool bLoop, double from) { }
         public override void Stop() { }
         public override void Loop() { }
 

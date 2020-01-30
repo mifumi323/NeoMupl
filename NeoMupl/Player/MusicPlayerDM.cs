@@ -43,7 +43,7 @@ namespace NeoMupl.Player
         public override void Close()
         { }
 
-        public override void Play(bool bLoop)
+        public override void Play(bool bLoop, double from)
         {
             if (segment != null)
             {
@@ -65,7 +65,7 @@ namespace NeoMupl.Player
                 music.Reset(Reset.GM);
                 music.SetMasterVolume((int)(MusicData.Volume > 0 ? 2000 * Math.Log10(MusicData.Volume / 100) : -10000));
                 segment.SetLoop(bLoop, (int)MusicData.LoopStart, (int)MusicData.LoopEnd);
-                music.Play(segment, SegmentFlags.AfterPrepareTime, 0);
+                music.Play(segment, SegmentFlags.AfterPrepareTime, (long)from);
             }
         }
 

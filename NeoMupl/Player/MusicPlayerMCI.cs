@@ -57,9 +57,9 @@ namespace NeoMupl.Player
             SendString("close NeoMupl");
         }
 
-        public override void Play(bool bLoop)
+        public override void Play(bool bLoop, double from)
         {
-            SendString("play NeoMupl from 0");
+            SendString($"play NeoMupl from {from}");
         }
         public override void Stop()
         {

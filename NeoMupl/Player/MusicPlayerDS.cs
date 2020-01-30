@@ -22,13 +22,14 @@ namespace NeoMupl.Player
         }
         public override void Close() { }
 
-        public override void Play(bool bLoop)
+        public override void Play(bool bLoop, double from)
         {
             if (mediaControl == null) return;
             ((IBasicAudio)mediaControl).Volume = (int)(MusicData.Volume > 0 ? 2000 * Math.Log10(MusicData.Volume / 100) : -10000);
             realLoopStart = MusicData.LoopStart;
             realLoopEnd = MusicData.LoopEnd > 0 ? MusicData.LoopEnd : ((IMediaPosition)mediaControl).Duration;
             ((IMediaPosition)mediaControl).Rate = rate;
+            ((IMediaPosition)mediaControl).CurrentPosition = from;
             if (typeof(IBasicVideo).IsInstanceOfType(mediaControl))
             {
                 // TODO: 必要なら実装しよう(#11)

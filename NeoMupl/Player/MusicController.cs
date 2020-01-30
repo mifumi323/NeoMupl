@@ -78,7 +78,14 @@ namespace NeoMupl.Player
         public bool IsPlaying => musicPlayer.IsPlaying();
         public double Length => musicPlayer.Length();
         public double Position => musicPlayer.Position();
-        public void Play(bool bLoop) { if (myData != null) { musicPlayer.Play(Loop = bLoop); myData.TimeStamp(); } }
+        public void Play(bool bLoop, double from = 0)
+        {
+            if (myData != null)
+            {
+                musicPlayer.Play(Loop = bLoop, from);
+                myData.TimeStamp();
+            }
+        }
         public void Stop() { foreach (MusicPlayerBase mp in musicPlayers) mp.Stop(); }
         public void LoopMethod() { musicPlayer.Loop(); }
         public void Dispose()

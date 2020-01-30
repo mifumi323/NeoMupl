@@ -260,7 +260,7 @@ namespace NeoMupl
                         musicPlayer = musicController.GetPlayer(testData.PlayMethod);
                         musicPlayer.MusicData = testData;
                         musicPlayer.Open();
-                        musicPlayer.Play(true);
+                        musicPlayer.Play(true, 0);
                         state = State.Looping;
                         UpdatePlayButtons();
                         timer1.Start();

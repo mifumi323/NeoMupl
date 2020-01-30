@@ -91,12 +91,16 @@ namespace NeoMupl.Player
             }
         }
 
-        public override void Play(bool bLoop)
+        public override void Play(bool bLoop, double from)
         {
             if (waveOutDevice != null)
             {
                 waveOutDevice.Init(audioFileReader);
                 waveOutDevice.Volume = (float)(MusicData.Volume * 0.01);
+                if (audioFileReader is WaveStream ws)
+                {
+                    ws.CurrentTime = TimeSpan.FromSeconds(from);
+                }
                 waveOutDevice.Play();
             }
         }
