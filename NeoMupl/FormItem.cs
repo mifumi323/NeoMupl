@@ -48,6 +48,8 @@ namespace NeoMupl
         State state;
 
         MusicPlayerBase? musicPlayer = null;
+        double playStopPosition = double.NaN;
+        double PlayDuration => 5; // TODO: 可変にできた方がいいと思う
 
         public FormItem(MusicController musicController, MusicData musicData)
         {
@@ -73,25 +75,25 @@ namespace NeoMupl
                     btnPlayLoop.Enabled = false;
                     btnPlayNearLoop.Enabled = false;
                     btnPlayLoop.Text = "ループ再生テスト";
-                    btnPlayNearLoop.Text = "ループ前後5秒を再生";
+                    btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
                     break;
                 case State.Stopped:
                     btnPlayLoop.Enabled = true;
                     btnPlayNearLoop.Enabled = true;
                     btnPlayLoop.Text = "ループ再生テスト";
-                    btnPlayNearLoop.Text = "ループ前後5秒を再生";
+                    btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
                     break;
                 case State.Looping:
                     btnPlayLoop.Enabled = true;
                     btnPlayNearLoop.Enabled = false;
                     btnPlayLoop.Text = "ループ再生テストを停止";
-                    btnPlayNearLoop.Text = "ループ前後5秒を再生";
+                    btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
                     break;
                 case State.NearLoop:
                     btnPlayLoop.Enabled = false;
                     btnPlayNearLoop.Enabled = true;
                     btnPlayLoop.Text = "ループ再生テスト";
-                    btnPlayNearLoop.Text = "ループ前後5秒の再生を停止";
+                    btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒の再生を停止";
                     break;
                 default:
                     throw new NotImplementedException();
@@ -238,6 +240,13 @@ namespace NeoMupl
                 destination.Option = new DMOption(cmbMIDIPort.Text);
         }
 
+        private MusicData CreateTempMusicData()
+        {
+            var tempData = new MusicData("");
+            CopyToMusicData(tempData);
+            return tempData;
+        }
+
         private void BtnTitle_Click(object sender, EventArgs e)
         {
             txtTitle.Text = MusicData.CreateTitle(txtFileName.Text);
@@ -255,13 +264,14 @@ namespace NeoMupl
                 case State.Stopped:
                     try
                     {
-                        var testData = new MusicData("");
-                        CopyToMusicData(testData);
+                        var testData = CreateTempMusicData();
                         musicPlayer = musicController.GetPlayer(testData.PlayMethod);
                         musicPlayer.MusicData = testData;
                         musicPlayer.Open();
                         musicPlayer.Play(true, 0);
+                        playStopPosition = double.NaN;
                         state = State.Looping;
+                        txtNavigation.Text = "ループ再生をします。";
                         UpdatePlayButtons();
                         timer1.Start();
                     }
@@ -297,9 +307,25 @@ namespace NeoMupl
             switch (state)
             {
                 case State.Stopped:
-                    state = State.NearLoop;
-                    UpdatePlayButtons();
-                    timer1.Start();
+                    try
+                    {
+                        var testData = CreateTempMusicData();
+                        var loopLimited = testData.LoopEnd - testData.LoopStart >= PlayDuration * 2 + 1;
+                        musicPlayer = musicController.GetPlayer(testData.PlayMethod);
+                        musicPlayer.MusicData = testData;
+                        musicPlayer.Open();
+                        musicPlayer.Play(true, Math.Max(testData.LoopEnd - PlayDuration, 0));
+                        playStopPosition = loopLimited ? testData.LoopStart + PlayDuration : double.NaN;
+                        state = State.NearLoop;
+                        txtNavigation.Text = loopLimited ? "ループ前後だけ再生します。" : "ループ時間が短すぎるため、通常のループ再生をします。";
+                        UpdatePlayButtons();
+                        timer1.Start();
+                    }
+                    catch
+                    {
+                        Stop();
+                        MessageBox.Show("テスト再生に失敗しました。");
+                    }
                     break;
                 case State.NearLoop:
                     Stop();
@@ -321,6 +347,18 @@ namespace NeoMupl
                     musicPlayer?.Loop();
                     break;
                 case State.NearLoop:
+                    if (musicPlayer != null)
+                    {
+                        musicPlayer.Loop();
+                        if (!double.IsNaN(playStopPosition))
+                        {
+                            var overrun = musicPlayer.Position() - playStopPosition;
+                            if (0 <= overrun && overrun < 1)
+                            {
+                                Stop();
+                            }
+                        }
+                    }
                     break;
                 default:
                     break;
