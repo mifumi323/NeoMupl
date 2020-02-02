@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using NeoMupl.Player;
 
@@ -226,8 +227,8 @@ namespace NeoMupl
             destination.FileName = txtFileName.Text;
             destination.Title = txtTitle.Text;
             destination.Volume = double.Parse(txtVolume.Text);
-            destination.LoopStart = double.Parse(txtLoop1.Text);
-            destination.LoopEnd = double.Parse(txtLoop2.Text);
+            destination.LoopStart = ParseLoopTime(txtLoop1.Text);
+            destination.LoopEnd = ParseLoopTime(txtLoop2.Text);
             if (destination.LoopStart > destination.LoopEnd)
             {
                 double buf = destination.LoopStart;
@@ -238,6 +239,26 @@ namespace NeoMupl
             destination.PlayMethod = (PlayMethod)cmbPlayMethod.SelectedIndex;
             if (destination.PlayMethod == PlayMethod.DirectMusic)
                 destination.Option = new DMOption(cmbMIDIPort.Text);
+        }
+
+        private double ParseLoopTime(string text)
+        {
+            var m = Regex.Match(text, @"^(((?<hours>\d+):)?(?<minutes>\d+):)?(?<seconds>\d+(\.\d*)?)$");
+            if (!m.Success)
+            {
+                return 0;
+            }
+
+            var seconds = double.Parse(m.Groups["seconds"].Value);
+            if (m.Groups["minutes"].Success)
+            {
+                seconds += double.Parse(m.Groups["minutes"].Value) * 60;
+            }
+            if (m.Groups["hours"].Success)
+            {
+                seconds += double.Parse(m.Groups["hours"].Value) * 3600;
+            }
+            return seconds;
         }
 
         private MusicData CreateTempMusicData()
