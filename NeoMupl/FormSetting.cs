@@ -1,4 +1,4 @@
-#nullable enable
+﻿#nullable enable
 using System;
 using System.Windows.Forms;
 using System.Reflection;
@@ -44,11 +44,11 @@ namespace NeoMupl
         private void FormSetting_Load(object sender, EventArgs e)
         {
             // 全般設定
-            txtMinPlayTime.Text = setting.MinPlayTime.ToString();
             txtMinPlayTime.Tag = trbMinPlayTime;
+            txtMinPlayTime.Text = setting.MinPlayTime.ToString();
             trbMinPlayTime.Value = (int)setting.MinPlayTime;
-            txtTimeWeight.Text = setting.TimeWeight.ToString();
             txtTimeWeight.Tag = trbTimeWeight;
+            txtTimeWeight.Text = setting.TimeWeight.ToString();
             trbTimeWeight.Value = (int)setting.TimeWeight;
             txtWindowTitlePattern.Text = setting.WindowTitlePattern;
 

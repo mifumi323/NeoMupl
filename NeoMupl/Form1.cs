@@ -1,4 +1,4 @@
-#nullable enable
+﻿#nullable enable
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -730,6 +730,7 @@ namespace NeoMupl
                 .Replace("<Title>", DataTitle)
                 .Replace("<FileTitle>", FileTitle)
                 .Replace("<FileName>", FileName)
+                .Replace("<Version>", Application.ProductVersion)
                 ;
         }
 
