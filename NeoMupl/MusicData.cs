@@ -1,4 +1,4 @@
-#nullable enable
+﻿#nullable enable
 using System;
 using System.IO;
 using NeoMupl.Player;
@@ -120,7 +120,7 @@ namespace NeoMupl
             if (full || data.SkipRate != defaultData?.SkipRate) sw.WriteLine($"SkipRate\t{data.SkipRate}");
             sw.WriteLine($"PlayMethod\t{(int)data.PlayMethod}");   // ←デフォルトがMIDIとそれ以外で異なる
             if (data.Option is DMOption dm && dm.port != "") sw.WriteLine($"MIDIPort\t{dm.port}");
-            if (full || data.LastPlayedTicks != defaultData?.LastPlayedTicks) sw.WriteLine($"LastPlayed\t{data.LastPlayedTicks.ToString()}");
+            if (full || data.LastPlayedTicks != defaultData?.LastPlayedTicks) sw.WriteLine($"LastPlayed\t{data.LastPlayedTicks}");
         }
         
         #endregion

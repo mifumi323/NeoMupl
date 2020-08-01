@@ -1,4 +1,4 @@
-#nullable enable
+﻿#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -63,11 +63,11 @@ namespace NeoMupl
             {
                 if (pi.PropertyType.IsEnum)
                 {
-                    sw.WriteLine($"{pi.Name}\t{((int)pi.GetValue(this, null)).ToString()}");
+                    sw.WriteLine($"{pi.Name}\t{(int)pi.GetValue(this, null)}");
                 }
                 else if (Type.GetTypeCode(pi.PropertyType) != TypeCode.Object)
                 {
-                    sw.WriteLine($"{pi.Name}\t{pi.GetValue(this, null).ToString()}");
+                    sw.WriteLine($"{pi.Name}\t{pi.GetValue(this, null)}");
                 }
                 else
                 {
@@ -75,12 +75,12 @@ namespace NeoMupl
                     {
                         foreach (StatusItem si in (List<StatusItem>)pi.GetValue(this, null))
                         {
-                            sw.WriteLine($"{pi.Name}\t{si.ToString()}");
+                            sw.WriteLine($"{pi.Name}\t{si}");
                         }
                     }
                     else
                     {
-                        sw.WriteLine($"{pi.Name}\t{pi.GetValue(this, null).ToString()}");
+                        sw.WriteLine($"{pi.Name}\t{pi.GetValue(this, null)}");
                     }
                 }
             }

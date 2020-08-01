@@ -87,7 +87,7 @@ namespace NeoMupl.Player
 
         public override bool IsPlaying()
         {
-            return segment != null ? music.IsPlaying(segment) : false;
+            return segment != null && music.IsPlaying(segment);
         }
         public override double Length() { return segment != null ? (double)segment.GetLength() : 0.0; }
         public override double Position() { return segment != null ? (double)segment.GetSeek() : 0.0; }
