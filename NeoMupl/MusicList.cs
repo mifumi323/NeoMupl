@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,21 +9,13 @@ namespace NeoMupl
 {
     public class MusicList : Dictionary<string, MusicData>
     {
-        #region 変数
-        
-        #endregion
-
         #region プロパティ
-        
+
         #endregion
 
         #region コンストラクタ
 
         public MusicList() { }
-        public MusicList(string listfile)
-        {
-            ;
-        }
 
         #endregion
 
@@ -62,119 +55,85 @@ namespace NeoMupl
 
         public void SetPort(MusicData data, string port)
         {
-            DMOption dm = null;
-            try
-            {
-                dm = (DMOption)data.Option;
-            }
-            catch (InvalidCastException) { }
-            if (dm == null) data.Option = dm = new DMOption();
+            if (!(data.Option is DMOption dm)) data.Option = dm = new DMOption();
             dm.port = port;
         }
 
+        // TODO: 実際にリセットするべきなのでは？(#13)
+#pragma warning disable IDE0060 // 未使用のパラメーターを削除します
         public void SetReset(MusicData data, bool reset)
+#pragma warning restore IDE0060 // 未使用のパラメーターを削除します
         {
-            DMOption dm = null;
-            try
-            {
-                dm = (DMOption)data.Option;
-            }
-            catch (InvalidCastException) { }
-            if (dm == null) data.Option = dm = new DMOption();
+#pragma warning disable IDE0059 // 値の不必要な代入
+            if (!(data.Option is DMOption dm)) data.Option = dm = new DMOption();
+#pragma warning restore IDE0059 // 値の不必要な代入
+            // TODO: そしてここでリセットをかけたい
         }
 
         public void Load(string listFile)
         {
             try
             {
-                using (StreamReader sr = new StreamReader(listFile))
+                using StreamReader sr = new StreamReader(listFile);
+                string line = sr.ReadLine().Trim();
+                string[] elem;
+                MusicData? data = null;
+                if (line == "NeoMupl015")
                 {
-                    string line = sr.ReadLine().Trim();
-                    string[] elem;
-                    MusicData data = null;
-                    if (line == "NeoMupl015")
+                    // C#版データじゃー！
+                    Clear();
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        // C#版データじゃー！
-                        Clear();
-                        while ((line = sr.ReadLine()) != null)
+                        elem = line.Trim().Split('\t');
+                        if (elem.Length == 0) continue;
+                        if (elem[0] == "File")
                         {
-                            elem = line.Trim().Split('\t');
-                            if (elem.Length == 0) continue;
-                            switch (elem[0])
-                            {
-                                case "File": Add(data = new MusicData(elem[1])); break;
-                                case "Title": data.Title = elem[1]; break;
-                                case "Volume": data.Volume = double.Parse(elem[1]); break;
-                                case "Loop": data.LoopStart = double.Parse(elem[1]); data.LoopEnd = double.Parse(elem[2]); break;
-                                case "SkipRate": data.SkipRate = double.Parse(elem[1]); break;
-                                case "PlayMethod": data.PlayMethod = (PlayMethod)int.Parse(elem[1]); break;
-                                case "MIDIPort": SetPort(data, elem[1]); break;
-                                case "MIDIReset": SetReset(data, Boolean.Parse(elem[1])); break;
-                                case "LastPlayed": data.LastPlayedTicks = long.Parse(elem[1]); break;
-                                default: break;
-                            }
+                            Add(data = new MusicData(elem[1]));
+                            continue;
+                        }
+                        if (data == null)
+                        {
+                            continue;
+                        }
+                        switch (elem[0])
+                        {
+                            case "Title": data.Title = elem[1]; break;
+                            case "Volume": data.Volume = double.Parse(elem[1]); break;
+                            case "Loop": data.LoopStart = double.Parse(elem[1]); data.LoopEnd = double.Parse(elem[2]); break;
+                            case "SkipRate": data.SkipRate = double.Parse(elem[1]); break;
+                            case "PlayMethod": data.PlayMethod = (PlayMethod)int.Parse(elem[1]); break;
+                            case "MIDIPort": SetPort(data, elem[1]); break;
+                            case "MIDIReset": SetReset(data, Boolean.Parse(elem[1])); break;
+                            case "LastPlayed": data.LastPlayedTicks = long.Parse(elem[1]); break;
+                            default: break;
                         }
                     }
-/*                    else if (line != null && line.StartsWith("Count="))
-                    {
-                        // VB版データじゃー！
-                        Clear();
-                        elem = line.Trim().Split('=');
-                        MusicData[] buf = new MusicData[int.Parse(elem[1])];
-                        sr.CurrentEncoding = Encoding.GetEncoding("shift_jis");
-                        int offset = 0;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            elem = line.Trim().Split('=');
-                            if (elem.Length == 0) continue;
-                            if (elem[0].StartsWith("FileName")) data = buf[offset++] = new MusicData(elem[1]);
-                            else if (elem[0].StartsWith("Title")) data.Title = elem[1];
-                            else if (elem[0].StartsWith("Volume")) data.Volume = double.Parse(elem[1]);
-                            else if (elem[0].StartsWith("LoopStart")) data.LoopStart = double.Parse(elem[1]);
-                            else if (elem[0].StartsWith("LoopEnd")) data.LoopEnd = double.Parse(elem[1]);
-                            else if (elem[0].StartsWith("SkipRate")) data.SkipRate = double.Parse(elem[1]);
-                            else if (elem[0].StartsWith("LastPlayed")) data.LastPlayedDateTime = new DateTime(1899, 12, 30).AddDays(double.Parse(elem[1]));
-                            else if (elem[0].StartsWith("<0>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<0>", elem[1]);
-                            else if (elem[0].StartsWith("<1>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<1>", elem[1]);
-                            else if (elem[0].StartsWith("<2>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<2>", elem[1]);
-                            else if (elem[0].StartsWith("<3>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<3>", elem[1]);
-                            else if (elem[0].StartsWith("<4>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<4>", elem[1]);
-                            else if (elem[0].StartsWith("<5>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<5>", elem[1]);
-                            else if (elem[0].StartsWith("<6>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<6>", elem[1]);
-                            else if (elem[0].StartsWith("<7>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<7>", elem[1]);
-                            else if (elem[0].StartsWith("<8>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<8>", elem[1]);
-                            else if (elem[0].StartsWith("<9>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<9>", elem[1]);
-                        }
-                        foreach (MusicData md in buf) Add(md);
-                    }*/
                 }
+                // VB版データは別口で読む
             }
-            catch(Exception) { }
+            catch (Exception) { }
         }
 
         public void Save(string listFile)
         {
-            using (StreamWriter sw = new StreamWriter(listFile))
+            using StreamWriter sw = new StreamWriter(listFile);
+            sw.WriteLine("NeoMupl015");
+            MusicData def = new MusicData("");
+            foreach (MusicData data in this.Values)
             {
-                sw.WriteLine("NeoMupl015");
-                MusicData def = new MusicData("");
-                foreach (MusicData data in this.Values)
+                // デフォルト値が確定しているものについてはわざわざ記録しない
+                sw.WriteLine("File\t" + data.FileName);
+                sw.WriteLine("Title\t" + data.Title);   // ←デフォルトを設定で変更可能
+                if (data.Volume != def.Volume) sw.WriteLine("Volume\t" + data.Volume.ToString());
+                if (data.LoopStart > 0 || data.LoopEnd > 0) sw.WriteLine("Loop\t" + data.LoopStart.ToString() + "\t" + data.LoopEnd.ToString());
+                if (data.SkipRate != def.SkipRate) sw.WriteLine("SkipRate\t" + data.SkipRate.ToString());
+                sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // ←デフォルトがMIDIとそれ以外で異なる
+                try
                 {
-                    // デフォルト値が確定しているものについてはわざわざ記録しない
-                    sw.WriteLine("File\t" + data.FileName);
-                    sw.WriteLine("Title\t" + data.Title);   // ←デフォルトを設定で変更可能
-                    if (data.Volume != def.Volume) sw.WriteLine("Volume\t" + data.Volume.ToString());
-                    if (data.LoopStart > 0 || data.LoopEnd > 0) sw.WriteLine("Loop\t" + data.LoopStart.ToString() + "\t" + data.LoopEnd.ToString());
-                    if (data.SkipRate != def.SkipRate) sw.WriteLine("SkipRate\t" + data.SkipRate.ToString());
-                    sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // ←デフォルトがMIDIとそれ以外で異なる
-                    try
-                    {
-                        DMOption dm = (DMOption)data.Option;
-                        if (dm != null && dm.port != "") sw.WriteLine("MIDIPort\t" + dm.port);
-                    }
-                    catch (Exception) { }
-                    if (data.LastPlayedTicks != def.LastPlayedTicks) sw.WriteLine("LastPlayed\t" + data.LastPlayedTicks.ToString());
+                    if (data.Option is DMOption dm && dm.port != "") sw.WriteLine("MIDIPort\t" + dm.port);
                 }
+                catch (Exception) { }
+                if (data.LastPlayedTicks != def.LastPlayedTicks) sw.WriteLine("LastPlayed\t" + data.LastPlayedTicks.ToString());
             }
         }
 
@@ -182,41 +141,40 @@ namespace NeoMupl
         {
             try
             {
-                using (StreamReader sr = new StreamReader(fileName, Encoding.GetEncoding("shift_jis")))
+                using StreamReader sr = new StreamReader(fileName, Encoding.GetEncoding("shift_jis"));
+                string line = sr.ReadLine().Trim();
+                string[] elem;
+                MusicData? data = null;
+                if (line != null && line.StartsWith("Count="))
                 {
-                    string line = sr.ReadLine().Trim();
-                    string[] elem;
-                    MusicData data = null;
-                    if (line != null && line.StartsWith("Count="))
+                    // VB版データじゃー！
+                    elem = line.Trim().Split('=');
+                    MusicData[] buf = new MusicData[int.Parse(elem[1])];
+                    int offset = 0;
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        // VB版データじゃー！
                         elem = line.Trim().Split('=');
-                        MusicData[] buf = new MusicData[int.Parse(elem[1])];
-                        int offset = 0;
-                        while ((line = sr.ReadLine()) != null)
-                        {
-                            elem = line.Trim().Split('=');
-                            if (elem.Length == 0) continue;
-                            if (elem[0].StartsWith("FileName")) data = buf[offset++] = new MusicData(elem[1]);
-                            else if (elem[0].StartsWith("Title")) data.Title = elem[1];
-                            else if (elem[0].StartsWith("Volume")) data.Volume = double.Parse(elem[1]);
-                            else if (elem[0].StartsWith("LoopStart")) data.LoopStart = double.Parse(elem[1]);
-                            else if (elem[0].StartsWith("LoopEnd")) data.LoopEnd = double.Parse(elem[1]);
-                            else if (elem[0].StartsWith("SkipRate")) data.SkipRate = double.Parse(elem[1]);
-                            else if (elem[0].StartsWith("LastPlayed")) data.LastPlayedDateTime = new DateTime(1899, 12, 30).AddDays(double.Parse(elem[1]));
-                            else if (elem[0].StartsWith("<0>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<0>", elem[1]);
-                            else if (elem[0].StartsWith("<1>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<1>", elem[1]);
-                            else if (elem[0].StartsWith("<2>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<2>", elem[1]);
-                            else if (elem[0].StartsWith("<3>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<3>", elem[1]);
-                            else if (elem[0].StartsWith("<4>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<4>", elem[1]);
-                            else if (elem[0].StartsWith("<5>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<5>", elem[1]);
-                            else if (elem[0].StartsWith("<6>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<6>", elem[1]);
-                            else if (elem[0].StartsWith("<7>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<7>", elem[1]);
-                            else if (elem[0].StartsWith("<8>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<8>", elem[1]);
-                            else if (elem[0].StartsWith("<9>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<9>", elem[1]);
-                        }
-                        foreach (MusicData md in buf) Add(md);
+                        if (elem.Length == 0) continue;
+                        if (elem[0].StartsWith("FileName")) data = buf[offset++] = new MusicData(elem[1]);
+                        if (data == null) continue;
+                        else if (elem[0].StartsWith("Title")) data.Title = elem[1];
+                        else if (elem[0].StartsWith("Volume")) data.Volume = double.Parse(elem[1]);
+                        else if (elem[0].StartsWith("LoopStart")) data.LoopStart = double.Parse(elem[1]);
+                        else if (elem[0].StartsWith("LoopEnd")) data.LoopEnd = double.Parse(elem[1]);
+                        else if (elem[0].StartsWith("SkipRate")) data.SkipRate = double.Parse(elem[1]);
+                        else if (elem[0].StartsWith("LastPlayed")) data.LastPlayedDateTime = new DateTime(1899, 12, 30).AddDays(double.Parse(elem[1]));
+                        else if (elem[0].StartsWith("<0>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<0>", elem[1]);
+                        else if (elem[0].StartsWith("<1>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<1>", elem[1]);
+                        else if (elem[0].StartsWith("<2>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<2>", elem[1]);
+                        else if (elem[0].StartsWith("<3>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<3>", elem[1]);
+                        else if (elem[0].StartsWith("<4>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<4>", elem[1]);
+                        else if (elem[0].StartsWith("<5>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<5>", elem[1]);
+                        else if (elem[0].StartsWith("<6>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<6>", elem[1]);
+                        else if (elem[0].StartsWith("<7>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<7>", elem[1]);
+                        else if (elem[0].StartsWith("<8>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<8>", elem[1]);
+                        else if (elem[0].StartsWith("<9>")) foreach (MusicData md in buf) md.FileName = md.FileName.Replace("<9>", elem[1]);
                     }
+                    foreach (MusicData md in buf) Add(md);
                 }
             }
             catch (Exception) { }

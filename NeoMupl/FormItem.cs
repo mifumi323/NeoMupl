@@ -1,5 +1,6 @@
+#nullable enable
 using System;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using NeoMupl.Player;
 
@@ -7,21 +8,107 @@ namespace NeoMupl
 {
     public partial class FormItem : Form
     {
-        MusicData musicData;
-
-        public FormItem()
+        MusicController musicController;
+        public MusicController MusicController
         {
-            InitializeComponent();
+            get => musicController;
+            set
+            {
+                musicController = value;
+                cmbMIDIPort.Items.AddRange(musicController.GetDirectMusicPorts());
+            }
         }
 
-        private void btnFileName_Click(object sender, EventArgs e)
+        MusicData musicData;
+        public MusicData MusicData
+        {
+            get => musicData;
+            set
+            {
+                musicData = value;
+                txtFileName.Text = musicData.FileName;
+                txtTitle.Text = musicData.Title;
+                txtVolume.Text = musicData.Volume.ToString();
+                txtLoop1.Text = musicData.LoopStart.ToString();
+                txtLoop2.Text = musicData.LoopEnd.ToString();
+                txtSkipRate.Text = musicData.SkipRate.ToString();
+                cmbPlayMethod.SelectedIndex = (int)musicData.PlayMethod;
+                try { cmbMIDIPort.Text = (musicData.Option as DMOption)?.port ?? "default"; }
+                catch (Exception) { cmbMIDIPort.Text = "default"; }
+                lblLastPlayed.Text = musicData.LastPlayedDateTime.ToString();
+            }
+        }
+
+        enum State
+        {
+            Unable,
+            Stopped,
+            Looping,
+            NearLoop,
+        }
+        State state;
+
+        MusicPlayerBase? musicPlayer = null;
+        double playStopPosition = double.NaN;
+        double PlayDuration => 5; // TODO: 可変にできた方がいいと思う
+
+        public FormItem(MusicController musicController, MusicData musicData)
+        {
+            InitializeComponent();
+            txtVolume.Tag = trbVolume;
+            txtSkipRate.Tag = trbSkipRate;
+
+            // なんか冗長だけどメソッドの中身までnullableを見に行かないからこうしないと
+            MusicController = this.musicController = musicController;
+            MusicData = this.musicData = musicData;
+
+            // 再生中はテスト再生しちゃいけない
+            state = musicController.IsPlaying ? State.Unable : State.Stopped;
+            UpdatePlayButtons();
+            btnPlayLoop.Enabled = btnPlayNearLoop.Enabled = !musicController.IsPlaying;
+        }
+
+        private void UpdatePlayButtons()
+        {
+            switch (state)
+            {
+                case State.Unable:
+                    btnPlayLoop.Enabled = false;
+                    btnPlayNearLoop.Enabled = false;
+                    btnPlayLoop.Text = "ループ再生テスト";
+                    btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
+                    break;
+                case State.Stopped:
+                    btnPlayLoop.Enabled = true;
+                    btnPlayNearLoop.Enabled = true;
+                    btnPlayLoop.Text = "ループ再生テスト";
+                    btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
+                    break;
+                case State.Looping:
+                    btnPlayLoop.Enabled = true;
+                    btnPlayNearLoop.Enabled = false;
+                    btnPlayLoop.Text = "ループ再生テストを停止";
+                    btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
+                    break;
+                case State.NearLoop:
+                    btnPlayLoop.Enabled = false;
+                    btnPlayNearLoop.Enabled = true;
+                    btnPlayLoop.Text = "ループ再生テスト";
+                    btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒の再生を停止";
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void BtnFileName_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = txtFileName.Text;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 txtFileName.Text = openFileDialog1.FileName;
         }
 
-        private void trbVolume_Scroll(object sender, EventArgs e)
+        private void TrbVolume_Scroll(object sender, EventArgs e)
         {
             try
             {
@@ -31,7 +118,7 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-        private void txtWithTrackBar_TextChanged(object sender, EventArgs e)
+        private void TxtWithTrackBar_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -52,7 +139,7 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-        private void trbSkipRate_Scroll(object sender, EventArgs e)
+        private void TrbSkipRate_Scroll(object sender, EventArgs e)
         {
             try
             {
@@ -62,26 +149,7 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-
-        public void Init(MusicData musicData, IEnumerable<string> ports)
-        {
-            this.musicData = musicData;
-            txtVolume.Tag = trbVolume;
-            txtSkipRate.Tag = trbSkipRate;
-            txtFileName.Text = musicData.FileName;
-            txtTitle.Text = musicData.Title;
-            txtVolume.Text = musicData.Volume.ToString();
-            txtLoop1.Text = musicData.LoopStart.ToString();
-            txtLoop2.Text = musicData.LoopEnd.ToString();
-            txtSkipRate.Text = musicData.SkipRate.ToString();
-            cmbPlayMethod.SelectedIndex = (int)musicData.PlayMethod;
-            try { cmbMIDIPort.Text = ((DMOption)musicData.Option).port; }
-            catch (Exception) { cmbMIDIPort.Text = "default"; }
-            lblLastPlayed.Text = musicData.LastPlayedDateTime.ToString();
-            foreach (string port in ports) cmbMIDIPort.Items.Add(port);
-        }
-
-        private void cmbPlayMethod_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbPlayMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch ((PlayMethod)cmbPlayMethod.SelectedIndex)
             {
@@ -104,78 +172,223 @@ namespace NeoMupl
             }
         }
 
-        private void btnPlayMethod_Click(object sender, EventArgs e)
+        private void BtnPlayMethod_Click(object sender, EventArgs e)
         {
             cmbPlayMethod.SelectedIndex = txtFileName.Text.EndsWith(".mid", true, null) ? 1 : 0;
         }
 
-        private void txtFileName_Enter(object sender, EventArgs e)
+        private void TxtFileName_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "ファイル名をフルパスで入力します。";
         }
 
-        private void txtTitle_Enter(object sender, EventArgs e)
+        private void TxtTitle_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "リストに表示されるタイトルを入力します。";
         }
 
-        private void btnTitle_Enter(object sender, EventArgs e)
+        private void BtnTitle_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "ファイルからタイトルを読み込んで自動設定します。";
         }
 
-        private void trbVolume_Enter(object sender, EventArgs e)
+        private void TrbVolume_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "音量を調節します。";
         }
 
-        private void txtLoop1_Enter(object sender, EventArgs e)
+        private void TxtLoop1_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "ループ位置を入力します。\r\n0であれば自動設定です。";
         }
 
-        private void trbSkipRate_Enter(object sender, EventArgs e)
+        private void TrbSkipRate_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "ランダム再生のとき選ばれにくくなる確率です。";
         }
 
-        private void cmbPlayMethod_Enter(object sender, EventArgs e)
+        private void CmbPlayMethod_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "再生方法を選びます。\r\nファイル形式によって向き・不向きがあります。";
         }
 
-        private void btnPlayMethod_Enter(object sender, EventArgs e)
+        private void BtnPlayMethod_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "再生方法を自動的に判断します。";
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
-            musicData.FileName = txtFileName.Text;
-            musicData.Title = txtTitle.Text;
-            musicData.Volume = double.Parse(txtVolume.Text);
-            musicData.LoopStart = double.Parse(txtLoop1.Text);
-            musicData.LoopEnd = double.Parse(txtLoop2.Text);
-            if (musicData.LoopStart > musicData.LoopEnd)
-            {
-                double buf = musicData.LoopStart;
-                musicData.LoopStart = musicData.LoopEnd;
-                musicData.LoopEnd = buf;
-            }
-            musicData.SkipRate = double.Parse(txtSkipRate.Text);
-            musicData.PlayMethod = (PlayMethod)cmbPlayMethod.SelectedIndex;
-            if (musicData.PlayMethod == PlayMethod.DirectMusic)
-                musicData.Option = new DMOption(cmbMIDIPort.Text);
+            CopyToMusicData(musicData);
         }
 
-        private void btnTitle_Click(object sender, EventArgs e)
+        private void CopyToMusicData(MusicData destination)
+        {
+            destination.FileName = txtFileName.Text;
+            destination.Title = txtTitle.Text;
+            destination.Volume = double.Parse(txtVolume.Text);
+            destination.LoopStart = ParseLoopTime(txtLoop1.Text);
+            destination.LoopEnd = ParseLoopTime(txtLoop2.Text);
+            if (destination.LoopStart > destination.LoopEnd)
+            {
+                double buf = destination.LoopStart;
+                destination.LoopStart = destination.LoopEnd;
+                destination.LoopEnd = buf;
+            }
+            destination.SkipRate = double.Parse(txtSkipRate.Text);
+            destination.PlayMethod = (PlayMethod)cmbPlayMethod.SelectedIndex;
+            if (destination.PlayMethod == PlayMethod.DirectMusic)
+                destination.Option = new DMOption(cmbMIDIPort.Text);
+        }
+
+        private double ParseLoopTime(string text)
+        {
+            var m = Regex.Match(text, @"^(((?<hours>\d+):)?(?<minutes>\d+):)?(?<seconds>\d+(\.\d*)?)$");
+            if (!m.Success)
+            {
+                return 0;
+            }
+
+            var seconds = double.Parse(m.Groups["seconds"].Value);
+            if (m.Groups["minutes"].Success)
+            {
+                seconds += double.Parse(m.Groups["minutes"].Value) * 60;
+            }
+            if (m.Groups["hours"].Success)
+            {
+                seconds += double.Parse(m.Groups["hours"].Value) * 3600;
+            }
+            return seconds;
+        }
+
+        private MusicData CreateTempMusicData()
+        {
+            var tempData = new MusicData("");
+            CopyToMusicData(tempData);
+            return tempData;
+        }
+
+        private void BtnTitle_Click(object sender, EventArgs e)
         {
             txtTitle.Text = MusicData.CreateTitle(txtFileName.Text);
         }
 
-        private void cmbMIDIPort_Enter(object sender, EventArgs e)
+        private void CmbMIDIPort_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "MIDIの音源を選びます。\r\n特に指定しないと共通設定が使われます。";
+        }
+
+        private void BtnPlayLoop_Click(object sender, EventArgs e)
+        {
+            switch (state)
+            {
+                case State.Stopped:
+                    try
+                    {
+                        var testData = CreateTempMusicData();
+                        musicPlayer = musicController.GetPlayer(testData.PlayMethod);
+                        musicPlayer.MusicData = testData;
+                        musicPlayer.Open();
+                        musicPlayer.Play(true, 0);
+                        playStopPosition = double.NaN;
+                        state = State.Looping;
+                        txtNavigation.Text = "ループ再生をします。";
+                        UpdatePlayButtons();
+                        timer1.Start();
+                    }
+                    catch
+                    {
+                        Stop();
+                        MessageBox.Show("テスト再生に失敗しました。");
+                    }
+                    break;
+                case State.Looping:
+                    Stop();
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void Stop()
+        {
+            timer1.Stop();
+            if (musicPlayer != null)
+            {
+                musicPlayer.Stop();
+                musicPlayer.Close();
+                musicPlayer = null;
+            }
+            state = State.Stopped;
+            UpdatePlayButtons();
+        }
+
+        private void BtnPlayNearLoop_Click(object sender, EventArgs e)
+        {
+            switch (state)
+            {
+                case State.Stopped:
+                    try
+                    {
+                        var testData = CreateTempMusicData();
+                        var loopLimited = testData.LoopEnd - testData.LoopStart >= PlayDuration * 2 + 1;
+                        musicPlayer = musicController.GetPlayer(testData.PlayMethod);
+                        musicPlayer.MusicData = testData;
+                        musicPlayer.Open();
+                        musicPlayer.Play(true, Math.Max(testData.LoopEnd - PlayDuration, 0));
+                        playStopPosition = loopLimited ? testData.LoopStart + PlayDuration : double.NaN;
+                        state = State.NearLoop;
+                        txtNavigation.Text = loopLimited ? "ループ前後だけ再生します。" : "ループ時間が短すぎるため、通常のループ再生をします。";
+                        UpdatePlayButtons();
+                        timer1.Start();
+                    }
+                    catch
+                    {
+                        Stop();
+                        MessageBox.Show("テスト再生に失敗しました。");
+                    }
+                    break;
+                case State.NearLoop:
+                    Stop();
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            switch (state)
+            {
+                case State.Unable:
+                    break;
+                case State.Stopped:
+                    break;
+                case State.Looping:
+                    musicPlayer?.Loop();
+                    break;
+                case State.NearLoop:
+                    if (musicPlayer != null)
+                    {
+                        musicPlayer.Loop();
+                        if (!double.IsNaN(playStopPosition))
+                        {
+                            var overrun = musicPlayer.Position() - playStopPosition;
+                            if (0 <= overrun && overrun < 1)
+                            {
+                                Stop();
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void FormItem_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Stop();
         }
     }
 }

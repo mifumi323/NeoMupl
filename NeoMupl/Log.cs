@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Windows.Forms;
 using System.IO;
 
@@ -15,19 +16,14 @@ namespace NeoMupl
             FatalError,
         }
 
-        public static Setting setting = null;
-        public static IWin32Window owner = null;
+        public static Setting? setting = null;
+        public static IWin32Window? owner = null;
 
         public static void Write(LogType logtype, string message)
         {
             if (setting == null) return;
-            using (StreamWriter sw = new StreamWriter(setting.LogFile, true))
-            {
-                sw.WriteLine(
-                    DateTime.Now.ToString() + "\t" +
-                    logtype.ToString() + "\t" +
-                    message.Replace("\r\n", "\t").Replace('\r', '\t').Replace('\n', '\t'));
-            }
+            using StreamWriter sw = new StreamWriter(setting.LogFile, true);
+            sw.WriteLine($"{DateTime.Now}\t{logtype}\t{message.Replace("\r\n", "\t").Replace('\r', '\t').Replace('\n', '\t')}");
         }
 
         public static DialogResult Error(string message)

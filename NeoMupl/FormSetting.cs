@@ -1,9 +1,5 @@
+﻿#nullable enable
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
@@ -38,19 +34,21 @@ namespace NeoMupl
             list.Items.Add(prop, value);
         }
 
-        public FormSetting()
+        public FormSetting(Setting setting)
         {
             InitializeComponent();
+
+            this.setting = setting;
         }
 
         private void FormSetting_Load(object sender, EventArgs e)
         {
             // 全般設定
-            txtMinPlayTime.Text = setting.MinPlayTime.ToString();
             txtMinPlayTime.Tag = trbMinPlayTime;
+            txtMinPlayTime.Text = setting.MinPlayTime.ToString();
             trbMinPlayTime.Value = (int)setting.MinPlayTime;
-            txtTimeWeight.Text = setting.TimeWeight.ToString();
             txtTimeWeight.Tag = trbTimeWeight;
+            txtTimeWeight.Text = setting.TimeWeight.ToString();
             trbTimeWeight.Value = (int)setting.TimeWeight;
             txtWindowTitlePattern.Text = setting.WindowTitlePattern;
 
@@ -81,7 +79,7 @@ namespace NeoMupl
             chkReportException.Checked = setting.ReportException;
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             // 全般設定
             setting.MinPlayTime = double.Parse(txtMinPlayTime.Text);
@@ -112,7 +110,7 @@ namespace NeoMupl
             setting.ReportException = chkReportException.Checked;
         }
 
-        private void txtWithTrackBar_TextChanged(object sender, EventArgs e)
+        private void TxtWithTrackBar_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -133,7 +131,7 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-        private void trbMinPlayTime_Scroll(object sender, EventArgs e)
+        private void TrbMinPlayTime_Scroll(object sender, EventArgs e)
         {
             try
             {
@@ -143,7 +141,7 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-        private void trbTimeWeight_Scroll(object sender, EventArgs e)
+        private void TrbTimeWeight_Scroll(object sender, EventArgs e)
         {
             try
             {
@@ -153,13 +151,13 @@ namespace NeoMupl
             catch (Exception) { }
         }
 
-        private void btnUp_Click(object sender, EventArgs e)
+        private void BtnUp_Click(object sender, EventArgs e)
         {
             int index = clbStatusItem.SelectedIndex;
             if (index > 0) SwapStatusItem(index, index - 1);
         }
 
-        private void btnDown_Click(object sender, EventArgs e)
+        private void BtnDown_Click(object sender, EventArgs e)
         {
             int index = clbStatusItem.SelectedIndex;
             if (index < clbStatusItem.Items.Count - 1) SwapStatusItem(index, index + 1);
@@ -176,7 +174,7 @@ namespace NeoMupl
             clbStatusItem.SelectedIndex = to;
         }
 
-        private void btnRefLogFile_Click(object sender, EventArgs e)
+        private void BtnRefLogFile_Click(object sender, EventArgs e)
         {
             saveFileDialog1.InitialDirectory = Path.GetDirectoryName(txtLogFile.Text);
             saveFileDialog1.FileName = txtLogFile.Text;
@@ -188,24 +186,24 @@ namespace NeoMupl
             }
         }
 
-        private void lstTitleTemplate_DoubleClick(object sender, EventArgs e)
+        private void LstTitleTemplate_DoubleClick(object sender, EventArgs e)
         {
             txtTitlePattern.SelectedText = ((ListBox)sender).SelectedItem.ToString().Split(' ')[0];
         }
 
-        private void btnWindowTitlePattern_Click(object sender, EventArgs e)
+        private void BtnWindowTitlePattern_Click(object sender, EventArgs e)
         {
             if (cmbWindowTitlePattern.Text.Contains("："))
                 txtWindowTitlePattern.SelectedText = cmbWindowTitlePattern.Text.Split('：')[0];
             txtWindowTitlePattern.Focus();
         }
 
-        private void cmbWindowTitlePattern_Enter(object sender, EventArgs e)
+        private void CmbWindowTitlePattern_Enter(object sender, EventArgs e)
         {
             AcceptButton = btnWindowTitlePattern;
         }
 
-        private void cmbWindowTitlePattern_Leave(object sender, EventArgs e)
+        private void CmbWindowTitlePattern_Leave(object sender, EventArgs e)
         {
             AcceptButton = btnOK;
         }

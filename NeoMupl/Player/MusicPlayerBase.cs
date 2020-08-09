@@ -1,20 +1,16 @@
-﻿namespace NeoMupl.Player
+﻿#nullable enable
+
+namespace NeoMupl.Player
 {
     /// <summary>音楽再生のための抽象クラス</summary>
     public abstract class MusicPlayerBase
     {
-        private MusicData myMusicData;
-        public MusicData MusicData
-        {
-            get { return myMusicData; }
-            set { myMusicData = value; }
-        }
-
+        public MusicData MusicData { get; set; } = new MusicData("");
 
         public abstract void Open();
         public abstract void Close();
 
-        public abstract void Play(bool bLoop);
+        public abstract void Play(bool bLoop, double from);
         public abstract void Stop();
         public abstract void Loop();
 

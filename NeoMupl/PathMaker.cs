@@ -1,4 +1,4 @@
-﻿using System;
+﻿#nullable enable
 using System.IO;
 
 namespace MifuminLib
@@ -14,7 +14,7 @@ namespace MifuminLib
 
             for (int i = 1; i < 10000; i++)
             {
-                string ret = string.Format("{0}({1}){2}", filename, i, extension);
+                string ret = $"{filename}({i}){extension}";
                 if (!File.Exists(ret)) return ret;
             }
             throw new IOException("ファイルの別名が作れませんでした。");

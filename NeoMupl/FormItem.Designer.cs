@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormItem));
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -57,7 +58,10 @@
             this.txtVolume = new System.Windows.Forms.TextBox();
             this.cmbPlayMethod = new System.Windows.Forms.ComboBox();
             this.lblLastPlayed = new System.Windows.Forms.Label();
+            this.btnPlayLoop = new System.Windows.Forms.Button();
+            this.btnPlayNearLoop = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbSkipRate)).BeginInit();
@@ -72,10 +76,10 @@
             this.btnOK.Margin = new System.Windows.Forms.Padding(0);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 30);
-            this.btnOK.TabIndex = 0;
+            this.btnOK.TabIndex = 1;
             this.btnOK.Text = "&OK";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -85,7 +89,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(0);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 30);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -99,7 +103,7 @@
             this.txtNavigation.Name = "txtNavigation";
             this.txtNavigation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtNavigation.Size = new System.Drawing.Size(394, 30);
-            this.txtNavigation.TabIndex = 2;
+            this.txtNavigation.TabIndex = 0;
             // 
             // panel1
             // 
@@ -148,10 +152,12 @@
             this.tableLayoutPanel1.Controls.Add(this.txtVolume, 4, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmbPlayMethod, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.lblLastPlayed, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.btnPlayLoop, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.btnPlayNearLoop, 3, 8);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowCount = 9;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -160,7 +166,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(543, 205);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(543, 225);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblMIDIPort
@@ -170,7 +177,7 @@
             this.lblMIDIPort.Location = new System.Drawing.Point(3, 171);
             this.lblMIDIPort.Name = "lblMIDIPort";
             this.lblMIDIPort.Size = new System.Drawing.Size(71, 12);
-            this.lblMIDIPort.TabIndex = 1;
+            this.lblMIDIPort.TabIndex = 20;
             this.lblMIDIPort.Text = "MIDIポート(&P)";
             // 
             // cmbMIDIPort
@@ -182,8 +189,8 @@
             this.cmbMIDIPort.Margin = new System.Windows.Forms.Padding(0);
             this.cmbMIDIPort.Name = "cmbMIDIPort";
             this.cmbMIDIPort.Size = new System.Drawing.Size(415, 20);
-            this.cmbMIDIPort.TabIndex = 2;
-            this.cmbMIDIPort.Enter += new System.EventHandler(this.cmbMIDIPort_Enter);
+            this.cmbMIDIPort.TabIndex = 21;
+            this.cmbMIDIPort.Enter += new System.EventHandler(this.CmbMIDIPort_Enter);
             // 
             // btnPlayMethod
             // 
@@ -195,8 +202,8 @@
             this.btnPlayMethod.TabIndex = 19;
             this.btnPlayMethod.Text = "自動";
             this.btnPlayMethod.UseVisualStyleBackColor = true;
-            this.btnPlayMethod.Click += new System.EventHandler(this.btnPlayMethod_Click);
-            this.btnPlayMethod.Enter += new System.EventHandler(this.btnPlayMethod_Enter);
+            this.btnPlayMethod.Click += new System.EventHandler(this.BtnPlayMethod_Click);
+            this.btnPlayMethod.Enter += new System.EventHandler(this.BtnPlayMethod_Enter);
             // 
             // lblPlayMethod
             // 
@@ -217,8 +224,8 @@
             this.txtSkipRate.Name = "txtSkipRate";
             this.txtSkipRate.Size = new System.Drawing.Size(51, 19);
             this.txtSkipRate.TabIndex = 16;
-            this.txtSkipRate.TextChanged += new System.EventHandler(this.txtWithTrackBar_TextChanged);
-            this.txtSkipRate.Enter += new System.EventHandler(this.trbSkipRate_Enter);
+            this.txtSkipRate.TextChanged += new System.EventHandler(this.TxtWithTrackBar_TextChanged);
+            this.txtSkipRate.Enter += new System.EventHandler(this.TrbSkipRate_Enter);
             // 
             // trbSkipRate
             // 
@@ -232,8 +239,8 @@
             this.trbSkipRate.TabIndex = 15;
             this.trbSkipRate.TickFrequency = 10;
             this.trbSkipRate.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trbSkipRate.Scroll += new System.EventHandler(this.trbSkipRate_Scroll);
-            this.trbSkipRate.Enter += new System.EventHandler(this.trbSkipRate_Enter);
+            this.trbSkipRate.Scroll += new System.EventHandler(this.TrbSkipRate_Scroll);
+            this.trbSkipRate.Enter += new System.EventHandler(this.TrbSkipRate_Enter);
             // 
             // lblSkipRate
             // 
@@ -265,7 +272,7 @@
             this.txtLoop2.Name = "txtLoop2";
             this.txtLoop2.Size = new System.Drawing.Size(199, 19);
             this.txtLoop2.TabIndex = 12;
-            this.txtLoop2.Enter += new System.EventHandler(this.txtLoop1_Enter);
+            this.txtLoop2.Enter += new System.EventHandler(this.TxtLoop1_Enter);
             // 
             // lblLoopTo
             // 
@@ -286,7 +293,7 @@
             this.txtLoop1.Name = "txtLoop1";
             this.txtLoop1.Size = new System.Drawing.Size(199, 19);
             this.txtLoop1.TabIndex = 10;
-            this.txtLoop1.Enter += new System.EventHandler(this.txtLoop1_Enter);
+            this.txtLoop1.Enter += new System.EventHandler(this.TxtLoop1_Enter);
             // 
             // lblLoop
             // 
@@ -309,8 +316,8 @@
             this.btnTitle.TabIndex = 5;
             this.btnTitle.Text = "読込";
             this.btnTitle.UseVisualStyleBackColor = true;
-            this.btnTitle.Click += new System.EventHandler(this.btnTitle_Click);
-            this.btnTitle.Enter += new System.EventHandler(this.btnTitle_Enter);
+            this.btnTitle.Click += new System.EventHandler(this.BtnTitle_Click);
+            this.btnTitle.Enter += new System.EventHandler(this.BtnTitle_Enter);
             // 
             // txtTitle
             // 
@@ -321,7 +328,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(415, 19);
             this.txtTitle.TabIndex = 4;
-            this.txtTitle.Enter += new System.EventHandler(this.txtTitle_Enter);
+            this.txtTitle.Enter += new System.EventHandler(this.TxtTitle_Enter);
             // 
             // lblTitle
             // 
@@ -354,7 +361,7 @@
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(415, 19);
             this.txtFileName.TabIndex = 1;
-            this.txtFileName.Enter += new System.EventHandler(this.txtFileName_Enter);
+            this.txtFileName.Enter += new System.EventHandler(this.TxtFileName_Enter);
             // 
             // btnFileName
             // 
@@ -366,7 +373,7 @@
             this.btnFileName.TabIndex = 2;
             this.btnFileName.Text = "参照";
             this.btnFileName.UseVisualStyleBackColor = true;
-            this.btnFileName.Click += new System.EventHandler(this.btnFileName_Click);
+            this.btnFileName.Click += new System.EventHandler(this.BtnFileName_Click);
             // 
             // lblVolume
             // 
@@ -392,8 +399,8 @@
             this.trbVolume.TabIndex = 7;
             this.trbVolume.TickFrequency = 10;
             this.trbVolume.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trbVolume.Scroll += new System.EventHandler(this.trbVolume_Scroll);
-            this.trbVolume.Enter += new System.EventHandler(this.trbVolume_Enter);
+            this.trbVolume.Scroll += new System.EventHandler(this.TrbVolume_Scroll);
+            this.trbVolume.Enter += new System.EventHandler(this.TrbVolume_Enter);
             // 
             // txtVolume
             // 
@@ -403,8 +410,8 @@
             this.txtVolume.Name = "txtVolume";
             this.txtVolume.Size = new System.Drawing.Size(51, 19);
             this.txtVolume.TabIndex = 8;
-            this.txtVolume.TextChanged += new System.EventHandler(this.txtWithTrackBar_TextChanged);
-            this.txtVolume.Enter += new System.EventHandler(this.trbVolume_Enter);
+            this.txtVolume.TextChanged += new System.EventHandler(this.TxtWithTrackBar_TextChanged);
+            this.txtVolume.Enter += new System.EventHandler(this.TrbVolume_Enter);
             // 
             // cmbPlayMethod
             // 
@@ -422,8 +429,8 @@
             this.cmbPlayMethod.Name = "cmbPlayMethod";
             this.cmbPlayMethod.Size = new System.Drawing.Size(415, 20);
             this.cmbPlayMethod.TabIndex = 18;
-            this.cmbPlayMethod.SelectedIndexChanged += new System.EventHandler(this.cmbPlayMethod_SelectedIndexChanged);
-            this.cmbPlayMethod.Enter += new System.EventHandler(this.cmbPlayMethod_Enter);
+            this.cmbPlayMethod.SelectedIndexChanged += new System.EventHandler(this.CmbPlayMethod_SelectedIndexChanged);
+            this.cmbPlayMethod.Enter += new System.EventHandler(this.CmbPlayMethod_Enter);
             // 
             // lblLastPlayed
             // 
@@ -434,12 +441,40 @@
             this.lblLastPlayed.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.lblLastPlayed.Name = "lblLastPlayed";
             this.lblLastPlayed.Size = new System.Drawing.Size(120, 12);
-            this.lblLastPlayed.TabIndex = 20;
+            this.lblLastPlayed.TabIndex = 22;
             this.lblLastPlayed.Text = "最後に再生された日時：";
+            // 
+            // btnPlayLoop
+            // 
+            this.btnPlayLoop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPlayLoop.Location = new System.Drawing.Point(77, 205);
+            this.btnPlayLoop.Margin = new System.Windows.Forms.Padding(0);
+            this.btnPlayLoop.Name = "btnPlayLoop";
+            this.btnPlayLoop.Size = new System.Drawing.Size(199, 20);
+            this.btnPlayLoop.TabIndex = 23;
+            this.btnPlayLoop.Text = "ループ再生テスト";
+            this.btnPlayLoop.UseVisualStyleBackColor = true;
+            this.btnPlayLoop.Click += new System.EventHandler(this.BtnPlayLoop_Click);
+            // 
+            // btnPlayNearLoop
+            // 
+            this.btnPlayNearLoop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPlayNearLoop.Location = new System.Drawing.Point(293, 205);
+            this.btnPlayNearLoop.Margin = new System.Windows.Forms.Padding(0);
+            this.btnPlayNearLoop.Name = "btnPlayNearLoop";
+            this.btnPlayNearLoop.Size = new System.Drawing.Size(199, 20);
+            this.btnPlayNearLoop.TabIndex = 24;
+            this.btnPlayNearLoop.Text = "ループ前後5秒を再生";
+            this.btnPlayNearLoop.UseVisualStyleBackColor = true;
+            this.btnPlayNearLoop.Click += new System.EventHandler(this.BtnPlayNearLoop_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // FormItem
             // 
@@ -458,6 +493,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "項目のプロパティ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormItem_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -500,5 +536,8 @@
         private System.Windows.Forms.Label lblLastPlayed;
         private System.Windows.Forms.ComboBox cmbMIDIPort;
         private System.Windows.Forms.Label lblMIDIPort;
+        private System.Windows.Forms.Button btnPlayLoop;
+        private System.Windows.Forms.Button btnPlayNearLoop;
+        private System.Windows.Forms.Timer timer1;
     }
 }

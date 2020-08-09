@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Globalization;
 using NAudio.Vorbis;
 using NAudio.Wave;
@@ -8,8 +9,8 @@ namespace NeoMupl.Player
     /// <summary>NAudioクラス</summary>
     public class MusicPlayerNAudio : MusicPlayerBase
     {
-        IWavePlayer waveOutDevice;
-        IWaveProvider audioFileReader;
+        IWavePlayer? waveOutDevice;
+        IWaveProvider? audioFileReader;
 
         public MusicPlayerNAudio()
         {
@@ -41,18 +42,18 @@ namespace NeoMupl.Player
 
         public override double Length()
         {
-            return ((WaveStream)audioFileReader)?.TotalTime.TotalSeconds ?? 0.0;
+            return (audioFileReader as WaveStream)?.TotalTime.TotalSeconds ?? 0.0;
         }
 
         public override void Loop()
         {
             var length = Length();
-            if (length > 0)
+            if (length > 0 && audioFileReader is WaveStream ws)
             {
                 if (!IsPlaying())
                 {
-                    ((WaveStream)audioFileReader).CurrentTime = TimeSpan.FromSeconds(MusicData.LoopStart);
-                    waveOutDevice.Play();
+                    ws.CurrentTime = TimeSpan.FromSeconds(MusicData.LoopStart);
+                    waveOutDevice?.Play();
                 }
                 else
                 {
@@ -62,7 +63,7 @@ namespace NeoMupl.Player
                     var overrun = position - loopEnd;
                     if (overrun >= 0)
                     {
-                        ((WaveStream)audioFileReader).CurrentTime = TimeSpan.FromSeconds(loopStart + (overrun % (loopEnd - loopStart)));
+                        ws.CurrentTime = TimeSpan.FromSeconds(loopStart + (overrun % (loopEnd - loopStart)));
                     }
                 }
             }
@@ -70,7 +71,9 @@ namespace NeoMupl.Player
             {
                 if (!IsPlaying())
                 {
-                    ((WaveStream)audioFileReader).Position = 0;
+                    waveOutDevice?.Stop();
+                    if (audioFileReader is WaveStream ws2) ws2.Position = 0;
+                    waveOutDevice?.Play();
                 }
             }
         }
@@ -88,16 +91,23 @@ namespace NeoMupl.Player
             }
         }
 
-        public override void Play(bool bLoop)
+        public override void Play(bool bLoop, double from)
         {
-            waveOutDevice.Init(audioFileReader);
-            waveOutDevice.Volume = (float)(MusicData.Volume * 0.01);
-            waveOutDevice.Play();
+            if (waveOutDevice != null)
+            {
+                waveOutDevice.Init(audioFileReader);
+                waveOutDevice.Volume = (float)(MusicData.Volume * 0.01);
+                if (audioFileReader is WaveStream ws)
+                {
+                    ws.CurrentTime = TimeSpan.FromSeconds(from);
+                }
+                waveOutDevice.Play();
+            }
         }
 
         public override double Position()
         {
-            return ((WaveStream)audioFileReader)?.CurrentTime.TotalSeconds ?? 0.0;
+            return (audioFileReader as WaveStream)?.CurrentTime.TotalSeconds ?? 0.0;
         }
 
         public override void SetTempo(double tempo)

@@ -1,21 +1,22 @@
+#nullable enable
 using System;
-using System.Collections.Generic;
 
 namespace NeoMupl.Player
 {
-    public class MusicController : IMusicController
+    /// <summary>音楽再生統括クラス</summary>
+    public class MusicController
     {
-        private MusicPlayerBase[] musicPlayers;
+        private readonly MusicPlayerBase[] musicPlayers;
         private MusicPlayerBase musicPlayer = new MusicPlayerNull();
-        private MusicPlayerDS musicPlayerDS;
-        private MusicPlayerDM musicPlayerDM;
-        private MusicPlayerMCI musicPlayerMCI;
-        private MusicPlayerNAudio musicPlayerNAudio;
+        public MusicPlayerDS? MusicPlayerDS { get; }
+        public MusicPlayerDM? MusicPlayerDM { get; }
+        public MusicPlayerMCI? MusicPlayerMCI { get; }
+        public MusicPlayerNAudio? MusicPlayerNAudio { get; }
 
-        private MusicData myData = null;
-        public MusicData Data
+        private MusicData? myData = null;
+        public MusicData? Data
         {
-            get { return myData; }
+            get => myData;
             set
             {
                 if (myData != null)
@@ -23,9 +24,13 @@ namespace NeoMupl.Player
                     musicPlayer.Stop();
                     musicPlayer.Close();
                 }
-                (musicPlayer = ((myData = value) != null) ? musicPlayers[(int)value.PlayMethod] : new MusicPlayerNull())
-                    .MusicData = myData;
-                musicPlayer.Open();
+                myData = value;
+                musicPlayer = (value != null) ? GetPlayer(value.PlayMethod) : new MusicPlayerNull();
+                if (value != null)
+                {
+                    musicPlayer.MusicData = value;
+                    musicPlayer.Open();
+                }
             }
         }
 
@@ -36,7 +41,7 @@ namespace NeoMupl.Player
             };
             try
             {
-                musicPlayers[0] = musicPlayerDS = new MusicPlayerDS();
+                musicPlayers[0] = MusicPlayerDS = new MusicPlayerDS();
             }
             catch (Exception e)
             {
@@ -44,7 +49,7 @@ namespace NeoMupl.Player
             }
             try
             {
-                musicPlayers[1] = musicPlayerDM = new MusicPlayerDM();
+                musicPlayers[1] = MusicPlayerDM = new MusicPlayerDM();
             }
             catch (Exception e)
             {
@@ -52,7 +57,7 @@ namespace NeoMupl.Player
             }
             try
             {
-                musicPlayers[2] = musicPlayerMCI = new MusicPlayerMCI();
+                musicPlayers[2] = MusicPlayerMCI = new MusicPlayerMCI();
             }
             catch (Exception e)
             {
@@ -60,7 +65,7 @@ namespace NeoMupl.Player
             }
             try
             {
-                musicPlayers[3] = musicPlayerNAudio = new MusicPlayerNAudio();
+                musicPlayers[3] = MusicPlayerNAudio = new MusicPlayerNAudio();
             }
             catch (Exception e)
             {
@@ -68,13 +73,19 @@ namespace NeoMupl.Player
             }
         }
 
-        private bool myLoop;
-        public bool Loop { get { return myLoop; } }
+        public bool Loop { get; private set; }
 
-        public bool IsPlaying { get { return musicPlayer.IsPlaying(); } }
-        public double Length { get { return musicPlayer.Length(); } }
-        public double Position { get { return musicPlayer.Position(); } }
-        public void Play(bool bLoop) { musicPlayer.Play(myLoop = bLoop); myData.TimeStamp(); }
+        public bool IsPlaying => musicPlayer.IsPlaying();
+        public double Length => musicPlayer.Length();
+        public double Position => musicPlayer.Position();
+        public void Play(bool bLoop, double from = 0)
+        {
+            if (myData != null)
+            {
+                musicPlayer.Play(Loop = bLoop, from);
+                myData.TimeStamp();
+            }
+        }
         public void Stop() { foreach (MusicPlayerBase mp in musicPlayers) mp.Stop(); }
         public void LoopMethod() { musicPlayer.Loop(); }
         public void Dispose()
@@ -84,10 +95,6 @@ namespace NeoMupl.Player
                 mp.Dispose();
             }
         }
-
-        private MusicPlayerDS DirectShow { get { return musicPlayerDS; } }
-        private MusicPlayerDM DirectMusic { get { return musicPlayerDM; } }
-
 
         public void SetTempo(double tempo)
         {
@@ -102,15 +109,20 @@ namespace NeoMupl.Player
             get { return musicPlayer.GetVolume(); }
         }
 
-        public IEnumerable<string> GetDirectMusicPorts()
+        public string[] GetDirectMusicPorts()
         {
-            if (musicPlayerDM == null) return new string[0];
-            return musicPlayerDM.GetPorts();
+            if (MusicPlayerDM == null) return new string[0];
+            return MusicPlayerDM.GetPorts();
         }
 
         public void SetDirectMusicPort(string p)
         {
-            musicPlayerDM.SetPort(p);
+            MusicPlayerDM?.SetPort(p);
+        }
+
+        public MusicPlayerBase GetPlayer(PlayMethod playMethod)
+        {
+            return musicPlayers[(int)playMethod];
         }
     }
 }

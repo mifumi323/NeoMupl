@@ -1,3 +1,4 @@
+﻿#nullable enable
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -12,7 +13,7 @@ namespace NeoMupl
     public partial class Form1 : Form
     {
         MusicList musicList;
-        IMusicController musicController;
+        readonly MusicController musicController;
         Comparison<MusicData> comparison;
         enum DirtyLevel
         {
@@ -27,9 +28,9 @@ namespace NeoMupl
         delegate void PlayMethod();
         PlayMethod playMethod;
         DateTime lastPlayed = DateTime.Now;
+        readonly Setting setting;
 
-        Setting setting;
-        Random random = new Random();
+        readonly Random random = new Random();
 
         bool terminated = false;
 
@@ -44,20 +45,27 @@ namespace NeoMupl
             PlayError,
         }
         Status statusValue;
-        MusicData statusData;
+        MusicData? statusData = null;
 
         #region 初期化処理
         
         public Form1()
         {
             InitializeComponent();
+
+            // 起動後即座に初期化処理でnewされるけど初期化処理前に使用されるケースが残っているためここでインスタンスを作っておく
+            musicList = new MusicList();
+
+            // 初期化処理
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            Log.setting = setting = new Setting();
+            musicController = new MusicController();
+            comparison = CompareFileName;
+            playMethod = PlaySelected;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-            Log.setting = setting = new Setting();
-            musicController = new MusicController();
             if (setting.MainWidth <= 0) setting.MainWidth = Width;
             if (setting.MainHeight <= 0) setting.MainHeight = Height;
             SetDesktopBounds(setting.MainLeft, setting.MainTop, setting.MainWidth, setting.MainHeight);
@@ -68,8 +76,10 @@ namespace NeoMupl
             DMOption.portdefault = setting.Port;
             foreach (string port in musicController.GetDirectMusicPorts())
             {
-                ToolStripMenuItem item = new ToolStripMenuItem(port, null, new EventHandler(portToolStripMenuItem_Click));
-                item.Checked = port == setting.Port;
+                ToolStripMenuItem item = new ToolStripMenuItem(port, null, new EventHandler(PortToolStripMenuItem_Click))
+                {
+                    Checked = port == setting.Port
+                };
                 portToolStripMenuItem.DropDownItems.Add(item);
             }
             UpdateStatusBar();
@@ -115,10 +125,9 @@ namespace NeoMupl
             FormFatalError.Result result = new FormFatalError.Result();
             try
             {
-                if (setting != null && setting.ErrorLog)
-                    Log.Write(Log.LogType.FatalError, "想定外のエラーです。\n\n" + e.Exception.ToString());
-                FormFatalError ff = new FormFatalError();
-                ff.SetException(e.Exception, result);
+                if (setting.ErrorLog)
+                    Log.Write(Log.LogType.FatalError, $"想定外のエラーです。\n\n{e.Exception}");
+                FormFatalError ff = new FormFatalError(e.Exception, result);
                 ff.ShowDialog(this);
                 switch (result.PlayList)
                 {
@@ -233,10 +242,10 @@ namespace NeoMupl
                     musicController.Data = null;
                     UpdateCaption(Status.ReadError, data);
                     if (Log.Error(
-                        "再生しようとしたファイルは存在しません。\n"
-                        + data.FileName + "\n\nリストから削除しますか？", MessageBoxButtons.YesNo,
+                        $"再生しようとしたファイルは存在しません。\n{data.FileName}\n\nリストから削除しますか？",
+                        MessageBoxButtons.YesNo,
                         MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        removeItemToolStripMenuItem_Click(null, null);
+                        removeItemToolStripMenuItem.PerformClick();
                     return;
                 }
                 UpdateCaption(Status.Reading, data);
@@ -246,10 +255,11 @@ namespace NeoMupl
                     musicController.Data = null;
                     UpdateCaption(Status.ReadError, data);
                     if (Log.Error(
-                        "読み込みに失敗しました！\n読み込みに対応していない形式である可能性があります。\n"
-                        + data.FileName + "\n\nリストから削除しますか？", e, MessageBoxButtons.YesNo,
+                        $"読み込みに失敗しました！\n読み込みに対応していない形式である可能性があります。\n{data.FileName}\n\nリストから削除しますか？",
+                        e,
+                        MessageBoxButtons.YesNo,
                         MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        removeItemToolStripMenuItem_Click(null, null);
+                        removeItemToolStripMenuItem.PerformClick();
                     return;
                 }
                 UpdateCaption(Status.Preparing, data);
@@ -375,19 +385,19 @@ namespace NeoMupl
             return ret != 0 ? ret : string.Compare(x.FileName, y.FileName);
         }
 
-        private void sortFileNameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SortFileNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetSorting(Sorting.FileName);
         }
-        private void sortTitleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SortTitleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetSorting(Sorting.Title);
         }
-        private void sortLastPlayedToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SortLastPlayedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetSorting(Sorting.LastPlayed);
         }
-        private void sortFolderNameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SortFolderNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetSorting(Sorting.Directory);
         }
@@ -418,10 +428,10 @@ namespace NeoMupl
                     break;
             }
             setting.Sorting = sorting;
-            if (musicList != null) UpdateList(DirtyLevel.ListItem);
+            UpdateList(DirtyLevel.ListItem);
         }
 
-        private void reverseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ReverseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             reverseToolStripMenuItem.Checked = setting.Reversed = !setting.Reversed;
             UpdateList(DirtyLevel.ListItem);
@@ -431,27 +441,27 @@ namespace NeoMupl
 
         #region 再生メニュー
 
-        private void playSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlaySelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PlaySelected();
         }
-        private void playNextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayNextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PlayNext();
         }
-        private void playPreviousToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayPreviousToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PlayPrevious();
         }
-        private void playRandomToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayRandomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PlayRandom();
         }
-        private void loopToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PlayLoop();
         }
-        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PlayStop();
         }
@@ -460,23 +470,23 @@ namespace NeoMupl
 
         #region 再生終了後の処理
 
-        private void finishActionStopToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FinishActionStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetFinishAction(FinishAction.Stop);
         }
-        private void finishActionReplayToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FinishActionReplayToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetFinishAction(FinishAction.Replay);
         }
-        private void finishActionNextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FinishActionNextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetFinishAction(FinishAction.Next);
         }
-        private void finishActionPreviousToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FinishActionPreviousToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetFinishAction(FinishAction.Previous);
         }
-        private void finishActionRandomToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FinishActionRandomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetFinishAction(FinishAction.Random);
         }
@@ -515,7 +525,7 @@ namespace NeoMupl
         }
 
         bool timerProcessing = false;
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             if (timerProcessing) return;
             timerProcessing = true;
@@ -560,12 +570,12 @@ namespace NeoMupl
 
         #endregion
 
-        private void lstMusic_DoubleClick(object sender, EventArgs e)
+        private void LstMusic_DoubleClick(object sender, EventArgs e)
         {
             PlayLoop();
         }
 
-        private void tempoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TempoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -582,7 +592,7 @@ namespace NeoMupl
             }
         }
 
-        private void portToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PortToolStripMenuItem_Click(object sender, EventArgs e)
         {
             musicController.SetDirectMusicPort(DMOption.portdefault = setting.Port = sender.ToString());
             foreach (ToolStripMenuItem item in portToolStripMenuItem.DropDownItems)
@@ -593,18 +603,17 @@ namespace NeoMupl
 
         #region ファイルメニュー
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
         
-        private void itemPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ItemPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MusicData data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
             string oldFileName = data.FileName;
-            FormItem f = new FormItem();
-            f.Init(data, musicController.GetDirectMusicPorts());
+            FormItem f = new FormItem(musicController, data);
             if (f.ShowDialog() == DialogResult.OK)
             {
                 musicList.Set(oldFileName, data);
@@ -613,7 +622,7 @@ namespace NeoMupl
             }
         }
 
-        private void removeItemToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MusicData data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
@@ -622,7 +631,7 @@ namespace NeoMupl
             UpdateList(DirtyLevel.ListCount);
         }
 
-        private void addFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ofdMusicFiles.ShowDialog() == DialogResult.OK)
             {
@@ -631,7 +640,7 @@ namespace NeoMupl
             }
         }
 
-        private void openListToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ofdListFile.ShowDialog() == DialogResult.OK)
             {
@@ -641,29 +650,28 @@ namespace NeoMupl
             }
         }
 
-        private void optionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormSetting f = new FormSetting();
-            f.setting = setting;
+            FormSetting f = new FormSetting(setting);
             f.ShowDialog();
             OnLayout(new LayoutEventArgs(this, ""));
             UpdateStatusBar();
             UpdateCaption();
         }
 
-        private void listPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ListPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Log.Error("リストのプロパティは未実装です。");
         }
 
-        private void saveListToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             musicList.Save(setting.ListFile);
         }
 
         #endregion
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(Application.ProductName + "\n" + Application.ProductVersion);
         }
@@ -699,7 +707,7 @@ namespace NeoMupl
             lstMusic.Width = ClientSize.Width;
         }
 
-        private void saveOptionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveOptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setting.Save();
         }
@@ -722,33 +730,26 @@ namespace NeoMupl
                 .Replace("<Title>", DataTitle)
                 .Replace("<FileTitle>", FileTitle)
                 .Replace("<FileName>", FileName)
+                .Replace("<Version>", Application.ProductVersion)
                 ;
         }
 
         private string GetStatusText(Status status)
         {
-            switch (status)
+            return status switch
             {
-                case Status.Stopped:
-                    return "再生停止";
-                case Status.Reading:
-                    return "読み込み中";
-                case Status.Preparing:
-                    return "再生準備中";
-                case Status.Playing:
-                    return "再生中";
-                case Status.LoopPlaying:
-                    return "ループ再生中";
-                case Status.ReadError:
-                    return "読み込み失敗";
-                case Status.PlayError:
-                    return "再生失敗";
-                default:
-                    return "";
-            }
+                Status.Stopped => "再生停止",
+                Status.Reading => "読み込み中",
+                Status.Preparing => "再生準備中",
+                Status.Playing => "再生中",
+                Status.LoopPlaying => "ループ再生中",
+                Status.ReadError => "読み込み失敗",
+                Status.PlayError => "再生失敗",
+                _ => "",
+            };
         }
 
-        private void rebootToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RebootToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Terminate();
             Application.Restart();

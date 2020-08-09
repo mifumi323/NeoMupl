@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using MifuminLib.DM7Lib;
 
 namespace NeoMupl.Player
@@ -22,8 +23,8 @@ namespace NeoMupl.Player
     {
         #region 変数
 
-        private DirectMusic music = new DirectMusic();
-        private DirectMusicSegment segment = null;
+        private readonly DirectMusic music = new DirectMusic();
+        private DirectMusicSegment? segment = null;
 
         #endregion
 
@@ -42,28 +43,41 @@ namespace NeoMupl.Player
         public override void Close()
         { }
 
-        public override void Play(bool bLoop)
+        public override void Play(bool bLoop, double from)
         {
             if (segment != null)
             {
                 try
                 {
-                    music.SelectPort(((DMOption)MusicData.Option).port);
+                    if (MusicData.Option is DMOption dmo)
+                    {
+                        music.SelectPort(dmo.port);
+                    }
+                    else
+                    {
+                        SelectDefaultPort();
+                    }
                 }
                 catch (Exception)
                 {
-                    try { music.SelectPort(DMOption.portdefault); }
-                    catch (Exception)
-                    {
-                        music.SelectDefaultPort();
-                    }
+                    SelectDefaultPort();
                 }
                 music.Reset(Reset.GM);
                 music.SetMasterVolume((int)(MusicData.Volume > 0 ? 2000 * Math.Log10(MusicData.Volume / 100) : -10000));
                 segment.SetLoop(bLoop, (int)MusicData.LoopStart, (int)MusicData.LoopEnd);
-                music.Play(segment, SegmentFlags.AfterPrepareTime, 0);
+                music.Play(segment, SegmentFlags.AfterPrepareTime, (long)from);
             }
         }
+
+        private void SelectDefaultPort()
+        {
+            try { music.SelectPort(DMOption.portdefault); }
+            catch (Exception)
+            {
+                music.SelectDefaultPort();
+            }
+        }
+
         public override void Stop()
         {
             // セグメントを指定するとメッセージ配信は止まっても音自体は消えない
@@ -73,7 +87,7 @@ namespace NeoMupl.Player
 
         public override bool IsPlaying()
         {
-            return segment != null ? music.IsPlaying(segment) : false;
+            return segment != null && music.IsPlaying(segment);
         }
         public override double Length() { return segment != null ? (double)segment.GetLength() : 0.0; }
         public override double Position() { return segment != null ? (double)segment.GetSeek() : 0.0; }

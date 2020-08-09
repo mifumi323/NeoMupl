@@ -1,4 +1,6 @@
-﻿namespace NeoMupl.Player
+﻿#nullable enable
+
+namespace NeoMupl.Player
 {
     /// <summary>何もしないクラス</summary>
     public class MusicPlayerNull : MusicPlayerBase
@@ -6,7 +8,7 @@
         public override void Open() { }
         public override void Close() { }
 
-        public override void Play(bool bLoop) { }
+        public override void Play(bool bLoop, double from) { }
         public override void Stop() { }
         public override void Loop() { }
 
