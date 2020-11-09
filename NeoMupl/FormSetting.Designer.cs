@@ -64,6 +64,8 @@
             this.chkReportException = new System.Windows.Forms.CheckBox();
             this.chkIgnoreTimerError = new System.Windows.Forms.CheckBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dgvExtension = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinPlayTime)).BeginInit();
@@ -73,6 +75,7 @@
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExtension)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -253,6 +256,8 @@
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.dgvExtension);
+            this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.tableLayoutPanel1);
             this.tabPage2.Controls.Add(this.txtTitlePattern);
             this.tabPage2.Controls.Add(this.lblTitlePattern);
@@ -516,6 +521,24 @@
             this.chkIgnoreTimerError.Text = "タイマーで起こったエラーを無視する";
             this.chkIgnoreTimerError.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 177);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 12);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "拡張子ごとの設定：";
+            // 
+            // dgvExtension
+            // 
+            this.dgvExtension.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvExtension.Location = new System.Drawing.Point(8, 192);
+            this.dgvExtension.Name = "dgvExtension";
+            this.dgvExtension.RowTemplate.Height = 21;
+            this.dgvExtension.Size = new System.Drawing.Size(426, 56);
+            this.dgvExtension.TabIndex = 10;
+            // 
             // FormSetting
             // 
             this.AcceptButton = this.btnOK;
@@ -545,6 +568,7 @@
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExtension)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -587,5 +611,7 @@
         private System.Windows.Forms.Label lblWindowTitlePattern;
         private System.Windows.Forms.ComboBox cmbWindowTitlePattern;
         private System.Windows.Forms.Button btnWindowTitlePattern;
+        private System.Windows.Forms.DataGridView dgvExtension;
+        private System.Windows.Forms.Label label2;
     }
 }
