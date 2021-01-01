@@ -1,8 +1,8 @@
 ﻿#nullable enable
 using System;
-using System.Windows.Forms;
-using System.Reflection;
 using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace NeoMupl
 {
@@ -54,6 +54,7 @@ namespace NeoMupl
 
             // 追加時の設定
             txtTitlePattern.Text = setting.TitlePattern;
+            dgvExtension.DataSource = setting.ExtensionRules;
 
             // ステータスバー
             chkShowStatus.Checked = setting.ShowStatus;

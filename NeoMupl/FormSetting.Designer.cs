@@ -43,6 +43,8 @@
             this.txtMinPlayTime = new System.Windows.Forms.TextBox();
             this.lblMinPlayTime = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dgvExtension = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
@@ -64,18 +66,16 @@
             this.chkReportException = new System.Windows.Forms.CheckBox();
             this.chkIgnoreTimerError = new System.Windows.Forms.CheckBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dgvExtension = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinPlayTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbTimeWeight)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExtension)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvExtension)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOK
@@ -268,6 +268,26 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "項目追加時の動作";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dgvExtension
+            // 
+            this.dgvExtension.AllowUserToAddRows = false;
+            this.dgvExtension.AllowUserToDeleteRows = false;
+            this.dgvExtension.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvExtension.Location = new System.Drawing.Point(8, 192);
+            this.dgvExtension.Name = "dgvExtension";
+            this.dgvExtension.RowTemplate.Height = 21;
+            this.dgvExtension.Size = new System.Drawing.Size(426, 56);
+            this.dgvExtension.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 177);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 12);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "拡張子ごとの設定：";
             // 
             // tableLayoutPanel1
             // 
@@ -521,24 +541,6 @@
             this.chkIgnoreTimerError.Text = "タイマーで起こったエラーを無視する";
             this.chkIgnoreTimerError.UseVisualStyleBackColor = true;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 177);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 12);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "拡張子ごとの設定：";
-            // 
-            // dgvExtension
-            // 
-            this.dgvExtension.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvExtension.Location = new System.Drawing.Point(8, 192);
-            this.dgvExtension.Name = "dgvExtension";
-            this.dgvExtension.RowTemplate.Height = 21;
-            this.dgvExtension.Size = new System.Drawing.Size(426, 56);
-            this.dgvExtension.TabIndex = 10;
-            // 
             // FormSetting
             // 
             this.AcceptButton = this.btnOK;
@@ -561,6 +563,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trbTimeWeight)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExtension)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -568,7 +571,6 @@
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvExtension)).EndInit();
             this.ResumeLayout(false);
 
         }

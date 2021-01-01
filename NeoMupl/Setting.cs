@@ -41,6 +41,7 @@ namespace NeoMupl
         public int MainHeight { get; set; }
         public FormWindowState MainWindowState { get; set; }
         public string WindowTitlePattern { get; set; } = "<StatusJ> <Title> - NeoMupl";
+        public List<ExtensionRule> ExtensionRules { get; set; } = new List<ExtensionRule>();
 
         public Setting()
         {
