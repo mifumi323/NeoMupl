@@ -273,6 +273,9 @@
             // 
             this.dgvExtension.AllowUserToAddRows = false;
             this.dgvExtension.AllowUserToDeleteRows = false;
+            this.dgvExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvExtension.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvExtension.Location = new System.Drawing.Point(8, 192);
             this.dgvExtension.Name = "dgvExtension";
