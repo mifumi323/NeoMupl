@@ -300,7 +300,7 @@ namespace NeoMupl
         private void AddFiles(string[] p)
         {
             if (p.Length == 0) return;
-            musicList.Add(p);
+            musicList.Add(p, setting.ExtensionRules);
             Dirty(DirtyLevel.ListCount);
             UpdateList();
         }
@@ -635,7 +635,7 @@ namespace NeoMupl
         {
             if (ofdMusicFiles.ShowDialog() == DialogResult.OK)
             {
-                musicList.Add(ofdMusicFiles.FileNames);
+                musicList.Add(ofdMusicFiles.FileNames, setting.ExtensionRules);
                 UpdateList(DirtyLevel.ListCount);
             }
         }

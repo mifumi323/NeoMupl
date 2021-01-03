@@ -1,6 +1,8 @@
 ﻿#nullable enable
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NeoMupl.Player;
 
 namespace NeoMupl
@@ -50,13 +52,14 @@ namespace NeoMupl
 
         #region コンストラクタ
 
-        public MusicData(string fileName)
+        public MusicData(string fileName, List<ExtensionRule>? extensionRules = null)
         {
             Title = CreateTitle(FileName = fileName);
             Volume = 50;
             LoopStart = LoopEnd = SkipRate = 0;
             LastPlayedTicks = 0;
-            PlayMethod = fileName.EndsWith(".mid", true, null) ? PlayMethod.DirectMusic : PlayMethod.DirectShow;
+            PlayMethod = extensionRules?.FirstOrDefault(er => fileName.EndsWith(er.Extension, StringComparison.OrdinalIgnoreCase))?.PlayMethod
+                ?? (fileName.EndsWith(".mid", true, null) ? PlayMethod.DirectMusic : PlayMethod.DirectShow);
             Option = null;
         }
 
