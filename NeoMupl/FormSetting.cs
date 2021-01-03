@@ -1,8 +1,12 @@
 ﻿#nullable enable
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using NeoMupl.Player;
 
 namespace NeoMupl
 {
@@ -37,6 +41,7 @@ namespace NeoMupl
         public FormSetting(Setting setting)
         {
             InitializeComponent();
+            dgvcPlayMethod.DataSource = Enum.GetValues(typeof(PlayMethod));
 
             this.setting = setting;
         }
@@ -54,7 +59,10 @@ namespace NeoMupl
 
             // 追加時の設定
             txtTitlePattern.Text = setting.TitlePattern;
-            dgvExtension.DataSource = setting.ExtensionRules;
+            dgvExtension.DataSource = new BindingList<ExtensionRule>(setting.ExtensionRules.Select(er => new ExtensionRule(er.Extension, er.PlayMethod)).ToList())
+            {
+                AllowNew = true,
+            };
 
             // ステータスバー
             chkShowStatus.Checked = setting.ShowStatus;
@@ -89,6 +97,7 @@ namespace NeoMupl
 
             // 追加時の設定
             setting.TitlePattern = txtTitlePattern.Text;
+            setting.ExtensionRules = ((IEnumerable<ExtensionRule>)dgvExtension.DataSource).ToList();
 
             // ステータスバー
             setting.ShowStatus = chkShowStatus.Checked;

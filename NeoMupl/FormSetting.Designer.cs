@@ -66,6 +66,8 @@
             this.chkReportException = new System.Windows.Forms.CheckBox();
             this.chkIgnoreTimerError = new System.Windows.Forms.CheckBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.dgvcExtension = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvcPlayMethod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinPlayTime)).BeginInit();
@@ -82,7 +84,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(304, 298);
+            this.btnOK.Location = new System.Drawing.Point(304, 374);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 1;
@@ -94,7 +96,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(385, 298);
+            this.btnCancel.Location = new System.Drawing.Point(385, 374);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -114,7 +116,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(448, 280);
+            this.tabControl1.Size = new System.Drawing.Size(448, 356);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -264,23 +266,24 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(440, 254);
+            this.tabPage2.Size = new System.Drawing.Size(440, 330);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "項目追加時の動作";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // dgvExtension
             // 
-            this.dgvExtension.AllowUserToAddRows = false;
-            this.dgvExtension.AllowUserToDeleteRows = false;
             this.dgvExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvExtension.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvExtension.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvcExtension,
+            this.dgvcPlayMethod});
             this.dgvExtension.Location = new System.Drawing.Point(8, 192);
             this.dgvExtension.Name = "dgvExtension";
             this.dgvExtension.RowTemplate.Height = 21;
-            this.dgvExtension.Size = new System.Drawing.Size(426, 56);
+            this.dgvExtension.Size = new System.Drawing.Size(426, 132);
             this.dgvExtension.TabIndex = 10;
             // 
             // label2
@@ -544,13 +547,25 @@
             this.chkIgnoreTimerError.Text = "タイマーで起こったエラーを無視する";
             this.chkIgnoreTimerError.UseVisualStyleBackColor = true;
             // 
+            // dgvcExtension
+            // 
+            this.dgvcExtension.DataPropertyName = "Extension";
+            this.dgvcExtension.HeaderText = "拡張子";
+            this.dgvcExtension.Name = "dgvcExtension";
+            // 
+            // dgvcPlayMethod
+            // 
+            this.dgvcPlayMethod.DataPropertyName = "PlayMethod";
+            this.dgvcPlayMethod.HeaderText = "再生方法";
+            this.dgvcPlayMethod.Name = "dgvcPlayMethod";
+            // 
             // FormSetting
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(472, 333);
+            this.ClientSize = new System.Drawing.Size(472, 409);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -618,5 +633,7 @@
         private System.Windows.Forms.Button btnWindowTitlePattern;
         private System.Windows.Forms.DataGridView dgvExtension;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvcExtension;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dgvcPlayMethod;
     }
 }
