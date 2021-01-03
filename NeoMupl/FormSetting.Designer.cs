@@ -43,6 +43,8 @@
             this.txtMinPlayTime = new System.Windows.Forms.TextBox();
             this.lblMinPlayTime = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dgvExtension = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
@@ -64,11 +66,14 @@
             this.chkReportException = new System.Windows.Forms.CheckBox();
             this.chkIgnoreTimerError = new System.Windows.Forms.CheckBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.dgvcExtension = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvcPlayMethod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinPlayTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbTimeWeight)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExtension)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -79,7 +84,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(304, 298);
+            this.btnOK.Location = new System.Drawing.Point(429, 374);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 1;
@@ -91,7 +96,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(385, 298);
+            this.btnCancel.Location = new System.Drawing.Point(510, 374);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;
@@ -111,7 +116,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(448, 280);
+            this.tabControl1.Size = new System.Drawing.Size(573, 356);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -130,7 +135,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(440, 254);
+            this.tabPage1.Size = new System.Drawing.Size(565, 330);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "全般設定";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -170,7 +175,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtWindowTitlePattern.Location = new System.Drawing.Point(10, 129);
             this.txtWindowTitlePattern.Name = "txtWindowTitlePattern";
-            this.txtWindowTitlePattern.Size = new System.Drawing.Size(203, 19);
+            this.txtWindowTitlePattern.Size = new System.Drawing.Size(328, 19);
             this.txtWindowTitlePattern.TabIndex = 24;
             // 
             // lblWindowTitlePattern
@@ -194,7 +199,7 @@
             // txtTimeWeight
             // 
             this.txtTimeWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTimeWeight.Location = new System.Drawing.Point(384, 85);
+            this.txtTimeWeight.Location = new System.Drawing.Point(509, 85);
             this.txtTimeWeight.Margin = new System.Windows.Forms.Padding(0);
             this.txtTimeWeight.Name = "txtTimeWeight";
             this.txtTimeWeight.Size = new System.Drawing.Size(50, 19);
@@ -210,7 +215,7 @@
             this.trbMinPlayTime.Margin = new System.Windows.Forms.Padding(0);
             this.trbMinPlayTime.Maximum = 100;
             this.trbMinPlayTime.Name = "trbMinPlayTime";
-            this.trbMinPlayTime.Size = new System.Drawing.Size(379, 45);
+            this.trbMinPlayTime.Size = new System.Drawing.Size(504, 45);
             this.trbMinPlayTime.TabIndex = 17;
             this.trbMinPlayTime.TickFrequency = 10;
             this.trbMinPlayTime.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -225,7 +230,7 @@
             this.trbTimeWeight.Margin = new System.Windows.Forms.Padding(0);
             this.trbTimeWeight.Maximum = 100;
             this.trbTimeWeight.Name = "trbTimeWeight";
-            this.trbTimeWeight.Size = new System.Drawing.Size(379, 45);
+            this.trbTimeWeight.Size = new System.Drawing.Size(504, 45);
             this.trbTimeWeight.TabIndex = 20;
             this.trbTimeWeight.TickFrequency = 10;
             this.trbTimeWeight.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -234,7 +239,7 @@
             // txtMinPlayTime
             // 
             this.txtMinPlayTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMinPlayTime.Location = new System.Drawing.Point(384, 28);
+            this.txtMinPlayTime.Location = new System.Drawing.Point(509, 28);
             this.txtMinPlayTime.Margin = new System.Windows.Forms.Padding(0);
             this.txtMinPlayTime.Name = "txtMinPlayTime";
             this.txtMinPlayTime.Size = new System.Drawing.Size(50, 19);
@@ -253,16 +258,42 @@
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.dgvExtension);
+            this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.tableLayoutPanel1);
             this.tabPage2.Controls.Add(this.txtTitlePattern);
             this.tabPage2.Controls.Add(this.lblTitlePattern);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(440, 254);
+            this.tabPage2.Size = new System.Drawing.Size(565, 330);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "項目追加時の動作";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dgvExtension
+            // 
+            this.dgvExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvExtension.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvExtension.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvcExtension,
+            this.dgvcPlayMethod});
+            this.dgvExtension.Location = new System.Drawing.Point(8, 192);
+            this.dgvExtension.Name = "dgvExtension";
+            this.dgvExtension.RowTemplate.Height = 21;
+            this.dgvExtension.Size = new System.Drawing.Size(551, 132);
+            this.dgvExtension.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 177);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 12);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "拡張子ごとの設定：";
             // 
             // tableLayoutPanel1
             // 
@@ -279,7 +310,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(497, 131);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(551, 131);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // listBox1
@@ -294,7 +325,7 @@
             "<directory> : ファイルの場所"});
             this.listBox1.Location = new System.Drawing.Point(3, 3);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(159, 125);
+            this.listBox1.Size = new System.Drawing.Size(177, 125);
             this.listBox1.TabIndex = 0;
             this.listBox1.DoubleClick += new System.EventHandler(this.LstTitleTemplate_DoubleClick);
             // 
@@ -314,9 +345,9 @@
             "<7> : 左から七番目のフォルダ名",
             "<8> : 左から八番目のフォルダ名",
             "<9> : 左から九番目のフォルダ名"});
-            this.listBox2.Location = new System.Drawing.Point(168, 3);
+            this.listBox2.Location = new System.Drawing.Point(186, 3);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(159, 125);
+            this.listBox2.Size = new System.Drawing.Size(177, 125);
             this.listBox2.TabIndex = 0;
             this.listBox2.DoubleClick += new System.EventHandler(this.LstTitleTemplate_DoubleClick);
             // 
@@ -336,9 +367,9 @@
             "<-7> : 右から七番目のフォルダ名",
             "<-8> : 右から八番目のフォルダ名",
             "<-9> : 右から九番目のフォルダ名"});
-            this.listBox3.Location = new System.Drawing.Point(333, 3);
+            this.listBox3.Location = new System.Drawing.Point(369, 3);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(161, 125);
+            this.listBox3.Size = new System.Drawing.Size(179, 125);
             this.listBox3.TabIndex = 0;
             this.listBox3.DoubleClick += new System.EventHandler(this.LstTitleTemplate_DoubleClick);
             // 
@@ -348,7 +379,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitlePattern.Location = new System.Drawing.Point(8, 18);
             this.txtTitlePattern.Name = "txtTitlePattern";
-            this.txtTitlePattern.Size = new System.Drawing.Size(497, 19);
+            this.txtTitlePattern.Size = new System.Drawing.Size(551, 19);
             this.txtTitlePattern.TabIndex = 7;
             // 
             // lblTitlePattern
@@ -370,7 +401,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(440, 254);
+            this.tabPage3.Size = new System.Drawing.Size(565, 330);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "ステータスバー";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -378,7 +409,7 @@
             // btnDown
             // 
             this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDown.Location = new System.Drawing.Point(478, 61);
+            this.btnDown.Location = new System.Drawing.Point(603, 61);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(27, 27);
             this.btnDown.TabIndex = 3;
@@ -389,7 +420,7 @@
             // btnUp
             // 
             this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUp.Location = new System.Drawing.Point(478, 28);
+            this.btnUp.Location = new System.Drawing.Point(603, 28);
             this.btnUp.Name = "btnUp";
             this.btnUp.Size = new System.Drawing.Size(27, 27);
             this.btnUp.TabIndex = 2;
@@ -405,7 +436,7 @@
             this.clbStatusItem.FormattingEnabled = true;
             this.clbStatusItem.Location = new System.Drawing.Point(6, 28);
             this.clbStatusItem.Name = "clbStatusItem";
-            this.clbStatusItem.Size = new System.Drawing.Size(466, 200);
+            this.clbStatusItem.Size = new System.Drawing.Size(591, 270);
             this.clbStatusItem.TabIndex = 1;
             // 
             // chkShowStatus
@@ -429,7 +460,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(440, 254);
+            this.tabPage4.Size = new System.Drawing.Size(565, 330);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "ログ";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -437,7 +468,7 @@
             // btnRefLogFile
             // 
             this.btnRefLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefLogFile.Location = new System.Drawing.Point(383, 6);
+            this.btnRefLogFile.Location = new System.Drawing.Point(508, 6);
             this.btnRefLogFile.Name = "btnRefLogFile";
             this.btnRefLogFile.Size = new System.Drawing.Size(51, 19);
             this.btnRefLogFile.TabIndex = 2;
@@ -451,7 +482,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLogFile.Location = new System.Drawing.Point(69, 6);
             this.txtLogFile.Name = "txtLogFile";
-            this.txtLogFile.Size = new System.Drawing.Size(308, 19);
+            this.txtLogFile.Size = new System.Drawing.Size(433, 19);
             this.txtLogFile.TabIndex = 1;
             // 
             // label1
@@ -471,7 +502,7 @@
             this.clbLog.FormattingEnabled = true;
             this.clbLog.Location = new System.Drawing.Point(6, 53);
             this.clbLog.Name = "clbLog";
-            this.clbLog.Size = new System.Drawing.Size(428, 186);
+            this.clbLog.Size = new System.Drawing.Size(553, 256);
             this.clbLog.TabIndex = 4;
             // 
             // chkEraseLogOnExit
@@ -491,7 +522,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(440, 254);
+            this.tabPage5.Size = new System.Drawing.Size(565, 330);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "エラー処理";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -516,13 +547,25 @@
             this.chkIgnoreTimerError.Text = "タイマーで起こったエラーを無視する";
             this.chkIgnoreTimerError.UseVisualStyleBackColor = true;
             // 
+            // dgvcExtension
+            // 
+            this.dgvcExtension.DataPropertyName = "Extension";
+            this.dgvcExtension.HeaderText = "拡張子";
+            this.dgvcExtension.Name = "dgvcExtension";
+            // 
+            // dgvcPlayMethod
+            // 
+            this.dgvcPlayMethod.DataPropertyName = "PlayMethod";
+            this.dgvcPlayMethod.HeaderText = "再生方法";
+            this.dgvcPlayMethod.Name = "dgvcPlayMethod";
+            // 
             // FormSetting
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(472, 333);
+            this.ClientSize = new System.Drawing.Size(597, 409);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -538,6 +581,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trbTimeWeight)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExtension)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -587,5 +631,9 @@
         private System.Windows.Forms.Label lblWindowTitlePattern;
         private System.Windows.Forms.ComboBox cmbWindowTitlePattern;
         private System.Windows.Forms.Button btnWindowTitlePattern;
+        private System.Windows.Forms.DataGridView dgvExtension;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvcExtension;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dgvcPlayMethod;
     }
 }

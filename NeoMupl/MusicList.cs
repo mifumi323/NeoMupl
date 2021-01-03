@@ -1,4 +1,4 @@
-#nullable enable
+﻿#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +27,7 @@ namespace NeoMupl
 
         /// <summary>曲データを追加する</summary>
         /// <param name="fileName">追加するファイル</param>
-        public void Add(string fileName)
+        public void Add(string fileName, List<ExtensionRule> extensionRules)
         {
             if (fileName.EndsWith("NeoMupl.nmp"))
             {
@@ -35,14 +35,14 @@ namespace NeoMupl
             }
             else
             {
-                try { Add(fileName, new MusicData(fileName)); }
+                try { Add(fileName, new MusicData(fileName, extensionRules)); }
                 catch (Exception) { }
             }
         }
 
         /// <summary>曲データを追加する</summary>
         /// <param name="files">追加するファイル群</param>
-        public void Add(string[] files) { foreach (string file in files) Add(file); }
+        public void Add(string[] files, List<ExtensionRule> extensionRules) { foreach (string file in files) Add(file, extensionRules); }
 
         /// <summary>曲データを置換する</summary>
         /// <param name="oldData">古いデータ</param>
