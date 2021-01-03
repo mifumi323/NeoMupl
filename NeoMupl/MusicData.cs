@@ -43,14 +43,9 @@ namespace NeoMupl
             set => LastPlayedTicks = value.Ticks;
         }
 
-        static private string myPattern = "<fullpath>";
         /// <summary>CreateTitleで使うパターンを取得・設定します</summary>
-        static public string Pattern
-        {
-            get { return myPattern; }
-            set { myPattern = value; }
-        }
-    
+        public static string Pattern { get; set; } = "<fullpath>";
+
         #endregion
 
         #region コンストラクタ
@@ -73,7 +68,7 @@ namespace NeoMupl
 
         public override string ToString() { return Title; }
 
-        static public string CreateTitle(string fileName)
+        public static string CreateTitle(string fileName)
         {
             string[] path = new string[10], rpath = new string[10], p = fileName.Split('\\', '/');
             for (int i = 0; i < 10; i++)

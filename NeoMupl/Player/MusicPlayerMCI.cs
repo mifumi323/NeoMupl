@@ -8,9 +8,7 @@ namespace NeoMupl.Player
     public class MCIException : ApplicationException
     {
         [DllImport("winmm.dll")]
-#pragma warning disable IDE1006 // 命名スタイル
         static extern Int32 mciGetErrorString(Int32 errorCode, StringBuilder errorText, Int32 errorTextSize);
-#pragma warning restore IDE1006 // 命名スタイル
 
         public MCIException()
         { }
@@ -43,9 +41,7 @@ namespace NeoMupl.Player
     public class MusicPlayerMCI : MusicPlayerBase
     {
         [DllImport("winmm.dll")]
-#pragma warning disable IDE1006 // 命名スタイル
         static extern Int32 mciSendString(String command, StringBuilder? buffer, Int32 bufferSize, IntPtr hwndCallback);
-#pragma warning restore IDE1006 // 命名スタイル
 
         public override void Open()
         {
@@ -87,7 +83,7 @@ namespace NeoMupl.Player
 
         public override void Dispose() { }
 
-        static public string GetString(string command)
+        public static string GetString(string command)
         {
             StringBuilder buf = new StringBuilder(256);
             int ret = mciSendString(command, buf, 256, IntPtr.Zero);
@@ -98,7 +94,7 @@ namespace NeoMupl.Player
             return buf.ToString();
         }
 
-        static public void SendString(string command)
+        public static void SendString(string command)
         {
             int ret = mciSendString(command, null, 0, IntPtr.Zero);
             if (ret != 0)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using NeoMupl.Player;
+using NeoMupl.Properties;
 
 namespace NeoMupl
 {
@@ -44,6 +45,7 @@ namespace NeoMupl
             dgvcPlayMethod.DataSource = Enum.GetValues(typeof(PlayMethod));
 
             this.setting = setting;
+            Icon = Resources.MPlayer;
         }
 
         private void FormSetting_Load(object sender, EventArgs e)

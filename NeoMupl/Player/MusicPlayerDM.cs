@@ -7,7 +7,7 @@ namespace NeoMupl.Player
     public class DMOption
     {
         public string port;
-        static public string portdefault = "Default";
+        public static string portdefault = "Default";
         public DMOption()
         {
             port = "";
