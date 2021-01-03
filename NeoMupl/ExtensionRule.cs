@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using NeoMupl.Player;
 
 namespace NeoMupl
@@ -14,5 +15,10 @@ namespace NeoMupl
 
         public string Extension { get; set; }
         public PlayMethod PlayMethod { get; set; }
+
+        public static ExtensionRule Parse(string extension, string playMethodName)
+        {
+            return new ExtensionRule(extension, (PlayMethod)Enum.Parse(typeof(PlayMethod), playMethodName));
+        }
     }
 }

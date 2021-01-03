@@ -107,7 +107,18 @@ namespace NeoMupl
                     while ((line = sr.ReadLine()) != null)
                     {
                         elem = line.Split('\t');
-                        if (elem.Length != 2) continue;
+                        if (elem.Length != 2)
+                        {
+                            if (elem.Length == 3)
+                            {
+                                PropertyInfo pi3 = GetType().GetProperty(elem[0]);
+                                if (pi3.PropertyType == typeof(List<ExtensionRule>))
+                                {
+                                    ((List<ExtensionRule>)pi3.GetValue(this, null)).Add(ExtensionRule.Parse(elem[1], elem[2]));
+                                }
+                            }
+                            continue;
+                        }
                         if (elem[0] == "StatusItem") elem[0] = "StatusItems";
                         if (elem[0] == "Logging") elem[0] = "PlayLog";
                         PropertyInfo pi = GetType().GetProperty(elem[0]);
@@ -155,7 +166,6 @@ namespace NeoMupl
                                     value = long.Parse(elem[1]);
                                     break;
                                 case TypeCode.Object:
-                                    //if (pi.PropertyType == StatusItems.GetType())
                                     if (pi.PropertyType == typeof(List<StatusItem>))
                                     {
                                         ((List<StatusItem>)pi.GetValue(this, null)).Add(StatusItem.Parse(elem[1]));
