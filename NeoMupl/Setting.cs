@@ -74,9 +74,16 @@ namespace NeoMupl
                 {
                     if (pi.PropertyType == StatusItems.GetType())
                     {
-                        foreach (StatusItem si in (List<StatusItem>)pi.GetValue(this, null))
+                        foreach (var si in (List<StatusItem>)pi.GetValue(this, null))
                         {
                             sw.WriteLine($"{pi.Name}\t{si}");
+                        }
+                    }
+                    else if (pi.PropertyType == ExtensionRules.GetType())
+                    {
+                        foreach (var si in (List<ExtensionRule>)pi.GetValue(this, null))
+                        {
+                            sw.WriteLine($"{pi.Name}\t{si.Extension}\t{si.PlayMethod}");
                         }
                     }
                     else
