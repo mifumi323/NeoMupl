@@ -44,6 +44,8 @@
             this.lblMinPlayTime = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dgvExtension = new System.Windows.Forms.DataGridView();
+            this.dgvcExtension = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvcPlayMethod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -66,8 +68,6 @@
             this.chkReportException = new System.Windows.Forms.CheckBox();
             this.chkIgnoreTimerError = new System.Windows.Forms.CheckBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.dgvcExtension = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvcPlayMethod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trbMinPlayTime)).BeginInit();
@@ -142,6 +142,7 @@
             // 
             // cmbWindowTitlePattern
             // 
+            this.cmbWindowTitlePattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbWindowTitlePattern.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowTitlePattern.FormattingEnabled = true;
             this.cmbWindowTitlePattern.Items.AddRange(new object[] {
@@ -152,7 +153,7 @@
             "<StatusJ>：現在の状態（日本語）",
             "<Version>：このソフトのバージョン",
             "NeoMupl：このソフトの名前"});
-            this.cmbWindowTitlePattern.Location = new System.Drawing.Point(249, 128);
+            this.cmbWindowTitlePattern.Location = new System.Drawing.Point(374, 129);
             this.cmbWindowTitlePattern.Name = "cmbWindowTitlePattern";
             this.cmbWindowTitlePattern.Size = new System.Drawing.Size(185, 20);
             this.cmbWindowTitlePattern.TabIndex = 26;
@@ -161,7 +162,8 @@
             // 
             // btnWindowTitlePattern
             // 
-            this.btnWindowTitlePattern.Location = new System.Drawing.Point(219, 129);
+            this.btnWindowTitlePattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnWindowTitlePattern.Location = new System.Drawing.Point(344, 129);
             this.btnWindowTitlePattern.Name = "btnWindowTitlePattern";
             this.btnWindowTitlePattern.Size = new System.Drawing.Size(24, 19);
             this.btnWindowTitlePattern.TabIndex = 25;
@@ -285,6 +287,18 @@
             this.dgvExtension.RowTemplate.Height = 21;
             this.dgvExtension.Size = new System.Drawing.Size(551, 132);
             this.dgvExtension.TabIndex = 10;
+            // 
+            // dgvcExtension
+            // 
+            this.dgvcExtension.DataPropertyName = "Extension";
+            this.dgvcExtension.HeaderText = "拡張子";
+            this.dgvcExtension.Name = "dgvcExtension";
+            // 
+            // dgvcPlayMethod
+            // 
+            this.dgvcPlayMethod.DataPropertyName = "PlayMethod";
+            this.dgvcPlayMethod.HeaderText = "再生方法";
+            this.dgvcPlayMethod.Name = "dgvcPlayMethod";
             // 
             // label2
             // 
@@ -546,18 +560,6 @@
             this.chkIgnoreTimerError.TabIndex = 24;
             this.chkIgnoreTimerError.Text = "タイマーで起こったエラーを無視する";
             this.chkIgnoreTimerError.UseVisualStyleBackColor = true;
-            // 
-            // dgvcExtension
-            // 
-            this.dgvcExtension.DataPropertyName = "Extension";
-            this.dgvcExtension.HeaderText = "拡張子";
-            this.dgvcExtension.Name = "dgvcExtension";
-            // 
-            // dgvcPlayMethod
-            // 
-            this.dgvcPlayMethod.DataPropertyName = "PlayMethod";
-            this.dgvcPlayMethod.HeaderText = "再生方法";
-            this.dgvcPlayMethod.Name = "dgvcPlayMethod";
             // 
             // FormSetting
             // 
