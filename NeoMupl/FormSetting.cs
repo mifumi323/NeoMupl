@@ -58,6 +58,7 @@ namespace NeoMupl
             txtTimeWeight.Text = setting.TimeWeight.ToString();
             trbTimeWeight.Value = (int)setting.TimeWeight;
             txtWindowTitlePattern.Text = setting.WindowTitlePattern;
+            chkStopWhenWindowsLocked.Checked = setting.StopWhenWindowsLocked;
 
             // 追加時の設定
             txtTitlePattern.Text = setting.TitlePattern;

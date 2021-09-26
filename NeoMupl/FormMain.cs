@@ -62,6 +62,7 @@ namespace NeoMupl
             musicController = new MusicController();
             comparison = CompareFileName;
             playMethod = PlaySelected;
+            MachineLocked += FormMain_MachineLocked;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -753,6 +754,14 @@ namespace NeoMupl
         {
             Terminate();
             Application.Restart();
+        }
+
+        private void FormMain_MachineLocked(object sender, EventArgs e)
+        {
+            if (setting.StopWhenWindowsLocked)
+            {
+                PlayStop();
+            }
         }
     }
 }
