@@ -10,7 +10,7 @@ namespace NeoMupl
     public enum FinishAction { Stop, Replay, Next, Previous, Random }
     public enum Sorting { FileName, Title, LastPlayed, Directory }
 
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         MusicList musicList;
         readonly MusicController musicController;
@@ -49,7 +49,7 @@ namespace NeoMupl
 
         #region 初期化処理
         
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
 
@@ -64,7 +64,7 @@ namespace NeoMupl
             playMethod = PlaySelected;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormMain_Load(object sender, EventArgs e)
         {
             if (setting.MainWidth <= 0) setting.MainWidth = Width;
             if (setting.MainHeight <= 0) setting.MainHeight = Height;
@@ -95,7 +95,7 @@ namespace NeoMupl
             UpdateList(DirtyLevel.ListCount);
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             Terminate();
         }
@@ -287,12 +287,12 @@ namespace NeoMupl
 
         #region 項目追加とか
 
-        private void Form1_DragEnter(object sender, DragEventArgs e)
+        private void FormMain_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.All;
         }
 
-        private void Form1_DragDrop(object sender, DragEventArgs e)
+        private void FormMain_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) AddFiles((string[])e.Data.GetData(DataFormats.FileDrop));
         }
@@ -684,7 +684,7 @@ namespace NeoMupl
             }
         }
 
-        private void Form1_Layout(object sender, LayoutEventArgs e)
+        private void FormMain_Layout(object sender, LayoutEventArgs e)
         {
             if (setting == null) return;
             int listHeight = ClientSize.Height;
