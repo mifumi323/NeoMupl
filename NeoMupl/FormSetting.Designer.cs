@@ -32,6 +32,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkStopWhenWindowsLocked = new System.Windows.Forms.CheckBox();
             this.cmbWindowTitlePattern = new System.Windows.Forms.ComboBox();
             this.btnWindowTitlePattern = new System.Windows.Forms.Button();
             this.txtWindowTitlePattern = new System.Windows.Forms.TextBox();
@@ -122,6 +123,7 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.chkStopWhenWindowsLocked);
             this.tabPage1.Controls.Add(this.cmbWindowTitlePattern);
             this.tabPage1.Controls.Add(this.btnWindowTitlePattern);
             this.tabPage1.Controls.Add(this.txtWindowTitlePattern);
@@ -140,6 +142,16 @@
             this.tabPage1.Text = "全般設定";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // chkStopWhenWindowsLocked
+            // 
+            this.chkStopWhenWindowsLocked.AutoSize = true;
+            this.chkStopWhenWindowsLocked.Location = new System.Drawing.Point(10, 173);
+            this.chkStopWhenWindowsLocked.Name = "chkStopWhenWindowsLocked";
+            this.chkStopWhenWindowsLocked.Size = new System.Drawing.Size(161, 16);
+            this.chkStopWhenWindowsLocked.TabIndex = 10;
+            this.chkStopWhenWindowsLocked.Text = "Windowsロック時に再生停止";
+            this.chkStopWhenWindowsLocked.UseVisualStyleBackColor = true;
+            // 
             // cmbWindowTitlePattern
             // 
             this.cmbWindowTitlePattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -156,7 +168,7 @@
             this.cmbWindowTitlePattern.Location = new System.Drawing.Point(374, 129);
             this.cmbWindowTitlePattern.Name = "cmbWindowTitlePattern";
             this.cmbWindowTitlePattern.Size = new System.Drawing.Size(185, 20);
-            this.cmbWindowTitlePattern.TabIndex = 26;
+            this.cmbWindowTitlePattern.TabIndex = 9;
             this.cmbWindowTitlePattern.Enter += new System.EventHandler(this.CmbWindowTitlePattern_Enter);
             this.cmbWindowTitlePattern.Leave += new System.EventHandler(this.CmbWindowTitlePattern_Leave);
             // 
@@ -166,7 +178,7 @@
             this.btnWindowTitlePattern.Location = new System.Drawing.Point(344, 129);
             this.btnWindowTitlePattern.Name = "btnWindowTitlePattern";
             this.btnWindowTitlePattern.Size = new System.Drawing.Size(24, 19);
-            this.btnWindowTitlePattern.TabIndex = 25;
+            this.btnWindowTitlePattern.TabIndex = 8;
             this.btnWindowTitlePattern.Text = "←";
             this.btnWindowTitlePattern.UseVisualStyleBackColor = true;
             this.btnWindowTitlePattern.Click += new System.EventHandler(this.BtnWindowTitlePattern_Click);
@@ -178,7 +190,7 @@
             this.txtWindowTitlePattern.Location = new System.Drawing.Point(10, 129);
             this.txtWindowTitlePattern.Name = "txtWindowTitlePattern";
             this.txtWindowTitlePattern.Size = new System.Drawing.Size(328, 19);
-            this.txtWindowTitlePattern.TabIndex = 24;
+            this.txtWindowTitlePattern.TabIndex = 7;
             // 
             // lblWindowTitlePattern
             // 
@@ -186,7 +198,7 @@
             this.lblWindowTitlePattern.Location = new System.Drawing.Point(8, 114);
             this.lblWindowTitlePattern.Name = "lblWindowTitlePattern";
             this.lblWindowTitlePattern.Size = new System.Drawing.Size(145, 12);
-            this.lblWindowTitlePattern.TabIndex = 23;
+            this.lblWindowTitlePattern.TabIndex = 6;
             this.lblWindowTitlePattern.Text = "ウィンドウのタイトル付け規則：";
             // 
             // lblTimeWeight
@@ -195,7 +207,7 @@
             this.lblTimeWeight.Location = new System.Drawing.Point(8, 60);
             this.lblTimeWeight.Name = "lblTimeWeight";
             this.lblTimeWeight.Size = new System.Drawing.Size(56, 12);
-            this.lblTimeWeight.TabIndex = 22;
+            this.lblTimeWeight.TabIndex = 3;
             this.lblTimeWeight.Text = "時の重み：";
             // 
             // txtTimeWeight
@@ -205,7 +217,7 @@
             this.txtTimeWeight.Margin = new System.Windows.Forms.Padding(0);
             this.txtTimeWeight.Name = "txtTimeWeight";
             this.txtTimeWeight.Size = new System.Drawing.Size(50, 19);
-            this.txtTimeWeight.TabIndex = 21;
+            this.txtTimeWeight.TabIndex = 5;
             this.txtTimeWeight.TextChanged += new System.EventHandler(this.TxtWithTrackBar_TextChanged);
             // 
             // trbMinPlayTime
@@ -218,7 +230,7 @@
             this.trbMinPlayTime.Maximum = 100;
             this.trbMinPlayTime.Name = "trbMinPlayTime";
             this.trbMinPlayTime.Size = new System.Drawing.Size(504, 45);
-            this.trbMinPlayTime.TabIndex = 17;
+            this.trbMinPlayTime.TabIndex = 1;
             this.trbMinPlayTime.TickFrequency = 10;
             this.trbMinPlayTime.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trbMinPlayTime.Scroll += new System.EventHandler(this.TrbMinPlayTime_Scroll);
@@ -233,7 +245,7 @@
             this.trbTimeWeight.Maximum = 100;
             this.trbTimeWeight.Name = "trbTimeWeight";
             this.trbTimeWeight.Size = new System.Drawing.Size(504, 45);
-            this.trbTimeWeight.TabIndex = 20;
+            this.trbTimeWeight.TabIndex = 4;
             this.trbTimeWeight.TickFrequency = 10;
             this.trbTimeWeight.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trbTimeWeight.Scroll += new System.EventHandler(this.TrbTimeWeight_Scroll);
@@ -245,7 +257,7 @@
             this.txtMinPlayTime.Margin = new System.Windows.Forms.Padding(0);
             this.txtMinPlayTime.Name = "txtMinPlayTime";
             this.txtMinPlayTime.Size = new System.Drawing.Size(50, 19);
-            this.txtMinPlayTime.TabIndex = 18;
+            this.txtMinPlayTime.TabIndex = 2;
             this.txtMinPlayTime.TextChanged += new System.EventHandler(this.TxtWithTrackBar_TextChanged);
             // 
             // lblMinPlayTime
@@ -254,7 +266,7 @@
             this.lblMinPlayTime.Location = new System.Drawing.Point(8, 3);
             this.lblMinPlayTime.Name = "lblMinPlayTime";
             this.lblMinPlayTime.Size = new System.Drawing.Size(83, 12);
-            this.lblMinPlayTime.TabIndex = 19;
+            this.lblMinPlayTime.TabIndex = 0;
             this.lblMinPlayTime.Text = "最低再生時間：";
             // 
             // tabPage2
@@ -286,7 +298,7 @@
             this.dgvExtension.Name = "dgvExtension";
             this.dgvExtension.RowTemplate.Height = 21;
             this.dgvExtension.Size = new System.Drawing.Size(551, 132);
-            this.dgvExtension.TabIndex = 10;
+            this.dgvExtension.TabIndex = 4;
             // 
             // dgvcExtension
             // 
@@ -306,7 +318,7 @@
             this.label2.Location = new System.Drawing.Point(6, 177);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 12);
-            this.label2.TabIndex = 9;
+            this.label2.TabIndex = 3;
             this.label2.Text = "拡張子ごとの設定：";
             // 
             // tableLayoutPanel1
@@ -325,7 +337,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(551, 131);
-            this.tableLayoutPanel1.TabIndex = 8;
+            this.tableLayoutPanel1.TabIndex = 2;
             // 
             // listBox1
             // 
@@ -362,7 +374,7 @@
             this.listBox2.Location = new System.Drawing.Point(186, 3);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(177, 125);
-            this.listBox2.TabIndex = 0;
+            this.listBox2.TabIndex = 1;
             this.listBox2.DoubleClick += new System.EventHandler(this.LstTitleTemplate_DoubleClick);
             // 
             // listBox3
@@ -384,7 +396,7 @@
             this.listBox3.Location = new System.Drawing.Point(369, 3);
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(179, 125);
-            this.listBox3.TabIndex = 0;
+            this.listBox3.TabIndex = 2;
             this.listBox3.DoubleClick += new System.EventHandler(this.LstTitleTemplate_DoubleClick);
             // 
             // txtTitlePattern
@@ -394,7 +406,7 @@
             this.txtTitlePattern.Location = new System.Drawing.Point(8, 18);
             this.txtTitlePattern.Name = "txtTitlePattern";
             this.txtTitlePattern.Size = new System.Drawing.Size(551, 19);
-            this.txtTitlePattern.TabIndex = 7;
+            this.txtTitlePattern.TabIndex = 1;
             // 
             // lblTitlePattern
             // 
@@ -402,7 +414,7 @@
             this.lblTitlePattern.Location = new System.Drawing.Point(6, 3);
             this.lblTitlePattern.Name = "lblTitlePattern";
             this.lblTitlePattern.Size = new System.Drawing.Size(92, 12);
-            this.lblTitlePattern.TabIndex = 6;
+            this.lblTitlePattern.TabIndex = 0;
             this.lblTitlePattern.Text = "タイトル付け規則：";
             // 
             // tabPage3
@@ -547,7 +559,7 @@
             this.chkReportException.Location = new System.Drawing.Point(6, 28);
             this.chkReportException.Name = "chkReportException";
             this.chkReportException.Size = new System.Drawing.Size(203, 16);
-            this.chkReportException.TabIndex = 25;
+            this.chkReportException.TabIndex = 1;
             this.chkReportException.Text = "エラーに付随する例外情報を表示する";
             this.chkReportException.UseVisualStyleBackColor = true;
             // 
@@ -557,7 +569,7 @@
             this.chkIgnoreTimerError.Location = new System.Drawing.Point(6, 6);
             this.chkIgnoreTimerError.Name = "chkIgnoreTimerError";
             this.chkIgnoreTimerError.Size = new System.Drawing.Size(186, 16);
-            this.chkIgnoreTimerError.TabIndex = 24;
+            this.chkIgnoreTimerError.TabIndex = 0;
             this.chkIgnoreTimerError.Text = "タイマーで起こったエラーを無視する";
             this.chkIgnoreTimerError.UseVisualStyleBackColor = true;
             // 
@@ -637,5 +649,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvcExtension;
         private System.Windows.Forms.DataGridViewComboBoxColumn dgvcPlayMethod;
+        private System.Windows.Forms.CheckBox chkStopWhenWindowsLocked;
     }
 }

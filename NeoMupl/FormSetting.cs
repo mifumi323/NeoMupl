@@ -96,6 +96,7 @@ namespace NeoMupl
             setting.MinPlayTime = double.Parse(txtMinPlayTime.Text);
             setting.TimeWeight = double.Parse(txtTimeWeight.Text);
             setting.WindowTitlePattern = txtWindowTitlePattern.Text;
+            setting.StopWhenWindowsLocked = chkStopWhenWindowsLocked.Checked;
 
             // 追加時の設定
             setting.TitlePattern = txtTitlePattern.Text;
