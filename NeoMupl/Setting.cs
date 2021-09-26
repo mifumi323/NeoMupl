@@ -42,6 +42,7 @@ namespace NeoMupl
         public FormWindowState MainWindowState { get; set; }
         public string WindowTitlePattern { get; set; } = "<StatusJ> <Title> - NeoMupl";
         public List<ExtensionRule> ExtensionRules { get; set; } = new List<ExtensionRule>();
+        public bool StopWhenWindowsLocked { get; set; }
 
         public Setting()
         {
