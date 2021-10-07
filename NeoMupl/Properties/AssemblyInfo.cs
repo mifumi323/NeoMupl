@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("NeoMupl")]
-[assembly: AssemblyCopyright("Copyright Mifumi (C)  2007-2021")]
+[assembly: AssemblyCopyright("Copyright © Mifumi 2007-2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
