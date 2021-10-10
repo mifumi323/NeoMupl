@@ -4,20 +4,6 @@ using MifuminLib.DM7Lib;
 
 namespace NeoMupl.Player
 {
-    public class DMOption
-    {
-        public string port;
-        public static string portdefault = "Default";
-        public DMOption()
-        {
-            port = "";
-        }
-        public DMOption(string port)
-        {
-            this.port = port;
-        }
-    }
-
     /// <summary>DirectMusicクラス</summary>
     public class MusicPlayerDM : MusicPlayerBase
     {

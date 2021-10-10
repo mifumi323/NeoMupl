@@ -129,6 +129,7 @@
     <Compile Include="Log.cs" />
     <Compile Include="MusicData.cs" />
     <Compile Include="MusicList.cs" />
+    <Compile Include="Player\DMOption.cs" />
     <Compile Include="Player\MusicController.cs" />
     <Compile Include="PathMaker.cs" />
     <Compile Include="Player\MusicPlayerBase.cs" />
