@@ -127,7 +127,6 @@
       <DependentUpon>FormSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Log.cs" />
-    <Compile Include="MusicList.cs" />
     <Compile Include="Player\MusicController.cs" />
     <Compile Include="PathMaker.cs" />
     <Compile Include="Player\MusicPlayerBase.cs" />
