@@ -56,6 +56,7 @@
     <Compile Include="PathMaker.cs" />
     <Compile Include="Player\DMOption.cs" />
     <Compile Include="Player\Enum.cs" />
+    <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
