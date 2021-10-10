@@ -98,7 +98,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionRule.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
