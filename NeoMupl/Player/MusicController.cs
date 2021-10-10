@@ -1,4 +1,4 @@
-#nullable enable
+﻿#nullable enable
 using System;
 
 namespace NeoMupl.Player
@@ -45,7 +45,7 @@ namespace NeoMupl.Player
             }
             catch (Exception e)
             {
-                Log.Error("DirectShowの初期化に失敗", e);
+                Log.ShowException("DirectShowの初期化に失敗", e);
             }
             try
             {
@@ -53,7 +53,7 @@ namespace NeoMupl.Player
             }
             catch (Exception e)
             {
-                Log.Error("DirectMusicの初期化に失敗", e);
+                Log.ShowException("DirectMusicの初期化に失敗", e);
             }
             try
             {
@@ -61,7 +61,7 @@ namespace NeoMupl.Player
             }
             catch (Exception e)
             {
-                Log.Error("MCIの初期化に失敗\n", e);
+                Log.ShowException("MCIの初期化に失敗\n", e);
             }
             try
             {
@@ -69,7 +69,7 @@ namespace NeoMupl.Player
             }
             catch (Exception e)
             {
-                Log.Error("NAudioの初期化に失敗\n", e);
+                Log.ShowException("NAudioの初期化に失敗\n", e);
             }
         }
 

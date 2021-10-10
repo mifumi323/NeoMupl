@@ -5,7 +5,7 @@ using System.IO;
 
 namespace NeoMupl
 {
-    internal class Log
+    public class Log
     {
         public enum LogType
         {
@@ -17,7 +17,7 @@ namespace NeoMupl
         }
 
         public static Setting? setting = null;
-        public static IWin32Window? owner = null;
+        public static IErrorNotifier? errorNotifier = null;
 
         public static void Write(LogType logtype, string message)
         {
@@ -26,36 +26,16 @@ namespace NeoMupl
             sw.WriteLine($"{DateTime.Now}\t{logtype}\t{message.Replace("\r\n", "\t").Replace('\r', '\t').Replace('\n', '\t')}");
         }
 
-        public static DialogResult Error(string message)
-        {
-            return Error(message, MessageBoxButtons.OK);
-        }
-
-        public static DialogResult Error(string message, MessageBoxButtons buttons)
-        {
-            return Error(message, buttons, MessageBoxDefaultButton.Button1);
-        }
-
-        public static DialogResult Error(string message, MessageBoxButtons buttons, MessageBoxDefaultButton defaultButton)
+        public static bool ShowError(string message, IErrorNotifier.NoticeType type = IErrorNotifier.NoticeType.MessageOnly)
         {
             if (setting != null && setting.ErrorLog) Write(LogType.Error, message);
-            return MessageBox.Show(owner, message, "NeoMupl エラー！", buttons, MessageBoxIcon.Error, defaultButton);
+            return errorNotifier?.Notify(message, type) ?? true;
         }
 
-        public static DialogResult Error(string message, Exception e)
+        public static bool ShowException(string message, Exception e, IErrorNotifier.NoticeType type = IErrorNotifier.NoticeType.MessageOnly)
         {
-            return Error(message, e, MessageBoxButtons.OK);
-        }
-
-        public static DialogResult Error(string message, Exception e, MessageBoxButtons buttons)
-        {
-            return Error(message, e, buttons, MessageBoxDefaultButton.Button1);
-        }
-
-        public static DialogResult Error(string message, Exception e, MessageBoxButtons buttons, MessageBoxDefaultButton defaultButton)
-        {
-            if (setting != null && setting.ReportException) message += "\n\nエラー内容：\n" + e.Message;
-            return Error(message, buttons, defaultButton);
+            if (setting != null && setting.ReportException) message += $"\n\nエラー内容：\n{e.Message}";
+            return ShowError(message, type);
         }
     }
 }
