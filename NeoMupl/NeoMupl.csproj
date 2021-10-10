@@ -127,7 +127,6 @@
     <Compile Include="FormSetting.Designer.cs">
       <DependentUpon>FormSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="IErrorNotifier.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MusicData.cs" />
     <Compile Include="MusicList.cs" />
