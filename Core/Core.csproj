@@ -53,6 +53,7 @@
     <Compile Include="IErrorNotifier.cs" />
     <Compile Include="MusicData.cs" />
     <Compile Include="MusicList.cs" />
+    <Compile Include="PathMaker.cs" />
     <Compile Include="Player\DMOption.cs" />
     <Compile Include="Player\Enum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
