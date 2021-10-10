@@ -48,7 +48,7 @@ namespace NeoMupl
         MusicData? statusData = null;
 
         #region 初期化処理
-        
+
         public FormMain()
         {
             InitializeComponent();
@@ -303,7 +303,7 @@ namespace NeoMupl
             Dirty(DirtyLevel.ListCount);
             UpdateList();
         }
-        
+
         #endregion
 
         #region リストの表示・並べ替え
@@ -435,7 +435,7 @@ namespace NeoMupl
             reverseToolStripMenuItem.Checked = setting.Reversed = !setting.Reversed;
             UpdateList(DirtyLevel.ListItem);
         }
-        
+
         #endregion
 
         #region 再生メニュー
@@ -606,7 +606,7 @@ namespace NeoMupl
         {
             Close();
         }
-        
+
         private void ItemPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MusicData data = (MusicData)lstMusic.SelectedItem;

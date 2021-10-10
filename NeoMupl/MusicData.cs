@@ -120,7 +120,7 @@ namespace NeoMupl
             if (data.Option is DMOption dm && dm.port != "") sw.WriteLine($"MIDIPort\t{dm.port}");
             if (full || data.LastPlayedTicks != defaultData?.LastPlayedTicks) sw.WriteLine($"LastPlayed\t{data.LastPlayedTicks}");
         }
-        
+
         #endregion
     }
 }
