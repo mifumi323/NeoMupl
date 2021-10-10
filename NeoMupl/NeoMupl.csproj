@@ -128,7 +128,6 @@
     </Compile>
     <Compile Include="Log.cs" />
     <Compile Include="Player\MusicController.cs" />
-    <Compile Include="Player\MusicPlayerBase.cs" />
     <Compile Include="Player\MusicPlayerDM.cs" />
     <Compile Include="Player\MusicPlayerDS.cs" />
     <Compile Include="Player\MusicPlayerMCI.cs" />
