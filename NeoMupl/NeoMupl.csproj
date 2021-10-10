@@ -139,7 +139,6 @@
     <Compile Include="Player\MusicPlayerMCI.cs" />
     <Compile Include="Player\MusicPlayerNAudio.cs" />
     <Compile Include="Player\MusicPlayerNull.cs" />
-    <Compile Include="Player\Enum.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -196,6 +195,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{ebe745f7-f451-472d-a39d-8a062ed656a5}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
