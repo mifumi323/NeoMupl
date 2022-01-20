@@ -52,6 +52,7 @@
             this.saveOptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playNextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,13 +91,13 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ofdMusicFiles = new System.Windows.Forms.OpenFileDialog();
             this.ofdListFile = new System.Windows.Forms.OpenFileDialog();
-            this.rebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstMusic
             // 
+            this.lstMusic.AllowDrop = true;
             this.lstMusic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -107,6 +108,8 @@
             this.lstMusic.Name = "lstMusic";
             this.lstMusic.Size = new System.Drawing.Size(472, 280);
             this.lstMusic.TabIndex = 0;
+            this.lstMusic.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormMain_DragDrop);
+            this.lstMusic.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormMain_DragEnter);
             this.lstMusic.DoubleClick += new System.EventHandler(this.LstMusic_DoubleClick);
             // 
             // contextMenuStrip1
@@ -156,6 +159,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.AllowDrop = true;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.playToolStripMenuItem,
@@ -166,6 +170,8 @@
             this.menuStrip1.Size = new System.Drawing.Size(472, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormMain_DragDrop);
+            this.menuStrip1.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormMain_DragEnter);
             // 
             // fileToolStripMenuItem
             // 
@@ -275,6 +281,13 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.exitToolStripMenuItem.Text = "終了";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // rebootToolStripMenuItem
+            // 
+            this.rebootToolStripMenuItem.Name = "rebootToolStripMenuItem";
+            this.rebootToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.rebootToolStripMenuItem.Text = "NeoMuplを再起動";
+            this.rebootToolStripMenuItem.Click += new System.EventHandler(this.RebootToolStripMenuItem_Click);
             // 
             // playToolStripMenuItem
             // 
@@ -544,11 +557,14 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.AllowDrop = true;
             this.statusStrip1.Location = new System.Drawing.Point(0, 311);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(472, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormMain_DragDrop);
+            this.statusStrip1.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormMain_DragEnter);
             // 
             // timer1
             // 
@@ -566,14 +582,7 @@
             this.ofdListFile.Filter = "NeoMuplリスト|*.nmp|全てのファイル|*.*";
             this.ofdListFile.Title = "リストを開く";
             // 
-            // rebootToolStripMenuItem
-            // 
-            this.rebootToolStripMenuItem.Name = "rebootToolStripMenuItem";
-            this.rebootToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.rebootToolStripMenuItem.Text = "NeoMuplを再起動";
-            this.rebootToolStripMenuItem.Click += new System.EventHandler(this.RebootToolStripMenuItem_Click);
-            // 
-            // Form1
+            // FormMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -584,7 +593,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "NeoMupl";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
