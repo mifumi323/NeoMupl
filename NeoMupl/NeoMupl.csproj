@@ -66,6 +66,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DM7lib, Version=1.0.3364.38677, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -95,7 +98,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionRule.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,18 +127,12 @@
       <DependentUpon>FormSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Log.cs" />
-    <Compile Include="MusicData.cs" />
-    <Compile Include="MusicList.cs" />
     <Compile Include="Player\MusicController.cs" />
-    <Compile Include="PathMaker.cs" />
-    <Compile Include="Player\MusicPlayerBase.cs" />
     <Compile Include="Player\MusicPlayerDM.cs" />
     <Compile Include="Player\MusicPlayerDS.cs" />
     <Compile Include="Player\MusicPlayerMCI.cs" />
     <Compile Include="Player\MusicPlayerNAudio.cs" />
     <Compile Include="Player\MusicPlayerNull.cs" />
-    <Compile Include="Player\Enum.cs" />
-    <Compile Include="ProcessHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMain.resx">
@@ -170,9 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="LICENSE" />
     <None Include="packages.config" />
-    <None Include="README.md" />
     <None Include="Resources\MPlayer.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +188,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{ebe745f7-f451-472d-a39d-8a062ed656a5}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,7 +10,7 @@ namespace NeoMupl
     public enum FinishAction { Stop, Replay, Next, Previous, Random }
     public enum Sorting { FileName, Title, LastPlayed, Directory }
 
-    public partial class FormMain : Form
+    public partial class FormMain : Form, IErrorNotifier
     {
         MusicList musicList;
         readonly MusicController musicController;
@@ -48,7 +48,7 @@ namespace NeoMupl
         MusicData? statusData = null;
 
         #region 初期化処理
-        
+
         public FormMain()
         {
             InitializeComponent();
@@ -86,7 +86,7 @@ namespace NeoMupl
             UpdateStatusBar();
             CreateList();
             timer1.Start();
-            Log.owner = this;
+            Log.errorNotifier = this;
         }
 
         private void CreateList()
@@ -242,10 +242,9 @@ namespace NeoMupl
                 {
                     musicController.Data = null;
                     UpdateCaption(Status.ReadError, data);
-                    if (Log.Error(
+                    if (Log.ShowError(
                         $"再生しようとしたファイルは存在しません。\n{data.FileName}\n\nリストから削除しますか？",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        IErrorNotifier.NoticeType.AskMaybeNo))
                         removeItemToolStripMenuItem.PerformClick();
                     return;
                 }
@@ -255,11 +254,10 @@ namespace NeoMupl
                 {
                     musicController.Data = null;
                     UpdateCaption(Status.ReadError, data);
-                    if (Log.Error(
+                    if (Log.ShowException(
                         $"読み込みに失敗しました！\n読み込みに対応していない形式である可能性があります。\n{data.FileName}\n\nリストから削除しますか？",
                         e,
-                        MessageBoxButtons.YesNo,
-                        MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        IErrorNotifier.NoticeType.AskMaybeNo))
                         removeItemToolStripMenuItem.PerformClick();
                     return;
                 }
@@ -269,7 +267,7 @@ namespace NeoMupl
                 {
                     musicController.Data = null;
                     UpdateCaption(Status.PlayError, data);
-                    Log.Error("再生に失敗しました！\n" + data.FileName, e);
+                    Log.ShowException($"再生に失敗しました！\n{data.FileName}", e);
                     return;
                 }
                 lastPlayed = DateTime.Now;
@@ -305,7 +303,7 @@ namespace NeoMupl
             Dirty(DirtyLevel.ListCount);
             UpdateList();
         }
-        
+
         #endregion
 
         #region リストの表示・並べ替え
@@ -437,7 +435,7 @@ namespace NeoMupl
             reverseToolStripMenuItem.Checked = setting.Reversed = !setting.Reversed;
             UpdateList(DirtyLevel.ListItem);
         }
-        
+
         #endregion
 
         #region 再生メニュー
@@ -556,11 +554,11 @@ namespace NeoMupl
             {
                 if (!setting.IgnoreTimerError)
                 {
-                    if (Log.Error("再生中にエラーが発生しました。\n"
+                    if (Log.ShowException("再生中にエラーが発生しました。\n"
                         + "このエラーは連続して発生し続ける可能性があります。\n"
                         + "その場合はエラーを一時的に無視することをお勧めします。"
                         + "今後再生中のエラーを無視しますか？"
-                        , ex, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        , ex, IErrorNotifier.NoticeType.AskMaybeYes))
                     {
                         setting.IgnoreTimerError = true;
                     }
@@ -584,7 +582,7 @@ namespace NeoMupl
             }
             catch (Exception ex)
             {
-                Log.Error("再生速度変更に失敗しました！", ex);
+                Log.ShowException("再生速度変更に失敗しました！", ex);
                 return;
             }
             foreach (ToolStripMenuItem item in tempoToolStripMenuItem.DropDownItems)
@@ -608,7 +606,7 @@ namespace NeoMupl
         {
             Close();
         }
-        
+
         private void ItemPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MusicData data = (MusicData)lstMusic.SelectedItem;
@@ -662,7 +660,7 @@ namespace NeoMupl
 
         private void ListPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Log.Error("リストのプロパティは未実装です。");
+            Log.ShowError("リストのプロパティは未実装です。");
         }
 
         private void SaveListToolStripMenuItem_Click(object sender, EventArgs e)
@@ -762,6 +760,30 @@ namespace NeoMupl
             {
                 PlayStop();
             }
+        }
+
+        bool IErrorNotifier.Notify(string message, IErrorNotifier.NoticeType type)
+        {
+            var buttons = MessageBoxButtons.OK;
+            var defaultButton = MessageBoxDefaultButton.Button1;
+            var expects = DialogResult.OK;
+            switch (type)
+            {
+                case IErrorNotifier.NoticeType.MessageOnly:
+                    break;
+                case IErrorNotifier.NoticeType.AskMaybeYes:
+                    buttons = MessageBoxButtons.YesNo;
+                    defaultButton = MessageBoxDefaultButton.Button2;
+                    expects = DialogResult.Yes;
+                    break;
+                case IErrorNotifier.NoticeType.AskMaybeNo:
+                    buttons = MessageBoxButtons.YesNo;
+                    expects = DialogResult.Yes;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+            return MessageBox.Show(this, message, "NeoMupl エラー！", buttons, MessageBoxIcon.Error, defaultButton) == expects;
         }
     }
 }
