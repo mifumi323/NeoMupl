@@ -198,7 +198,7 @@
             // 
             this.openListToolStripMenuItem.Name = "openListToolStripMenuItem";
             this.openListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openListToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.openListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openListToolStripMenuItem.Text = "リストを開く";
             this.openListToolStripMenuItem.Click += new System.EventHandler(this.OpenListToolStripMenuItem_Click);
             // 
@@ -206,20 +206,20 @@
             // 
             this.saveListToolStripMenuItem.Name = "saveListToolStripMenuItem";
             this.saveListToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveListToolStripMenuItem.Text = "リストを保存";
             this.saveListToolStripMenuItem.Click += new System.EventHandler(this.SaveListToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // addFilesToolStripMenuItem
             // 
             this.addFilesToolStripMenuItem.Name = "addFilesToolStripMenuItem";
             this.addFilesToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-            this.addFilesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.addFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addFilesToolStripMenuItem.Text = "項目を追加";
             this.addFilesToolStripMenuItem.Click += new System.EventHandler(this.AddFilesToolStripMenuItem_Click);
             // 
@@ -227,26 +227,26 @@
             // 
             this.removeItemToolStripMenuItem.Name = "removeItemToolStripMenuItem";
             this.removeItemToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.removeItemToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.removeItemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.removeItemToolStripMenuItem.Text = "項目の削除";
             this.removeItemToolStripMenuItem.Click += new System.EventHandler(this.RemoveItemToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // itemPropertiesToolStripMenuItem
             // 
             this.itemPropertiesToolStripMenuItem.Name = "itemPropertiesToolStripMenuItem";
-            this.itemPropertiesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.itemPropertiesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.itemPropertiesToolStripMenuItem.Text = "項目のプロパティ";
             this.itemPropertiesToolStripMenuItem.Click += new System.EventHandler(this.ItemPropertiesToolStripMenuItem_Click);
             // 
             // listPropertiesToolStripMenuItem
             // 
             this.listPropertiesToolStripMenuItem.Name = "listPropertiesToolStripMenuItem";
-            this.listPropertiesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.listPropertiesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.listPropertiesToolStripMenuItem.Text = "リスト全体のプロパティ";
             this.listPropertiesToolStripMenuItem.Visible = false;
             this.listPropertiesToolStripMenuItem.Click += new System.EventHandler(this.ListPropertiesToolStripMenuItem_Click);
@@ -254,38 +254,38 @@
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 6);
             // 
             // optionToolStripMenuItem
             // 
             this.optionToolStripMenuItem.Name = "optionToolStripMenuItem";
-            this.optionToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.optionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.optionToolStripMenuItem.Text = "NeoMuplの設定";
             this.optionToolStripMenuItem.Click += new System.EventHandler(this.OptionToolStripMenuItem_Click);
             // 
             // saveOptionToolStripMenuItem
             // 
             this.saveOptionToolStripMenuItem.Name = "saveOptionToolStripMenuItem";
-            this.saveOptionToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.saveOptionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveOptionToolStripMenuItem.Text = "今すぐ設定を保存";
             this.saveOptionToolStripMenuItem.Click += new System.EventHandler(this.SaveOptionToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "終了";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // rebootToolStripMenuItem
             // 
             this.rebootToolStripMenuItem.Name = "rebootToolStripMenuItem";
-            this.rebootToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.rebootToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rebootToolStripMenuItem.Text = "NeoMuplを再起動";
             this.rebootToolStripMenuItem.Click += new System.EventHandler(this.RebootToolStripMenuItem_Click);
             // 
@@ -356,7 +356,7 @@
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.stopToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.End)));
             this.stopToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.stopToolStripMenuItem.Text = "停止";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.StopToolStripMenuItem_Click);
