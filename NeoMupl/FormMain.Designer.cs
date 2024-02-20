@@ -91,6 +91,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ofdMusicFiles = new System.Windows.Forms.OpenFileDialog();
             this.ofdListFile = new System.Windows.Forms.OpenFileDialog();
+            this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -119,14 +120,15 @@
             this.loopToolStripMenuItem1,
             this.stopToolStripMenuItem1,
             this.toolStripMenuItem9,
-            this.propertyToolStripMenuItem});
+            this.propertyToolStripMenuItem,
+            this.openFileLocationToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(131, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 142);
             // 
             // playToolStripMenuItem1
             // 
             this.playToolStripMenuItem1.Name = "playToolStripMenuItem1";
-            this.playToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
+            this.playToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.playToolStripMenuItem1.Text = "再生";
             this.playToolStripMenuItem1.Click += new System.EventHandler(this.PlaySelectedToolStripMenuItem_Click);
             // 
@@ -134,26 +136,26 @@
             // 
             this.loopToolStripMenuItem1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold);
             this.loopToolStripMenuItem1.Name = "loopToolStripMenuItem1";
-            this.loopToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
+            this.loopToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.loopToolStripMenuItem1.Text = "ループ再生";
             this.loopToolStripMenuItem1.Click += new System.EventHandler(this.LoopToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem1
             // 
             this.stopToolStripMenuItem1.Name = "stopToolStripMenuItem1";
-            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
+            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem1.Text = "停止";
             this.stopToolStripMenuItem1.Click += new System.EventHandler(this.StopToolStripMenuItem_Click);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(127, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
             // 
             // propertyToolStripMenuItem
             // 
             this.propertyToolStripMenuItem.Name = "propertyToolStripMenuItem";
-            this.propertyToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.propertyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.propertyToolStripMenuItem.Text = "プロパティ";
             this.propertyToolStripMenuItem.Click += new System.EventHandler(this.ItemPropertiesToolStripMenuItem_Click);
             // 
@@ -582,6 +584,13 @@
             this.ofdListFile.Filter = "NeoMuplリスト|*.nmp|全てのファイル|*.*";
             this.ofdListFile.Title = "リストを開く";
             // 
+            // openFileLocationToolStripMenuItem
+            // 
+            this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
+            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openFileLocationToolStripMenuItem.Text = "ファイルの場所を開く";
+            this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.openFileLocationToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AllowDrop = true;
@@ -672,6 +681,7 @@
         private System.Windows.Forms.ToolStripMenuItem sortFolderNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveOptionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rebootToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
     }
 }
 
