@@ -34,5 +34,10 @@ namespace MifuminLib
 
             return false;
         }
+
+        public static void OpenFileLocation(string path)
+        {
+            Process.Start("EXPLORER.EXE", $@"/select,""{path}""");
+        }
     }
 }

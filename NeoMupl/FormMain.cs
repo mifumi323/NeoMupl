@@ -785,5 +785,12 @@ namespace NeoMupl
             }
             return MessageBox.Show(this, message, "NeoMupl エラー！", buttons, MessageBoxIcon.Error, defaultButton) == expects;
         }
+
+        private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var data = (MusicData)lstMusic.SelectedItem;
+            if (data == null) return;
+            ProcessHelper.OpenFileLocation(data.FileName);
+        }
     }
 }
