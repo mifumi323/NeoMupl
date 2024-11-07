@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionRule.cs" />
+    <Compile Include="History\History.cs" />
+    <Compile Include="History\IEvent.cs" />
     <Compile Include="IErrorNotifier.cs" />
     <Compile Include="MusicData.cs" />
     <Compile Include="MusicList.cs" />
