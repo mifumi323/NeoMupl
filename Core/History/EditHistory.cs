@@ -26,6 +26,16 @@ namespace NeoMupl.History
             index++;
         }
 
+        public IEvent? GetNext()
+        {
+            return index < events.Count - 1 ? events[index + 1] : null;
+        }
+
+        public IEvent? GetPrevious()
+        {
+            return index >= 0 ? events[index] : null;
+        }
+
         public void Undo()
         {
             if (index >= 0)
