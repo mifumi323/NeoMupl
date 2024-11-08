@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace NeoMupl.History
 {
-    public class History
+    public class EditHistory
     {
         private readonly MusicList musicList;
         private readonly List<IEvent> events;
         private int index;
 
-        public History(MusicList musicList)
+        public EditHistory(MusicList musicList)
         {
             this.musicList = musicList;
             events = new List<IEvent>();

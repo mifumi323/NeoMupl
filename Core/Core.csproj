@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionRule.cs" />
-    <Compile Include="History\History.cs" />
+    <Compile Include="History\EditHistory.cs" />
     <Compile Include="History\IEvent.cs" />
     <Compile Include="IErrorNotifier.cs" />
     <Compile Include="MusicData.cs" />
