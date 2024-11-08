@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using MifuminLib;
+using NeoMupl.History;
 using NeoMupl.Player;
 
 namespace NeoMupl
@@ -13,6 +14,7 @@ namespace NeoMupl
     public partial class FormMain : Form, IErrorNotifier
     {
         MusicList musicList;
+        EditHistory editHistory;
         readonly MusicController musicController;
         Comparison<MusicData> comparison;
         enum DirtyLevel
@@ -55,6 +57,7 @@ namespace NeoMupl
 
             // 起動後即座に初期化処理でnewされるけど初期化処理前に使用されるケースが残っているためここでインスタンスを作っておく
             musicList = new MusicList();
+            editHistory = new EditHistory(musicList);
 
             // 初期化処理
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
@@ -94,6 +97,7 @@ namespace NeoMupl
             musicList = new MusicList();
             musicList.Load(setting.ListFile);
             UpdateList(DirtyLevel.ListCount);
+            editHistory = new EditHistory(musicList);
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
