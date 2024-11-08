@@ -796,5 +796,42 @@ namespace NeoMupl
             if (data == null) return;
             ProcessHelper.OpenFileLocation(data.FileName);
         }
+
+        private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            var undoEvent = editHistory.GetPrevious();
+            if (undoEvent == null)
+            {
+                undoToolStripMenuItem.Enabled = false;
+                undoToolStripMenuItem.Text = "元に戻す(&U)";
+            }
+            else
+            {
+                undoToolStripMenuItem.Enabled = true;
+                undoToolStripMenuItem.Text = "元に戻す(&U) - " + undoEvent.Name;
+            }
+
+            var redoEvent = editHistory.GetNext();
+            if (redoEvent == null)
+            {
+                redoToolStripMenuItem.Enabled = false;
+                redoToolStripMenuItem.Text = "やり直し(&R)";
+            }
+            else
+            {
+                redoToolStripMenuItem.Enabled = true;
+                redoToolStripMenuItem.Text = "やり直し(&R) - " + redoEvent.Name;
+            }
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            editHistory.Undo();
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            editHistory.Redo();
+        }
     }
 }
