@@ -7,7 +7,7 @@ using NeoMupl.Player;
 
 namespace NeoMupl
 {
-    public class MusicData
+    public class MusicData : ICloneable
     {
         #region 変数
 
@@ -66,6 +66,16 @@ namespace NeoMupl
         #endregion
 
         #region メソッド
+
+        public object Clone()
+        {
+            var clone = (MusicData)MemberwiseClone();
+            if (clone.Option is ICloneable option)
+            {
+                clone.Option = option.Clone();
+            }
+            return clone;
+        }
 
         public void TimeStamp() { LastPlayedTicks = DateTime.Now.Ticks; }
 

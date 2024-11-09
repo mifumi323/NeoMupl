@@ -1,8 +1,10 @@
 ﻿#nullable enable
 
+using System;
+
 namespace NeoMupl.Player
 {
-    public class DMOption
+    public class DMOption : ICloneable
     {
         public string port;
         public static string portdefault = "Default";
@@ -13,6 +15,11 @@ namespace NeoMupl.Player
         public DMOption(string port)
         {
             this.port = port;
+        }
+
+        public object Clone()
+        {
+            return new DMOption(port);
         }
     }
 }

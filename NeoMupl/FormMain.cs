@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using MifuminLib;
 using NeoMupl.History;
@@ -303,7 +304,15 @@ namespace NeoMupl
         private void AddFiles(string[] p)
         {
             if (p.Length == 0) return;
+            var oldPaths = musicList.Keys.ToArray();
             musicList.Add(p, setting.ExtensionRules);
+            var newPaths = musicList.Keys.ToArray();
+            if (newPaths.Length == oldPaths.Length)
+            {
+                return;
+            }
+            var diffMusicList = newPaths.Except(oldPaths).Select(path => musicList[path]);
+            editHistory.Add(new AddEvent(diffMusicList));
             Dirty(DirtyLevel.ListCount);
             UpdateList();
         }
@@ -826,12 +835,20 @@ namespace NeoMupl
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var oldCount = musicList.Count;
             editHistory.Undo();
+            var  newCount = musicList.Count;
+            Dirty(newCount == oldCount ? DirtyLevel.ListItem : DirtyLevel.ListCount);
+            UpdateList();
         }
 
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var oldCount = musicList.Count;
             editHistory.Redo();
+            var  newCount = musicList.Count;
+            Dirty(newCount == oldCount ? DirtyLevel.ListItem : DirtyLevel.ListCount);
+            UpdateList();
         }
     }
 }
