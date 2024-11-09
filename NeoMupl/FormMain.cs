@@ -639,6 +639,7 @@ namespace NeoMupl
             MusicData data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
             lastRemoved = lstMusic.SelectedIndex--;
+            editHistory.Add(new RemoveEvent(new[] { data }));
             musicList.Remove(data.FileName);
             UpdateList(DirtyLevel.ListCount);
         }

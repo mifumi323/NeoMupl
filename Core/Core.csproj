@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ExtensionRule.cs" />
     <Compile Include="History\AddEvent.cs" />
+    <Compile Include="History\RemoveEvent.cs" />
     <Compile Include="History\EditHistory.cs" />
     <Compile Include="History\IEvent.cs" />
     <Compile Include="IErrorNotifier.cs" />
