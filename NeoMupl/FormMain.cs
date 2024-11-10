@@ -625,9 +625,11 @@ namespace NeoMupl
             MusicData data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
             string oldFileName = data.FileName;
+            var oldData = (MusicData)data.Clone();
             FormItem f = new FormItem(musicController, data);
             if (f.ShowDialog() == DialogResult.OK)
             {
+                editHistory.Add(new ModifyEvent(oldData, data));
                 musicList.Set(oldFileName, data);
                 UpdateList(DirtyLevel.ListCount);
                 // リストにある別のファイル名に変更したとき要素が減るのだ

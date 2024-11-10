@@ -1,6 +1,6 @@
 ﻿namespace NeoMupl.History
 {
-    public class ModifyEvent
+    public class ModifyEvent : IEvent
     {
         public string Name { get; }
 
