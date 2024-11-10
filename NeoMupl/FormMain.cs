@@ -1,8 +1,10 @@
 ﻿#nullable enable
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using MifuminLib;
+using NeoMupl.History;
 using NeoMupl.Player;
 
 namespace NeoMupl
@@ -13,6 +15,7 @@ namespace NeoMupl
     public partial class FormMain : Form, IErrorNotifier
     {
         MusicList musicList;
+        EditHistory editHistory;
         readonly MusicController musicController;
         Comparison<MusicData> comparison;
         enum DirtyLevel
@@ -55,6 +58,7 @@ namespace NeoMupl
 
             // 起動後即座に初期化処理でnewされるけど初期化処理前に使用されるケースが残っているためここでインスタンスを作っておく
             musicList = new MusicList();
+            editHistory = new EditHistory(musicList);
 
             // 初期化処理
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
@@ -94,6 +98,7 @@ namespace NeoMupl
             musicList = new MusicList();
             musicList.Load(setting.ListFile);
             UpdateList(DirtyLevel.ListCount);
+            editHistory = new EditHistory(musicList);
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -299,7 +304,15 @@ namespace NeoMupl
         private void AddFiles(string[] p)
         {
             if (p.Length == 0) return;
+            var oldPaths = musicList.Keys.ToArray();
             musicList.Add(p, setting.ExtensionRules);
+            var newPaths = musicList.Keys.ToArray();
+            if (newPaths.Length == oldPaths.Length)
+            {
+                return;
+            }
+            var diffMusicList = newPaths.Except(oldPaths).Select(path => musicList[path]);
+            editHistory.Add(new AddEvent(diffMusicList));
             Dirty(DirtyLevel.ListCount);
             UpdateList();
         }
@@ -612,12 +625,16 @@ namespace NeoMupl
             MusicData data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
             string oldFileName = data.FileName;
-            FormItem f = new FormItem(musicController, data);
+            var oldData = (MusicData)data.Clone();
+            FormItem f = new FormItem(musicController, data)
+            {
+                MusicList = musicList
+            };
             if (f.ShowDialog() == DialogResult.OK)
             {
+                editHistory.Add(new ModifyEvent(oldData, data));
                 musicList.Set(oldFileName, data);
-                UpdateList(DirtyLevel.ListCount);
-                // リストにある別のファイル名に変更したとき要素が減るのだ
+                UpdateList(DirtyLevel.ListItem);
             }
         }
 
@@ -626,6 +643,7 @@ namespace NeoMupl
             MusicData data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
             lastRemoved = lstMusic.SelectedIndex--;
+            editHistory.Add(new RemoveEvent(new[] { data }));
             musicList.Remove(data.FileName);
             UpdateList(DirtyLevel.ListCount);
         }
@@ -791,6 +809,51 @@ namespace NeoMupl
             var data = (MusicData)lstMusic.SelectedItem;
             if (data == null) return;
             ProcessHelper.OpenFileLocation(data.FileName);
+        }
+
+        private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            var undoEvent = editHistory.GetPrevious();
+            if (undoEvent == null)
+            {
+                undoToolStripMenuItem.Enabled = false;
+                undoToolStripMenuItem.Text = "元に戻す(&U)";
+            }
+            else
+            {
+                undoToolStripMenuItem.Enabled = true;
+                undoToolStripMenuItem.Text = "元に戻す(&U) - " + undoEvent.Name;
+            }
+
+            var redoEvent = editHistory.GetNext();
+            if (redoEvent == null)
+            {
+                redoToolStripMenuItem.Enabled = false;
+                redoToolStripMenuItem.Text = "やり直し(&R)";
+            }
+            else
+            {
+                redoToolStripMenuItem.Enabled = true;
+                redoToolStripMenuItem.Text = "やり直し(&R) - " + redoEvent.Name;
+            }
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var oldCount = musicList.Count;
+            editHistory.Undo();
+            var  newCount = musicList.Count;
+            Dirty(newCount == oldCount ? DirtyLevel.ListItem : DirtyLevel.ListCount);
+            UpdateList();
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var oldCount = musicList.Count;
+            editHistory.Redo();
+            var  newCount = musicList.Count;
+            Dirty(newCount == oldCount ? DirtyLevel.ListItem : DirtyLevel.ListCount);
+            UpdateList();
         }
     }
 }

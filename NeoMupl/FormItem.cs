@@ -1,5 +1,6 @@
-#nullable enable
+﻿#nullable enable
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using NeoMupl.Player;
@@ -38,6 +39,8 @@ namespace NeoMupl
                 lblLastPlayed.Text = musicData.LastPlayedDateTime.ToString();
             }
         }
+
+        public IDictionary<string, MusicData>? MusicList { get; set; }
 
         enum State
         {
@@ -219,6 +222,18 @@ namespace NeoMupl
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
+            if (MusicList != null)
+            {
+                if (musicData.FileName != txtFileName.Text)
+                {
+                    if (MusicList.ContainsKey(txtFileName.Text))
+                    {
+                        MessageBox.Show("リストにあるほかの項目と同じファイル名には変更できません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        DialogResult = DialogResult.None;
+                        return;
+                    }
+                }
+            }
             CopyToMusicData(musicData);
         }
 
@@ -231,9 +246,7 @@ namespace NeoMupl
             destination.LoopEnd = ParseLoopTime(txtLoop2.Text);
             if (destination.LoopStart > destination.LoopEnd)
             {
-                double buf = destination.LoopStart;
-                destination.LoopStart = destination.LoopEnd;
-                destination.LoopEnd = buf;
+                (destination.LoopEnd, destination.LoopStart) = (destination.LoopStart, destination.LoopEnd);
             }
             destination.SkipRate = double.Parse(txtSkipRate.Text);
             destination.PlayMethod = (PlayMethod)cmbPlayMethod.SelectedIndex;

@@ -179,9 +179,7 @@ namespace NeoMupl
 
         private void SwapStatusItem(int from, int to)
         {
-            object tmp = clbStatusItem.Items[from];
-            clbStatusItem.Items[from] = clbStatusItem.Items[to];
-            clbStatusItem.Items[to] = tmp;
+            (clbStatusItem.Items[to], clbStatusItem.Items[from]) = (clbStatusItem.Items[from], clbStatusItem.Items[to]);
             bool b = clbStatusItem.GetItemChecked(from);
             clbStatusItem.SetItemChecked(from, clbStatusItem.GetItemChecked(to));
             clbStatusItem.SetItemChecked(to, b);

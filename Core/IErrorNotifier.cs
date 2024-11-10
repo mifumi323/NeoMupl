@@ -1,4 +1,5 @@
-﻿namespace NeoMupl
+﻿#nullable enable
+namespace NeoMupl
 {
     public interface IErrorNotifier
     {

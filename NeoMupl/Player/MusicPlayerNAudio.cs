@@ -117,10 +117,7 @@ namespace NeoMupl.Player
 
         public override void Stop()
         {
-            if (waveOutDevice != null)
-            {
-                waveOutDevice.Stop();
-            }
+            waveOutDevice?.Stop();
         }
     }
 }
