@@ -626,8 +626,10 @@ namespace NeoMupl
             if (data == null) return;
             string oldFileName = data.FileName;
             var oldData = (MusicData)data.Clone();
-            FormItem f = new FormItem(musicController, data);
-            f.MusicList = musicList;
+            FormItem f = new FormItem(musicController, data)
+            {
+                MusicList = musicList
+            };
             if (f.ShowDialog() == DialogResult.OK)
             {
                 editHistory.Add(new ModifyEvent(oldData, data));

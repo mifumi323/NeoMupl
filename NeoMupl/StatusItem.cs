@@ -58,10 +58,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 
@@ -88,10 +85,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 
@@ -118,10 +112,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 
@@ -148,10 +139,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripProgressBar();
-            }
+            item ??= new ToolStripProgressBar();
             return item;
         }
 
@@ -180,10 +168,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 
@@ -215,10 +200,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 
@@ -250,10 +232,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 
@@ -285,10 +264,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 
@@ -315,10 +291,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 
@@ -345,10 +318,7 @@ namespace NeoMupl
 
         protected override ToolStripItem CreateItem()
         {
-            if (item == null)
-            {
-                item = new ToolStripStatusLabel();
-            }
+            item ??= new ToolStripStatusLabel();
             return item;
         }
 

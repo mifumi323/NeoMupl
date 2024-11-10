@@ -246,9 +246,7 @@ namespace NeoMupl
             destination.LoopEnd = ParseLoopTime(txtLoop2.Text);
             if (destination.LoopStart > destination.LoopEnd)
             {
-                double buf = destination.LoopStart;
-                destination.LoopStart = destination.LoopEnd;
-                destination.LoopEnd = buf;
+                (destination.LoopEnd, destination.LoopStart) = (destination.LoopStart, destination.LoopEnd);
             }
             destination.SkipRate = double.Parse(txtSkipRate.Text);
             destination.PlayMethod = (PlayMethod)cmbPlayMethod.SelectedIndex;

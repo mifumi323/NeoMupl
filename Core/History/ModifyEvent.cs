@@ -1,4 +1,5 @@
-﻿namespace NeoMupl.History
+﻿#nullable enable
+namespace NeoMupl.History
 {
     public class ModifyEvent : IEvent
     {

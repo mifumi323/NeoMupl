@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NeoMupl.History
@@ -11,7 +12,7 @@ namespace NeoMupl.History
 
         public AddEvent(IEnumerable<MusicData> musicDatas)
         {
-            this.musicDatas = musicDatas.Select(musicData => musicData.Clone() as MusicData).ToArray();
+            this.musicDatas = musicDatas.Select(musicData => (MusicData)musicData.Clone()).ToArray();
             Name = this.musicDatas.Length == 1 ? $@"{this.musicDatas[0].Title}を追加" : $@"{this.musicDatas.Length}件を追加";
         }
 
