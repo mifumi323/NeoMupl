@@ -627,12 +627,12 @@ namespace NeoMupl
             string oldFileName = data.FileName;
             var oldData = (MusicData)data.Clone();
             FormItem f = new FormItem(musicController, data);
+            f.MusicList = musicList;
             if (f.ShowDialog() == DialogResult.OK)
             {
                 editHistory.Add(new ModifyEvent(oldData, data));
                 musicList.Set(oldFileName, data);
-                UpdateList(DirtyLevel.ListCount);
-                // リストにある別のファイル名に変更したとき要素が減るのだ
+                UpdateList(DirtyLevel.ListItem);
             }
         }
 
