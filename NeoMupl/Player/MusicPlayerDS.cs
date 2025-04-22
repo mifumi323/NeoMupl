@@ -30,13 +30,6 @@ namespace NeoMupl.Player
             realLoopEnd = MusicData.LoopEnd > 0 ? MusicData.LoopEnd : ((IMediaPosition)mediaControl).Duration;
             ((IMediaPosition)mediaControl).Rate = rate;
             ((IMediaPosition)mediaControl).CurrentPosition = from;
-            if (typeof(IBasicVideo).IsInstanceOfType(mediaControl))
-            {
-                // TODO: 必要なら実装しよう(#11)
-#pragma warning disable IDE0059 // 値の不必要な代入
-                IBasicVideo v = (IBasicVideo)mediaControl;
-#pragma warning restore IDE0059 // 値の不必要な代入
-            }
             mediaControl.Run();
         }
         public override void Stop() { mediaControl?.Stop(); }
