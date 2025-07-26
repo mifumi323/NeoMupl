@@ -112,7 +112,7 @@ namespace NeoMupl.Player
 
         public override void SetTempo(double tempo)
         {
-            // TODO: テンポ変えられたらいいなー
+            // TODO: テンポ変えられたらいいなー(#8)
         }
 
         public override void Stop()

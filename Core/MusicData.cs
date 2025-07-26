@@ -127,7 +127,18 @@ namespace NeoMupl
             if (full || data.LoopStart > 0 || data.LoopEnd > 0) sw.WriteLine($"Loop\t{data.LoopStart}\t{data.LoopEnd}");
             if (full || data.SkipRate != defaultData?.SkipRate) sw.WriteLine($"SkipRate\t{data.SkipRate}");
             sw.WriteLine($"PlayMethod\t{(int)data.PlayMethod}");   // ←デフォルトがMIDIとそれ以外で異なる
-            if (data.Option is DMOption dm && dm.port != "") sw.WriteLine($"MIDIPort\t{dm.port}");
+            if (data.Option is DMOption dm)
+            {
+                if (dm.port != "")
+                {
+                    sw.WriteLine($"MIDIPort\t{dm.port}");
+                }
+                if (!string.IsNullOrEmpty(dm.reset))
+                {
+                    sw.WriteLine($"MIDIReset\t{dm.reset}");
+                }
+            }
+
             if (full || data.LastPlayedTicks != defaultData?.LastPlayedTicks) sw.WriteLine($"LastPlayed\t{data.LastPlayedTicks}");
         }
 

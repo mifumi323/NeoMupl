@@ -38,6 +38,10 @@ namespace NeoMupl.Player
                     if (MusicData.Option is DMOption dmo)
                     {
                         music.SelectPort(dmo.port);
+                        if (Enum.TryParse<Reset>(dmo.reset, out var reset))
+                        {
+                            music.Reset(reset);
+                        }
                     }
                     else
                     {
@@ -48,7 +52,6 @@ namespace NeoMupl.Player
                 {
                     SelectDefaultPort();
                 }
-                music.Reset(Reset.GM);
                 music.SetMasterVolume((int)(MusicData.Volume > 0 ? 2000 * Math.Log10(MusicData.Volume / 100) : -10000));
                 segment.SetLoop(bLoop, (int)MusicData.LoopStart, (int)MusicData.LoopEnd);
                 music.Play(segment, SegmentFlags.AfterPrepareTime, (long)from);
