@@ -164,19 +164,19 @@ namespace NeoMupl
             {
                 case PlayMethod.DirectShow:
                     lblLoopUnit.Text = "秒";
-                    cmbMIDIPort.Enabled = false;
+                    cmbMIDIPort.Enabled = cmbMIDIReset.Enabled = false;
                     break;
                 case PlayMethod.DirectMusic:
                     lblLoopUnit.Text = "MT";
-                    cmbMIDIPort.Enabled = true;
+                    cmbMIDIPort.Enabled = cmbMIDIReset.Enabled = true;
                     break;
                 case PlayMethod.MCI:
                     lblLoopUnit.Text = "";
-                    cmbMIDIPort.Enabled = false;
+                    cmbMIDIPort.Enabled = cmbMIDIReset.Enabled = false;
                     break;
                 case PlayMethod.NAudio:
                     lblLoopUnit.Text = "秒";
-                    cmbMIDIPort.Enabled = false;
+                    cmbMIDIPort.Enabled = cmbMIDIReset.Enabled = false;
                     break;
             }
         }
