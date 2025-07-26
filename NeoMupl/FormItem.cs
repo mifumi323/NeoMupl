@@ -55,7 +55,7 @@ namespace NeoMupl
 
         MusicPlayerBase? musicPlayer = null;
         double playStopPosition = double.NaN;
-        double PlayDuration => 5; // TODO: 可変にできた方がいいと思う
+        double PlayDuration => 5; // TODO: 可変にできた方がいいと思う(#44)
 
         public FormItem(MusicController musicController, MusicData musicData)
         {

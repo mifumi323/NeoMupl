@@ -18,7 +18,6 @@ namespace NeoMupl
             if (ProcessHelper.SetPrevProcessToForeground())
             {
                 // 再起動中かもしれないのでちょっと待ってみる
-                // TODO: もっとちゃんとした実装するか、再起動不要にする対応をしたい
                 Thread.Sleep(1000);
                 if (ProcessHelper.SetPrevProcessToForeground())
                 {
