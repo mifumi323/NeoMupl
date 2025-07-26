@@ -36,6 +36,8 @@ namespace NeoMupl
                 cmbPlayMethod.SelectedIndex = (int)musicData.PlayMethod;
                 try { cmbMIDIPort.Text = (musicData.Option as DMOption)?.port ?? "default"; }
                 catch (Exception) { cmbMIDIPort.Text = "default"; }
+                try { cmbMIDIReset.Text = (musicData.Option as DMOption)?.reset ?? "GM"; }
+                catch (Exception) { cmbMIDIReset.Text = "GM"; }
                 lblLastPlayed.Text = musicData.LastPlayedDateTime.ToString();
             }
         }
@@ -69,6 +71,10 @@ namespace NeoMupl
             state = musicController.IsPlaying ? State.Unable : State.Stopped;
             UpdatePlayButtons();
             btnPlayLoop.Enabled = btnPlayNearLoop.Enabled = !musicController.IsPlaying;
+
+            // MIDIリセットの種類
+            cmbMIDIReset.Items.AddRange(Enum.GetNames(typeof(MifuminLib.DM7Lib.Reset)));
+            cmbMIDIReset.Items.Add("(None)");
         }
 
         private void UpdatePlayButtons()
@@ -251,7 +257,9 @@ namespace NeoMupl
             destination.SkipRate = double.Parse(txtSkipRate.Text);
             destination.PlayMethod = (PlayMethod)cmbPlayMethod.SelectedIndex;
             if (destination.PlayMethod == PlayMethod.DirectMusic)
-                destination.Option = new DMOption(cmbMIDIPort.Text);
+            {
+                destination.Option = new DMOption(cmbMIDIPort.Text, cmbMIDIReset.Text);
+            }
         }
 
         private double ParseLoopTime(string text)
@@ -289,6 +297,11 @@ namespace NeoMupl
         private void CmbMIDIPort_Enter(object sender, EventArgs e)
         {
             txtNavigation.Text = "MIDIの音源を選びます。\r\n特に指定しないと共通設定が使われます。";
+        }
+
+        private void cmbMIDIReset_Enter(object sender, EventArgs e)
+        {
+            txtNavigation.Text = "MIDIのリセット方法を選びます。";
         }
 
         private void BtnPlayLoop_Click(object sender, EventArgs e)

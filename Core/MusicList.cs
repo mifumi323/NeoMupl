@@ -59,15 +59,10 @@ namespace NeoMupl
             dm.port = port;
         }
 
-        // TODO: 実際にリセットするべきなのでは？(#13)
-#pragma warning disable IDE0060 // 未使用のパラメーターを削除します
-        public void SetReset(MusicData data, bool reset)
-#pragma warning restore IDE0060 // 未使用のパラメーターを削除します
+        public void SetReset(MusicData data, string reset)
         {
-#pragma warning disable IDE0059 // 値の不必要な代入
             if (!(data.Option is DMOption dm)) data.Option = dm = new DMOption();
-#pragma warning restore IDE0059 // 値の不必要な代入
-            // TODO: そしてここでリセットをかけたい
+            dm.reset = reset;
         }
 
         public void Load(string listFile)
@@ -103,7 +98,7 @@ namespace NeoMupl
                             case "SkipRate": data.SkipRate = double.Parse(elem[1]); break;
                             case "PlayMethod": data.PlayMethod = (PlayMethod)int.Parse(elem[1]); break;
                             case "MIDIPort": SetPort(data, elem[1]); break;
-                            case "MIDIReset": SetReset(data, Boolean.Parse(elem[1])); break;
+                            case "MIDIReset": SetReset(data, elem[1]); break;
                             case "LastPlayed": data.LastPlayedTicks = long.Parse(elem[1]); break;
                             default: break;
                         }
@@ -130,7 +125,17 @@ namespace NeoMupl
                 sw.WriteLine("PlayMethod\t" + ((int)data.PlayMethod).ToString());   // ←デフォルトがMIDIとそれ以外で異なる
                 try
                 {
-                    if (data.Option is DMOption dm && dm.port != "") sw.WriteLine("MIDIPort\t" + dm.port);
+                    if (data.Option is DMOption dm)
+                    {
+                        if (dm.port != "")
+                        {
+                            sw.WriteLine("MIDIPort\t" + dm.port);
+                        }
+                        if (!string.IsNullOrEmpty(dm.reset))
+                        {
+                            sw.WriteLine("MIDIReset\t" + dm.reset);
+                        }
+                    }
                 }
                 catch (Exception) { }
                 if (data.LastPlayedTicks != def.LastPlayedTicks) sw.WriteLine("LastPlayed\t" + data.LastPlayedTicks.ToString());
