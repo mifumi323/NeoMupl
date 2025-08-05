@@ -55,7 +55,7 @@ namespace NeoMupl
 
         MusicPlayerBase? musicPlayer = null;
         double playStopPosition = double.NaN;
-        double PlayDuration => 5; // TODO: 可変にできた方がいいと思う(#44)
+        double PlayDuration { get; set; } = 5;
 
         public FormItem(MusicController musicController, MusicData musicData)
         {
@@ -70,7 +70,7 @@ namespace NeoMupl
             // 再生中はテスト再生しちゃいけない
             state = musicController.IsPlaying ? State.Unable : State.Stopped;
             UpdatePlayButtons();
-            btnPlayLoop.Enabled = btnPlayNearLoop.Enabled = !musicController.IsPlaying;
+            btnPlayLoop.Enabled = btnPlayNearLoop.Enabled = nudLoopAroundSeconds.Enabled = !musicController.IsPlaying;
 
             // MIDIリセットの種類
             cmbMIDIReset.Items.AddRange(Enum.GetNames(typeof(MifuminLib.DM7Lib.Reset)));
@@ -84,24 +84,28 @@ namespace NeoMupl
                 case State.Unable:
                     btnPlayLoop.Enabled = false;
                     btnPlayNearLoop.Enabled = false;
+                    nudLoopAroundSeconds.Enabled = false;
                     btnPlayLoop.Text = "ループ再生テスト";
                     btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
                     break;
                 case State.Stopped:
                     btnPlayLoop.Enabled = true;
                     btnPlayNearLoop.Enabled = true;
+                    nudLoopAroundSeconds.Enabled = true;
                     btnPlayLoop.Text = "ループ再生テスト";
                     btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
                     break;
                 case State.Looping:
                     btnPlayLoop.Enabled = true;
                     btnPlayNearLoop.Enabled = false;
+                    nudLoopAroundSeconds.Enabled = false;
                     btnPlayLoop.Text = "ループ再生テストを停止";
                     btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒を再生";
                     break;
                 case State.NearLoop:
                     btnPlayLoop.Enabled = false;
                     btnPlayNearLoop.Enabled = true;
+                    nudLoopAroundSeconds.Enabled = false;
                     btnPlayLoop.Text = "ループ再生テスト";
                     btnPlayNearLoop.Text = $"ループ前後{PlayDuration}秒の再生を停止";
                     break;
@@ -415,6 +419,12 @@ namespace NeoMupl
         private void FormItem_FormClosing(object sender, FormClosingEventArgs e)
         {
             Stop();
+        }
+
+        private void nudLoopAroundSeconds_ValueChanged(object sender, EventArgs e)
+        {
+            PlayDuration = (double)nudLoopAroundSeconds.Value;
+            UpdatePlayButtons();
         }
     }
 }
