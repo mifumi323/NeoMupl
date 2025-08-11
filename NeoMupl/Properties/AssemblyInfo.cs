@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("NeoMupl")]
-[assembly: AssemblyCopyright("Copyright Mifumi (C)  2007-2024")]
+[assembly: AssemblyCopyright("Copyright Mifumi (C)  2007-2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.36.0.0")]
+[assembly: AssemblyVersion("0.37.0.0")]
 //[assembly: AssemblyFileVersion("0.0.0.0")]
