@@ -755,13 +755,13 @@ namespace NeoMupl
         {
             return status switch
             {
-                Status.Stopped => "再生停止",
-                Status.Reading => "読み込み中",
-                Status.Preparing => "再生準備中",
-                Status.Playing => "再生中",
-                Status.LoopPlaying => "ループ再生中",
-                Status.ReadError => "読み込み失敗",
-                Status.PlayError => "再生失敗",
+                Status.Stopped => setting.StoppedStatusText,
+                Status.Reading => setting.ReadingStatusText,
+                Status.Preparing => setting.PreparingStatusText,
+                Status.Playing => setting.PlayingStatusText,
+                Status.LoopPlaying => setting.LoopPlayingStatusText,
+                Status.ReadError => setting.ReadErrorStatusText,
+                Status.PlayError => setting.PlayErrorStatusText,
                 _ => "",
             };
         }
@@ -842,7 +842,7 @@ namespace NeoMupl
         {
             var oldCount = musicList.Count;
             editHistory.Undo();
-            var  newCount = musicList.Count;
+            var newCount = musicList.Count;
             Dirty(newCount == oldCount ? DirtyLevel.ListItem : DirtyLevel.ListCount);
             UpdateList();
         }
@@ -851,7 +851,7 @@ namespace NeoMupl
         {
             var oldCount = musicList.Count;
             editHistory.Redo();
-            var  newCount = musicList.Count;
+            var newCount = musicList.Count;
             Dirty(newCount == oldCount ? DirtyLevel.ListItem : DirtyLevel.ListCount);
             UpdateList();
         }

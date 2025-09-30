@@ -44,6 +44,25 @@ namespace NeoMupl
         public List<ExtensionRule> ExtensionRules { get; set; } = new List<ExtensionRule>();
         public bool StopWhenWindowsLocked { get; set; }
 
+        #region 再生ステータス
+        public const string DefaultStoppedStatusText = "再生停止";
+        public const string DefaultReadingStatusText = "読み込み中";
+        public const string DefaultPreparingStatusText = "再生準備中";
+        public const string DefaultPlayingStatusText = "再生中";
+        public const string DefaultLoopPlayingStatusText = "ループ再生中";
+        public const string DefaultReadErrorStatusText = "読み込み失敗";
+        public const string DefaultPlayErrorStatusText = "再生失敗";
+
+        public string StoppedStatusText { get; set; } = DefaultStoppedStatusText;
+        public string ReadingStatusText { get; set; } = DefaultReadingStatusText;
+        public string PreparingStatusText { get; set; } = DefaultPreparingStatusText;
+        public string PlayingStatusText { get; set; } = DefaultPlayingStatusText;
+        public string LoopPlayingStatusText { get; set; } = DefaultLoopPlayingStatusText;
+        public string ReadErrorStatusText { get; set; } = DefaultReadErrorStatusText;
+        public string PlayErrorStatusText { get; set; } = DefaultPlayErrorStatusText;
+        #endregion
+
+
         public Setting()
         {
             Load(saveFile);
